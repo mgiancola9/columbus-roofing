@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="/favicon_io/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="/favicon_io/site.webmanifest">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Does Your Insurance Cover Your Roof? — Columbus, OH | Columbus Roofing Estimates</title>
+  <meta name="description" content="Find out in 60 seconds if your homeowner's insurance covers a free roof replacement in Columbus, Ohio. Free inspection, no out of pocket cost.">
+  <link rel="canonical" href="https://www.columbusroofingestimates.com/insurance-check">
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1509341330758105');fbq('track','PageView');</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1509341330758105&ev=PageView&noscript=1"/></noscript>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7X4Z639KR"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L7X4Z639KR');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <form name="insurance-check-lead" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="insurance-check-lead">
+    <input name="roof-age">
+    <input name="storm-history">
+    <input name="has-insurance">
+    <input name="first-name">
+    <input name="phone">
+    <input name="address">
+  </form>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--navy:#0f1f2e;--navy-mid:#162a3d;--gold:#c8922a;--gold-light:#e5ab44;--cream:#f5f0e8;--cream-dark:#ede6d9;--white:#fff;--text-dark:#0f1f2e;--text-mid:#3a506b;--text-light:#7a9ab5;--green:#2a7a4b;--green-light:#e8f5ee}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh}
+
+    nav{background:var(--white);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--cream-dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,31,46,.06)}
+    .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);text-decoration:none}
+    .logo span{color:var(--gold)}
+    .nav-phone{font-size:14px;font-weight:600;color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:6px}
+    .phone-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+    .page-wrap{max-width:600px;margin:0 auto;padding:0 20px 60px}
+
+    .mobile-headline{background:var(--navy);padding:40px 24px 30px;border-bottom:4px solid var(--gold);margin:0 -20px}
+    .mobile-headline h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--white);line-height:1.2;margin-bottom:8px}
+    .mobile-headline h1 em{font-style:normal;color:var(--gold-light)}
+    .mobile-headline p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+
+    .calc-card{background:var(--white);border-radius:20px;box-shadow:0 8px 40px rgba(15,31,46,.12);overflow:hidden;margin-top:28px}
+    .calc-stage{display:none}
+    .calc-stage.active{display:flex;flex-direction:column}
+
+    .stage-header{background:var(--navy);padding:24px 28px;border-bottom:3px solid var(--gold)}
+    .stage-header h2{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--white);margin-bottom:3px}
+    .stage-header p{font-size:12px;color:rgba(255,255,255,.55)}
+
+    .progress-wrap{padding:18px 28px 0}
+    .progress-steps{display:flex;align-items:center}
+    .progress-step{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--text-light)}
+    .progress-step.active{color:var(--navy)}
+    .progress-step.done{color:var(--gold)}
+    .step-circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--cream-dark);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-light);flex-shrink:0;transition:all .3s}
+    .progress-step.active .step-circle{border-color:var(--navy);color:var(--navy)}
+    .progress-step.done .step-circle{background:var(--gold);border-color:var(--gold);color:white}
+    .step-line{flex:1;height:2px;background:var(--cream-dark);margin:0 6px}
+    .step-line.done{background:var(--gold)}
+
+    .stage-body{padding:24px 28px;flex:1}
+    .q-label{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:16px;line-height:1.4}
+    .q-num{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+
+    .option-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+    .opt-btn{padding:16px 18px;border:1.5px solid #dde3ea;border-radius:12px;background:white;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--text-dark);transition:all .15s;display:flex;align-items:center;gap:12px;-webkit-appearance:none}
+    .opt-btn:hover{border-color:var(--gold);background:rgba(200,146,42,.04)}
+    .opt-btn.selected{border-color:var(--gold);background:rgba(200,146,42,.08);color:var(--navy);font-weight:600}
+    .opt-icon{width:36px;height:36px;border-radius:8px;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:background .15s}
+    .opt-btn.selected .opt-icon{background:rgba(200,146,42,.15)}
+    .opt-text{flex:1}
+    .opt-check{width:20px;height:20px;border-radius:50%;border:2px solid #dde3ea;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:11px;color:transparent}
+    .opt-btn.selected .opt-check{background:var(--gold);border-color:var(--gold);color:white}
+
+    .calc-btn{width:100%;padding:16px;border:none;border-radius:12px;background:var(--gold);color:white;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-appearance:none;margin-top:4px}
+    .calc-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,146,42,.3)}
+    .calc-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+    .form-group{margin-bottom:18px}
+    .form-group label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mid);margin-bottom:8px}
+    .form-group input{width:100%;padding:15px 14px;border:1.5px solid #dde3ea;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text-dark);background:white;transition:border-color .2s;outline:none;-webkit-appearance:none}
+    .form-group input:focus{border-color:var(--gold)}
+
+    .unlock-box{background:var(--cream);border-radius:12px;padding:20px;margin-bottom:18px;border:1.5px solid var(--cream-dark)}
+    .unlock-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .privacy-note{text-align:center;font-size:11px;color:var(--text-light);margin-top:10px;line-height:1.5}
+
+    .trust-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:16px 20px;background:var(--cream);border-top:1px solid var(--cream-dark)}
+    .trust-item{font-size:11px;color:var(--text-mid);display:flex;align-items:center;gap:5px}
+    .trust-check{color:var(--gold);font-weight:700}
+
+    .call-divider{display:flex;align-items:center;gap:10px;padding:0 28px;margin:4px 0}
+    .call-divider::before,.call-divider::after{content:'';flex:1;height:1px;background:var(--cream-dark)}
+    .call-divider span{font-size:11px;color:var(--text-light);white-space:nowrap}
+    .call-direct-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 28px 20px;padding:14px;background:var(--navy);color:white;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;transition:background .2s}
+    .call-direct-btn:hover{background:var(--navy-mid)}
+
+    .loading-wrap{padding:60px 28px;text-align:center}
+    .loader{width:48px;height:48px;border:3px solid var(--cream-dark);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-wrap h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:8px}
+    .loading-wrap p{font-size:13px;color:var(--text-mid);line-height:1.6}
+    .loading-steps{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+    .loading-step{font-size:12px;color:var(--text-light);display:flex;align-items:center;gap:8px;justify-content:center;opacity:0;transition:opacity .4s}
+    .loading-step.show{opacity:1}
+    .loading-step span{color:var(--gold)}
+
+    .result-header{background:var(--green);padding:28px 28px 24px;text-align:center}
+    .result-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);color:white;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:14px}
+    .result-icon{font-size:48px;margin-bottom:10px}
+    .result-header h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:white;line-height:1.2;margin-bottom:8px}
+    .result-header p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.6}
+
+    .result-details{padding:24px 28px;border-bottom:1px solid var(--cream-dark)}
+    .detail-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+    .detail-item:last-child{margin-bottom:0}
+    .detail-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+    .detail-item p{font-size:13px;color:var(--text-mid);line-height:1.6}
+    .detail-item strong{color:var(--text-dark)}
+
+    .cta-box{background:var(--navy);padding:24px 28px}
+    .cta-box h3{font-family:'Playfair Display',serif;font-size:19px;color:white;font-weight:700;margin-bottom:8px}
+    .cta-box p{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:16px;line-height:1.6}
+    .cta-form{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+    .cta-form input{padding:14px;border:1.5px solid rgba(255,255,255,.15);border-radius:10px;background:rgba(255,255,255,.08);font-family:'DM Sans',sans-serif;font-size:15px;color:white;outline:none;transition:border-color .2s;-webkit-appearance:none}
+    .cta-form input::placeholder{color:rgba(255,255,255,.4)}
+    .cta-form input:focus{border-color:var(--gold)}
+    .cta-btn{width:100%;padding:16px;border:none;border-radius:12px;background:var(--gold);color:white;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-appearance:none}
+    .cta-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
+
+    .success-wrap{padding:48px 28px;text-align:center}
+    .success-icon{font-size:56px;margin-bottom:14px}
+    .success-wrap h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--navy);margin-bottom:8px}
+    .success-wrap p{font-size:14px;color:var(--text-mid);line-height:1.7}
+    .success-wrap a{color:var(--gold);font-weight:600}
+
+    footer{background:var(--navy);color:rgba(255,255,255,.4);padding:22px 40px;display:flex;justify-content:space-between;align-items:center;font-size:11px;flex-wrap:wrap;gap:10px;margin:0 -20px}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:15px;color:white;font-weight:700}
+    .footer-logo span{color:var(--gold)}
+    footer a{color:rgba(255,255,255,.4);text-decoration:none}
+
+    @media(max-width:768px){
+      nav{display:none}
+      .page-wrap{padding:0 0 0}
+      .mobile-headline{margin:0;border-radius:0}
+      .calc-card{border-radius:0;margin-top:0;box-shadow:none}
+      .stage-body{padding:22px 20px}
+      .stage-header{padding:20px 20px 16px}
+      .progress-wrap{padding:16px 20px 0}
+      .trust-row{padding:16px 20px}
+      .call-divider{padding:0 20px}
+      .call-direct-btn{margin:0 20px 16px}
+      .result-header{padding:24px 20px 20px}
+      .result-details{padding:20px 20px}
+      .cta-box{padding:20px 20px}
+      .loading-wrap{padding:48px 20px}
+      .success-wrap{padding:40px 20px}
+      footer{padding:20px 20px;flex-direction:column;text-align:center;gap:8px;margin:0}
+      .form-row{grid-template-columns:1fr}
+    }
+
+    @media(min-width:769px){
+      body{background:var(--cream)}
+      .mobile-headline{display:none}
+      .page-wrap{padding:0 20px 60px}
+      .calc-card{margin-top:28px}
+      .desktop-hero{display:block;background:var(--navy);text-align:center;padding:52px 40px 0;margin:0 -20px}
+      .desktop-hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:white;line-height:1.1;margin-bottom:12px}
+      .desktop-hero h1 em{font-style:normal;color:var(--gold-light)}
+      .desktop-hero p{font-size:16px;color:rgba(255,255,255,.65);max-width:520px;margin:0 auto;line-height:1.7;padding-bottom:40px}
+      .desktop-hero-bar{height:4px;background:var(--gold);margin:0 -20px}
+    }
+  </style>
+<script>
+var SUPABASE_URL='https://qrnxzlsyprpbfcmebpdq.supabase.co';
+var SUPABASE_ANON_KEY='PASTE_YOUR_ANON_KEY_HERE';
+function insertLeadToSupabase(leadData){
+  fetch(SUPABASE_URL+'/rest/v1/leads',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':SUPABASE_ANON_KEY,
+      'Authorization':'Bearer '+SUPABASE_ANON_KEY,
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify(leadData)
+  }).then(function(r){
+    if(!r.ok) console.error('Supabase insert failed:',r.status);
+    else console.log('Lead saved to CRM');
+  }).catch(function(e){console.error('Supabase error:',e);});
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Columbus<span>Roofing</span>Estimates</a>
+  <a href="tel:6145550100" class="nav-phone"><div class="phone-dot"></div>(614) 555-0100</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- Desktop hero — hidden on mobile -->
+  <div class="desktop-hero" style="display:none">
+    <h1>Does Your Insurance <em>Owe You a New Roof?</em></h1>
+    <p>Most Columbus homeowners don't know hail and wind damage is fully covered. Find out in 60 seconds — free inspection, no out of pocket cost.</p>
+  </div>
+  <div class="desktop-hero-bar" style="display:none"></div>
+
+  <!-- Mobile headline -->
+  <div class="mobile-headline" id="mobile-hl">
+    <h1>Does Your Insurance <em>Owe You a New Roof?</em></h1>
+    <p>Find out in 60 seconds — free for Columbus homeowners</p>
+  </div>
+
+  <div class="calc-card">
+
+    <!-- Stage 1: Roof age -->
+    <div class="calc-stage active" id="stage1">
+      <div class="stage-header">
+        <h2>Quick eligibility check</h2>
+        <p>3 questions — takes 30 seconds</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-steps">
+          <div class="progress-step active"><div class="step-circle">1</div><span>Roof age</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">2</div><span>Storm history</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">3</div><span>Insurance</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">4</div><span>Your info</span></div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="q-num">Question 1 of 3</div>
+        <div class="q-label">How old is your roof?</div>
+        <div class="option-list">
+          <button class="opt-btn" onclick="selectQ1(this,'Under 5 years')">
+            <div class="opt-icon">🏠</div>
+            <div class="opt-text">Under 5 years</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ1(this,'5–10 years')">
+            <div class="opt-icon">📅</div>
+            <div class="opt-text">5–10 years</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ1(this,'10–15 years')">
+            <div class="opt-icon">⚠️</div>
+            <div class="opt-text">10–15 years</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ1(this,'15+ years')">
+            <div class="opt-icon">🔴</div>
+            <div class="opt-text">15+ years</div>
+            <div class="opt-check">✓</div>
+          </button>
+        </div>
+        <button class="calc-btn" id="btn1" onclick="goTo2()" disabled style="opacity:.5">Next →</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">✓</span> Free for Columbus homeowners</div>
+        <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+      </div>
+    </div>
+
+    <!-- Stage 2: Storm history -->
+    <div class="calc-stage" id="stage2">
+      <div class="stage-header">
+        <h2>Quick eligibility check</h2>
+        <p>3 questions — takes 30 seconds</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-steps">
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Roof age</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step active"><div class="step-circle">2</div><span>Storm history</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">3</div><span>Insurance</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">4</div><span>Your info</span></div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="q-num">Question 2 of 3</div>
+        <div class="q-label">Has your area had hail or wind storms in the last 3 years?</div>
+        <div class="option-list">
+          <button class="opt-btn" onclick="selectQ2(this,'Yes')">
+            <div class="opt-icon">⛈️</div>
+            <div class="opt-text">Yes — I remember storms hitting</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ2(this,'Not sure')">
+            <div class="opt-icon">🤔</div>
+            <div class="opt-text">Not sure — hard to tell</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ2(this,'No')">
+            <div class="opt-icon">☀️</div>
+            <div class="opt-text">No major storms that I know of</div>
+            <div class="opt-check">✓</div>
+          </button>
+        </div>
+        <button class="calc-btn" id="btn2" onclick="goTo3()" disabled style="opacity:.5">Next →</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">✓</span> Free for Columbus homeowners</div>
+        <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+      </div>
+    </div>
+
+    <!-- Stage 3: Insurance -->
+    <div class="calc-stage" id="stage3">
+      <div class="stage-header">
+        <h2>Quick eligibility check</h2>
+        <p>Last question — almost done</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-steps">
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Roof age</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Storm history</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step active"><div class="step-circle">3</div><span>Insurance</span></div>
+          <div class="step-line"></div>
+          <div class="progress-step"><div class="step-circle">4</div><span>Your info</span></div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="q-num">Question 3 of 3</div>
+        <div class="q-label">Do you have homeowner's insurance?</div>
+        <div class="option-list">
+          <button class="opt-btn" onclick="selectQ3(this,'Yes')">
+            <div class="opt-icon">🛡️</div>
+            <div class="opt-text">Yes — I have homeowner's insurance</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ3(this,'Not sure')">
+            <div class="opt-icon">🤔</div>
+            <div class="opt-text">Not sure — I think so</div>
+            <div class="opt-check">✓</div>
+          </button>
+          <button class="opt-btn" onclick="selectQ3(this,'No')">
+            <div class="opt-icon">❌</div>
+            <div class="opt-text">No homeowner's insurance</div>
+            <div class="opt-check">✓</div>
+          </button>
+        </div>
+        <button class="calc-btn" id="btn3" onclick="checkEligibility()" disabled style="opacity:.5">Check My Eligibility →</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">✓</span> Free for Columbus homeowners</div>
+        <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+      </div>
+    </div>
+
+    <!-- Stage 4: Contact unlock -->
+    <div class="calc-stage" id="stage4">
+      <div class="stage-header">
+        <h2>Almost there — unlock your results</h2>
+        <p>Enter your details to see your eligibility</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-steps">
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Roof age</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Storm history</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step done"><div class="step-circle">✓</div><span>Insurance</span></div>
+          <div class="step-line done"></div>
+          <div class="progress-step active"><div class="step-circle">4</div><span>Your info</span></div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="unlock-box">
+          <div class="unlock-label"><span>🔒</span> Your eligibility result is ready — unlock it below</div>
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0">
+              <label>First Name</label>
+              <input type="text" id="unlock-name" placeholder="John" autocomplete="given-name">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>Phone Number</label>
+              <input type="tel" id="unlock-phone" placeholder="(614) 555-0100" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:10px;margin-bottom:0">
+            <label>Address</label>
+            <input type="text" id="unlock-address" placeholder="Your Columbus area address" autocomplete="street-address">
+          </div>
+        </div>
+        <button class="calc-btn" onclick="submitAndReveal()">Show My Eligibility Result 🔓</button>
+        <p class="privacy-note">Your info is private. A licensed Columbus contractor may reach out to offer a free inspection. No spam ever.</p>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">✓</span> Free for Columbus homeowners</div>
+        <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+      </div>
+    </div>
+
+    <!-- Stage 5: Loading -->
+    <div class="calc-stage" id="stage5">
+      <div class="loading-wrap">
+        <div class="loader"></div>
+        <h3>Checking your eligibility...</h3>
+        <p>Reviewing Franklin County storm records<br>and insurance claim data</p>
+        <div class="loading-steps">
+          <div class="loading-step" id="ls1"><span>✓</span> Checking Franklin County hail records</div>
+          <div class="loading-step" id="ls2"><span>✓</span> Reviewing Ohio insurance guidelines</div>
+          <div class="loading-step" id="ls3"><span>✓</span> Matching your roof profile</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 6: Eligibility result -->
+    <div class="calc-stage" id="stage6">
+      <div class="result-header">
+        <div class="result-badge">✓ Eligibility result</div>
+        <div class="result-icon">🏠</div>
+        <h2>Good news — you may qualify!</h2>
+        <p>Based on your answers and Franklin County storm history, your roof may be covered by your homeowner's insurance.</p>
+      </div>
+      <div class="result-details">
+        <div class="detail-item">
+          <div class="detail-dot"></div>
+          <p><strong>Franklin County storm history:</strong> Your area has had multiple qualifying hail and wind events in the last 3 years that most homeowners don't know about.</p>
+        </div>
+        <div class="detail-item">
+          <div class="detail-dot"></div>
+          <p><strong>Most damage is invisible:</strong> Hail damage often can't be seen from the ground. A licensed inspector can document what your insurance company needs.</p>
+        </div>
+        <div class="detail-item">
+          <div class="detail-dot"></div>
+          <p><strong>You only pay your deductible:</strong> If a claim is approved, your insurance covers the full replacement. Many Columbus homeowners pay as little as $500 out of pocket.</p>
+        </div>
+      </div>
+      <div class="cta-box">
+        <h3>Book your free inspection</h3>
+        <p>A licensed Columbus contractor will contact you within 1 hour to schedule a free roof inspection and help you file your claim — at no cost to you.</p>
+        <button class="cta-btn" onclick="confirmBooking()">Yes — Book My Free Inspection →</button>
+      </div>
+    </div>
+
+    <!-- Stage 7: Success -->
+    <div class="calc-stage" id="stage7">
+      <div class="success-wrap">
+        <div class="success-icon">✅</div>
+        <h3>You're booked, <span id="success-name"></span>!</h3>
+        <p>A licensed Columbus roofing contractor will call you within <strong>1 hour</strong> to schedule your free inspection and walk you through the insurance claim process.</p>
+        <p style="margin-top:14px">In the meantime, <a href="/">visit our homepage</a> to learn more about our contractor network.</p>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">✓</span> Licensed & insured</div>
+        <div class="trust-item"><span class="trust-check">✓</span> Free inspection</div>
+        <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="call-divider" id="call-div"><span>or call directly</span></div>
+  <a href="tel:6145550100" class="call-direct-btn" id="call-btn">
+    📞 (614) 555-0100 — Free Inspection
+  </a>
+
+  <footer>
+    <div class="footer-logo">Columbus<span>Roofing</span>Estimates</div>
+    <div>Serving Franklin County & Central Ohio</div>
+    <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="tel:6145550100">(614) 555-0100</a></div>
+  </footer>
+
+</div>
+
+<script>
+function isValidPhone(val) {
+  var digits = val.replace(/\D/g,'');
+  if(digits.length !== 10) return false;
+  if(digits[0] === '0' || digits[0] === '1') return false;
+  if(/^(\d)\1{9}$/.test(digits)) return false;
+  return true;
+}
+var q1='',q2='',q3='',uname='',uphone='',uaddr='';
+
+function selectOpt(btn){
+  btn.closest('.option-list').querySelectorAll('.opt-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  return btn.querySelector('.opt-text').textContent.trim();
+}
+function selectQ1(btn,val){q1=val;selectOpt(btn);var b=document.getElementById('btn1');b.disabled=false;b.style.opacity='1';}
+function selectQ2(btn,val){q2=val;selectOpt(btn);var b=document.getElementById('btn2');b.disabled=false;b.style.opacity='1';}
+function selectQ3(btn,val){q3=val;selectOpt(btn);var b=document.getElementById('btn3');b.disabled=false;b.style.opacity='1';}
+
+function showStage(id){
+  document.querySelectorAll('.calc-stage').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  var mh=document.getElementById('mobile-hl');
+  if(mh){mh.style.display=(id==='stage1'||id==='stage2'||id==='stage3'||id==='stage4')?'':'none';}
+  var cd=document.getElementById('call-div');
+  var cb=document.getElementById('call-btn');
+  var hide=(id==='stage5'||id==='stage6'||id==='stage7');
+  if(cd)cd.style.display=hide?'none':'';
+  if(cb)cb.style.display=hide?'none':'';
+}
+
+function goTo2(){if(!q1)return;showStage('stage2');}
+function goTo3(){if(!q2)return;showStage('stage3');}
+
+function checkEligibility(){
+  if(!q3)return;
+  showStage('stage4');
+}
+
+function submitAndReveal(){
+  uname=document.getElementById('unlock-name').value.trim();
+  uphone=document.getElementById('unlock-phone').value.trim();
+  uaddr=document.getElementById('unlock-address').value.trim();
+  if(!uname){alert('Please enter your first name.');return;}
+  if(!uphone){alert('Please enter your phone number.');return;}
+  if(!isValidPhone(uphone)){alert('Please enter a valid 10-digit US phone number (e.g. 614-555-0100).');return;}
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({
+      'form-name':'insurance-check-lead',
+      'roof-age':q1,
+      'storm-history':q2,
+      'has-insurance':q3,
+      'first-name':uname,
+      'phone':uphone,
+      'address':uaddr
+    }).toString()
+  })
+  .then(function(){
+    fbq('track','Lead');
+    gtag('event','generate_lead',{'event_category':'Lead','event_label':'Insurance Check'});
+  })
+  .catch(function(e){console.error(e);});
+  insertLeadToSupabase({
+    first_name:uname,
+    phone:uphone,
+    address:uaddr,
+    service_type:'Insurance Claim',
+    source:'Insurance Check',
+    status:'new',
+    notes:'Roof age: '+q1+', Storm history: '+q2+', Has insurance: '+q3
+  });
+  document.getElementById('success-name').textContent=uname;
+  showStage('stage5');
+  var steps=['ls1','ls2','ls3'];
+  steps.forEach(function(id,i){
+    setTimeout(function(){
+      var el=document.getElementById(id);
+      if(el)el.classList.add('show');
+    },(i+1)*700);
+  });
+  setTimeout(function(){showStage('stage6');},2800);
+}
+
+function confirmBooking(){
+  showStage('stage7');
+}
+
+// Show desktop hero on desktop
+if(window.innerWidth>=769){
+  document.querySelectorAll('.desktop-hero,.desktop-hero-bar').forEach(function(el){el.style.display='block';});
+}
+</script>
+</body>
+</html>
