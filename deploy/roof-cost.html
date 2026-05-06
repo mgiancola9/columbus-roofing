@@ -7,19 +7,24 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
   <link rel="manifest" href="/favicon_io/site.webmanifest">
   <meta charset="UTF-8">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roof Cost Calculator — Columbus, OH | Columbus Roofing Estimates</title>
-  <meta name="description" content="Find out exactly what a roof replacement or repair should cost in Columbus, Ohio. Instant estimate based on real Franklin County market rates.">
+  <title>Free Roof Cost Calculator — Don't Overpay for Your Roof | Columbus Roofing Estimates</title>
+  <meta name="description" content="Find out what your roof should actually cost in Columbus, Ohio before any contractor gives you a quote. We make sure Franklin County homeowners never overpay — free.">
   <link rel="canonical" href="https://www.columbusroofingestimates.com/roof-cost">
-  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1624080141976167');fbq('track','PageView');</script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1624080141976167&ev=PageView&noscript=1"/></noscript>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7X4Z639KR"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L7X4Z639KR');</script>
+  <link rel="preconnect" href="https://connect.facebook.net">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://maps.googleapis.com">
+  <meta name="theme-color" content="#0f1f2e">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7dxIbtFLUu2WP474JacRCslmHzObOhY&libraries=places&callback=initAutocomplete" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <form name="roof-cost-lead" netlify netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="roof-cost-lead">
-    <input name="address"><input name="service-type"><input name="first-name"><input name="phone"><input name="estimated-cost">
+    <input name="address"><input name="first-name"><input name="phone"><input name="estimated-cost">
   </form>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -117,10 +122,12 @@
     .price-range span{color:var(--gold)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .price-sub{font-size:12px;color:var(--text-mid);line-height:1.6}
-    .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:18px 28px;border-bottom:1px solid var(--cream-dark)}
-    .breakdown-item{background:var(--cream);border-radius:8px;padding:12px 8px;text-align:center}
-    .breakdown-val{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px}
-    .breakdown-lbl{font-size:10px;color:var(--text-light);line-height:1.4}
+    .results-cta{border-top:4px solid #c8922a;border-left:4px solid #c8922a;box-shadow:0 4px 24px rgba(200,146,42,.2);background:rgba(200,146,42,.05);border-radius:12px;padding:28px 24px;margin:16px 0}
+    .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:18px 28px;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
+    .breakdown-item{background:transparent;padding:12px 8px;text-align:center;border-right:1px solid var(--gold)}
+    .breakdown-item:last-child{border-right:none}
+    .breakdown-val{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:3px}
+    .breakdown-lbl{font-size:11px;color:var(--text-light);line-height:1.4}
     .factors{padding:18px 28px;border-bottom:1px solid var(--cream-dark)}
     .factors h3{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;letter-spacing:.03em;text-transform:uppercase}
     .factor{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
@@ -147,12 +154,14 @@
     /* ══ MOBILE ══ */
     .mobile-headline{display:none}
     @media(max-width:768px){
+      html{height:auto}
+      body{min-height:0;height:auto}
       nav{display:none}
       .page-wrap{display:block}
       .left-col{display:none}
-      .right-col{box-shadow:none;min-height:100vh;display:flex;flex-direction:column}
-      .form-inner{flex:1;display:flex;flex-direction:column}
-      .calc-stage.active{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+      .right-col{box-shadow:none;min-height:auto;display:flex;flex-direction:column}
+      .form-inner{flex:none;display:flex;flex-direction:column}
+      .calc-stage.active{flex:none;display:flex;flex-direction:column;justify-content:flex-start}
       .calc-stage.active .stage-body{flex:none}
       .stage-header{display:none}
       .progress-wrap{padding:20px 24px 0}
@@ -184,8 +193,8 @@
       .price-reveal{padding:28px 24px 22px}
       .price-range{font-size:40px}
       .price-sub{font-size:13px}
-      .breakdown-grid{padding:18px 24px;gap:10px}
-      .breakdown-val{font-size:14px}
+      .breakdown-grid{padding:14px 20px;gap:0}
+      .breakdown-val{font-size:18px}
       .factors{padding:20px 24px}
       .factors h3{font-size:13px;margin-bottom:14px}
       .factor p{font-size:13px}
@@ -193,9 +202,14 @@
       .next-step-box h3{font-size:19px}
       .next-step-btn{padding:18px;font-size:16px;border-radius:12px}
       .disclaimer{padding:16px 24px}
-      .loading-wrap{padding:60px 24px}
+      #stage3.active{background:#f5f0e8;min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0}
+      .loading-wrap{text-align:center;padding:0 24px}
       .success-wrap{padding:48px 24px}
       .success-wrap h3{font-size:22px}
+      .results-cta{border-top:4px solid #c8922a;border-left:4px solid #c8922a;box-shadow:0 4px 24px rgba(200,146,42,.2);background:rgba(200,146,42,.05);border-radius:12px;padding:28px 24px;margin:16px 0}
+      .results-cta-headline{font-size:22px!important;color:#0f1f2e!important;font-weight:900!important}
+      .cta-urgency{font-size:12px;color:#c8922a;margin-top:12px;margin-bottom:4px;text-align:center}
+      .results-cta-btn{padding:18px!important;font-size:17px!important;box-shadow:0 4px 20px rgba(200,146,42,.4)}
       footer{padding:20px 24px;flex-direction:column;text-align:center;gap:8px}
     }
 
@@ -255,9 +269,9 @@
       .price-label{font-size:11px;margin-bottom:12px}
       .price-range{font-size:clamp(40px,6vw,56px)}
       .price-sub{font-size:13px}
-      .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:24px 36px}
-      .breakdown-item{padding:16px 12px;border-radius:10px}
-      .breakdown-val{font-size:14px}
+      .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:24px 36px}
+      .breakdown-item{padding:16px 12px}
+      .breakdown-val{font-size:18px}
       .breakdown-lbl{font-size:11px}
       .factors{padding:24px 36px}
       .factors h3{font-size:13px;margin-bottom:14px}
@@ -279,34 +293,20 @@
   </style>
 <script>
 var SUPABASE_URL='https://qrnxzlsyprpbfcmebpdq.supabase.co';
-var SUPABASE_ANON_KEY='PASTE_YOUR_ANON_KEY_HERE';
-function insertLeadToSupabase(leadData){
-  fetch(SUPABASE_URL+'/rest/v1/leads',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'apikey':SUPABASE_ANON_KEY,
-      'Authorization':'Bearer '+SUPABASE_ANON_KEY,
-      'Prefer':'return=minimal'
-    },
-    body:JSON.stringify(leadData)
-  }).then(function(r){
-    if(!r.ok) console.error('Supabase insert failed:',r.status);
-    else console.log('Lead saved to CRM');
-  }).catch(function(e){console.error('Supabase error:',e);});
-}
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybnh6bHN5cHJwYmZjbWVicGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NzI5MjYsImV4cCI6MjA5MjA0ODkyNn0.A1Q8Dj3tg4WHMoo3CUQ1w2g_ghtzUqdBKizKLGBkgZg';
+function insertLeadToSupabase(d){fetch(SUPABASE_URL+'/rest/v1/leads',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)console.error('Supabase:',r.status);else console.log('Lead saved to CRM');}).catch(function(e){console.error('Supabase error:',e);});}
 </script>
 </head>
 <body>
 
 <nav>
   <a href="/" class="logo">Columbus<span>Roofing</span>Estimates</a>
-  <a href="tel:6145550100" class="nav-phone"><div class="phone-dot"></div>(614) 555-0100</a>
+  <a href="tel:6149572204" class="nav-phone"><div class="phone-dot"></div>(614) 957-2204</a>
 </nav>
 
 <div class="mobile-headline">
-  <h1>Columbus, how much should your<br><em>roof actually cost?</em></h1>
-  <p>Real 2026 Franklin County rates — free & instant</p>
+  <h1>Columbus — Don't Overpay for Your Roof.</h1>
+  <p>See what your roof should actually cost before anyone gives you a quote.</p>
 </div>
 
 <div class="page-wrap">
@@ -355,16 +355,14 @@ function insertLeadToSupabase(leadData){
       <!-- Stage 1: Address + service -->
       <div class="calc-stage active" id="stage1">
         <div class="stage-header">
-          <h2>Get your instant estimate</h2>
-          <p>Step 1 of 2 — takes 20 seconds</p>
+          <h2>See what your roof should actually cost</h2>
+          <p>Real 2026 Columbus rates — know the fair price before anyone quotes you</p>
         </div>
         <div class="progress-wrap">
           <div class="progress-steps">
-            <div class="progress-step active"><div class="step-circle">1</div><span>Your roof</span></div>
+            <div class="progress-step active"><div class="step-circle">1</div><span>Your Address</span></div>
             <div class="step-line"></div>
-            <div class="progress-step"><div class="step-circle">2</div><span>Your info</span></div>
-            <div class="step-line"></div>
-            <div class="progress-step"><div class="step-circle">3</div><span>Your price</span></div>
+            <div class="progress-step"><div class="step-circle">2</div><span>Your Estimate</span></div>
           </div>
         </div>
         <div class="stage-body">
@@ -372,19 +370,12 @@ function insertLeadToSupabase(leadData){
             <label>Your Columbus Area Address</label>
             <input type="text" id="address-input" placeholder="123 Main St, Columbus, OH" autocomplete="street-address">
           </div>
-          <div class="form-group"><label>What do you need?</label></div>
-          <div class="service-grid">
-            <button class="svc-btn" onclick="selectService(this,'Full Roof Replacement')"><span class="svc-icon">🏠</span>Full Replacement</button>
-            <button class="svc-btn" onclick="selectService(this,'Storm Damage Repair')"><span class="svc-icon">⛈️</span>Storm Damage</button>
-            <button class="svc-btn" onclick="selectService(this,'Roof Repair')"><span class="svc-icon">🔧</span>Roof Repair</button>
-            <button class="svc-btn" onclick="selectService(this,'Free Inspection')"><span class="svc-icon">🔍</span>Free Inspection</button>
-          </div>
-          <button class="calc-btn" id="next1-btn" onclick="goToStep2()" disabled style="opacity:.5">Next — Unlock My Estimate →</button>
+          <button class="calc-btn" id="next1-btn" onclick="goToStep2()">Show Me The Fair Price →</button>
           <div class="call-divider" style="margin-top:16px">
             <span>or call directly</span>
           </div>
-          <a href="tel:6145550100" class="call-direct-btn">
-            <span class="call-icon">📞</span> (614) 555-0100 — Free Estimate
+          <a href="tel:6149572204" class="call-direct-btn">
+            <span class="call-icon">📞</span> Call Us — We're On Your Side
           </a>
         </div>
         <div class="trust-row">
@@ -402,11 +393,9 @@ function insertLeadToSupabase(leadData){
         </div>
         <div class="progress-wrap">
           <div class="progress-steps">
-            <div class="progress-step done"><div class="step-circle">✓</div><span>Your roof</span></div>
+            <div class="progress-step done"><div class="step-circle">✓</div><span>Your Address</span></div>
             <div class="step-line done"></div>
-            <div class="progress-step active"><div class="step-circle">2</div><span>Your info</span></div>
-            <div class="step-line"></div>
-            <div class="progress-step"><div class="step-circle">3</div><span>Your price</span></div>
+            <div class="progress-step active"><div class="step-circle">2</div><span>Your Estimate</span></div>
           </div>
         </div>
         <div class="stage-body">
@@ -415,16 +404,16 @@ function insertLeadToSupabase(leadData){
             <div class="form-row">
               <div class="form-group" style="margin-bottom:0">
                 <label>First Name</label>
-                <input type="text" id="lead-name" placeholder="John" autocomplete="given-name">
+                <input type="text" placeholder="John" autocomplete="given-name">
               </div>
               <div class="form-group" style="margin-bottom:0">
                 <label>Phone Number</label>
-                <input type="tel" id="lead-phone" placeholder="(614) 555-0100" autocomplete="tel">
+                <input type="tel" placeholder="(614) 957-2204" autocomplete="tel">
               </div>
             </div>
           </div>
           <button class="calc-btn" onclick="submitAndReveal()">Show Me My Estimate 🔓</button>
-          <p class="privacy-note">Your info is private. A licensed Columbus contractor may follow up to offer a free inspection. No spam ever.</p>
+          <p class="privacy-note">Your info is private. We only share it with vetted contractors who charge fair prices. No spam ever.</p>
         </div>
         <div class="trust-row">
           <div class="trust-item"><span class="trust-check">✓</span> We never sell your info</div>
@@ -437,8 +426,8 @@ function insertLeadToSupabase(leadData){
       <div class="calc-stage" id="stage3">
         <div class="loading-wrap">
           <div class="loader"></div>
-          <h3>Calculating your estimate...</h3>
-          <p>Analyzing Columbus market data,<br>Franklin County labor rates,<br>and current material costs</p>
+          <h3>Looking up fair market rates for Columbus...</h3>
+          <p>Checking real 2026 Franklin County labor costs and material prices so you know exactly what's fair</p>
         </div>
       </div>
 
@@ -446,28 +435,40 @@ function insertLeadToSupabase(leadData){
       <div class="calc-stage" id="stage4">
         <div class="results-header">
           <div class="address-display" id="result-address"></div>
-          <h2 id="result-title">Your Roof Estimate</h2>
+          <h2 id="result-title">Here's the fair price for your Columbus roof</h2>
           <div class="service-badge">Columbus, OH — 2026 Rates</div>
         </div>
         <div class="price-reveal">
-          <div class="price-label">Estimated cost for your home</div>
+          <div class="price-label">What Your Roof Should Actually Cost</div>
           <div class="price-range" id="price-range"></div>
           <div class="price-sub" id="price-sub"></div>
+        </div>
+        <div class="stage-body results-cta">
+          <h3 class="results-cta-headline" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px">Want a free exact quote from a trusted contractor?</h3>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:18px">We only connect you with licensed, insured Columbus contractors who charge fair prices. They will call you within 1 hour — no pressure, no inflated quotes, no surprises.</p>
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0">
+              <label>First Name</label>
+              <input type="text" id="lead-name" placeholder="John" autocomplete="given-name">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>Phone Number</label>
+              <input type="tel" id="lead-phone" placeholder="(614) 957-2204" autocomplete="tel">
+            </div>
+          </div>
+          <p class="cta-urgency">⚡ response within 1 hour</p>
+          <button class="calc-btn results-cta-btn" onclick="submitAndReveal()" style="margin-top:14px">Connect Me With a Trusted Contractor →</button>
+          <p class="privacy-note">Your info is private. We only share it with vetted contractors who charge fair prices. No spam ever.</p>
         </div>
         <div class="breakdown-grid">
           <div class="breakdown-item"><div class="breakdown-val" id="b-labor"></div><div class="breakdown-lbl">Labor per sq ft</div></div>
           <div class="breakdown-item"><div class="breakdown-val" id="b-material"></div><div class="breakdown-lbl">Materials per sq ft</div></div>
           <div class="breakdown-item"><div class="breakdown-val" id="b-time"></div><div class="breakdown-lbl">Install time</div></div>
         </div>
+        <div style="height:1px;background:var(--gold)"></div>
         <div class="factors">
-          <h3>What affects your final price</h3>
+          <h3>Why some Columbus homeowners overpay</h3>
           <div id="factor-list"></div>
-        </div>
-        <div class="next-step-box">
-          <h3>Want an exact written quote?</h3>
-          <p>A licensed Columbus roofer will call you within 1 hour for a free on-site inspection — no pressure, no obligation.</p>
-          <p style="color:rgba(255,255,255,.35);font-size:11px;">You're already in our system — just confirm below.</p>
-          <button class="next-step-btn" onclick="confirmQuote()">Yes, Get My Free Exact Quote →</button>
         </div>
         <div class="disclaimer">Estimates based on average Columbus market rates for 2026. Actual costs vary based on roof pitch, access, damage, and materials.</div>
       </div>
@@ -477,13 +478,13 @@ function insertLeadToSupabase(leadData){
         <div class="success-wrap">
           <div class="success-icon">✅</div>
           <h3>You're all set, <span id="success-name"></span>!</h3>
-          <p>A licensed Columbus roofing contractor will call you within <strong>1 hour</strong> to schedule your free on-site inspection and exact written estimate.</p>
+          <p>A trusted, licensed Columbus roofing contractor will call you within 1 hour. We have verified they are licensed, insured, and committed to fair pricing. No pressure, no inflated quotes.</p>
           <p style="margin-top:14px;">In the meantime, <a href="/">visit our homepage</a> to learn more.</p>
         </div>
         <div class="trust-row">
-          <div class="trust-item"><span class="trust-check">✓</span> Licensed & insured</div>
-          <div class="trust-item"><span class="trust-check">✓</span> Free written estimate</div>
-          <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
+          <div class="trust-item"><span class="trust-check">✓</span> We verify every contractor</div>
+          <div class="trust-item"><span class="trust-check">✓</span> Real 2026 Columbus rates</div>
+          <div class="trust-item"><span class="trust-check">✓</span> Fair pricing guaranteed</div>
         </div>
       </div>
 
@@ -493,8 +494,8 @@ function insertLeadToSupabase(leadData){
 
 <footer>
   <div class="footer-logo">Columbus<span>Roofing</span>Estimates</div>
-  <div>Serving Franklin County & Central Ohio</div>
-  <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="tel:6145550100">(614) 555-0100</a></div>
+  <div>Helping Franklin County homeowners pay fair prices — always free.</div>
+  <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="tel:6149572204">(614) 957-2204</a></div>
 </footer>
 
 <script>
@@ -505,7 +506,28 @@ function isValidPhone(val) {
   if(/^(\d)\1{9}$/.test(digits)) return false;
   return true;
 }
-var sel='',addr='',uname='',uphone='';
+var addr='',uname='',uphone='';
+function initAutocomplete() {
+  var input = document.getElementById('address-input');
+  if(!input) return;
+  var autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ['address'],
+    componentRestrictions: { country: 'us' },
+    bounds: new google.maps.LatLngBounds(
+      new google.maps.LatLng(39.6, -83.2),
+      new google.maps.LatLng(40.3, -82.6)
+    ),
+    strictBounds: false
+  });
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if(place.formatted_address) {
+      document.getElementById('address-input').value = place.formatted_address;
+      addr = place.formatted_address;
+    }
+  });
+}
+window.initAutocomplete = initAutocomplete;
 var sd={
   'Full Roof Replacement':{low:8400,high:14800,labor:'$3.80–5.20',material:'$2.50–4.80',time:'1–2 days',factors:[
     {t:'Roof size',d:'Columbus homes average 1,500–2,200 sq ft of roof surface. Larger homes push toward the higher end of this range.'},
@@ -532,11 +554,6 @@ var sd={
     {t:'Best time to inspect',d:'After any hail or wind event, or if your roof is over 10 years old.'}
   ]}
 };
-function selectService(btn,service){
-  document.querySelectorAll('.svc-btn').forEach(function(b){b.classList.remove('selected');});
-  btn.classList.add('selected');sel=service;
-  var b=document.getElementById('next1-btn');b.disabled=false;b.style.opacity='1';
-}
 function showStage(id){
   document.querySelectorAll('.calc-stage').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
@@ -548,43 +565,32 @@ function showStage(id){
 function goToStep2(){
   addr=document.getElementById('address-input').value.trim();
   if(!addr){alert('Please enter your Columbus area address.');return;}
-  if(!sel){alert('Please select a service type.');return;}
-  showStage('stage2');
+  showStage('stage3');
+  setTimeout(function(){populateResults();showStage('stage4');},2400);
 }
 function submitAndReveal(){
   uname=document.getElementById('lead-name').value.trim();
   uphone=document.getElementById('lead-phone').value.trim();
   if(!uname){alert('Please enter your first name.');return;}
   if(!uphone){alert('Please enter your phone number.');return;}
-  if(!isValidPhone(uphone)){alert('Please enter a valid 10-digit US phone number (e.g. 614-555-0100).');return;}
-  var data=sd[sel]||{};
-  var est=sel==='Free Inspection'?'Free inspection':'$'+(data.low||0).toLocaleString()+' – $'+(data.high||0).toLocaleString();
+  if(!isValidPhone(uphone)){alert('Please enter a valid 10-digit US phone number (e.g. 614-957-2204).');return;}
+  var data=sd['Full Roof Replacement'];
+  var est='$'+data.low.toLocaleString()+' – $'+data.high.toLocaleString();
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams({'form-name':'roof-cost-lead','address':addr,'service-type':sel,'first-name':uname,'phone':uphone,'estimated-cost':est}).toString()})
+    body:new URLSearchParams({'form-name':'roof-cost-lead','address':addr,'service-type':'Full Roof Replacement','first-name':uname,'phone':uphone,'estimated-cost':est}).toString()})
   .then(function(){fbq('track','Lead');gtag('event','generate_lead',{'event_category':'Lead','event_label':'Roof Cost Calculator'});})
   .catch(function(e){console.error(e);});
-  insertLeadToSupabase({
-    first_name:uname,
-    phone:uphone,
-    address:addr,
-    service_type:sel,
-    source:'Roof Cost Calculator',
-    status:'new'
-  });
-  showStage('stage3');
-  setTimeout(function(){populateResults();showStage('stage4');},2400);
+  // Save lead to Supabase CRM
+  insertLeadToSupabase({first_name:uname,phone:uphone,address:addr,service_type:'Full Roof Replacement',source:'Roof Cost Calculator',status:'new'});
+  document.getElementById('success-name').textContent=uname;
+  showStage('stage5');
 }
 function populateResults(){
-  var data=sd[sel];
+  var data=sd['Full Roof Replacement'];
   document.getElementById('result-address').textContent=addr.toUpperCase();
-  document.getElementById('result-title').textContent=sel+' Estimate';
-  if(sel==='Free Inspection'){
-    document.getElementById('price-range').innerHTML='<span>Free</span>';
-    document.getElementById('price-sub').textContent='A licensed Columbus contractor will inspect your roof at no charge.';
-  } else {
-    document.getElementById('price-range').innerHTML='<span>$'+data.low.toLocaleString()+'</span> – $'+data.high.toLocaleString();
-    document.getElementById('price-sub').textContent='Based on average Columbus home size and current Franklin County rates for 2026.';
-  }
+  document.getElementById('result-title').textContent='Full Roof Replacement Estimate';
+  document.getElementById('price-range').innerHTML='<span>$'+data.low.toLocaleString()+'</span> – $'+data.high.toLocaleString();
+  document.getElementById('price-sub').textContent='Based on average Columbus home size and current Franklin County rates for 2026.';
   document.getElementById('b-labor').textContent=data.labor;
   document.getElementById('b-material').textContent=data.material;
   document.getElementById('b-time').textContent=data.time;
@@ -592,9 +598,12 @@ function populateResults(){
   data.factors.forEach(function(f){fl.innerHTML+='<div class="factor"><div class="factor-dot"></div><p><strong>'+f.t+':</strong> '+f.d+'</p></div>';});
 }
 function confirmQuote(){
-  document.getElementById('success-name').textContent=uname;
-  showStage('stage5');
+  showStage('stage2');
 }
 </script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1624080141976167');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1624080141976167&ev=PageView&noscript=1"/></noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7X4Z639KR"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L7X4Z639KR');</script>
 </body>
 </html>

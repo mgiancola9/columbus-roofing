@@ -764,22 +764,8 @@
   </style>
 <script>
 var SUPABASE_URL='https://qrnxzlsyprpbfcmebpdq.supabase.co';
-var SUPABASE_ANON_KEY='PASTE_YOUR_ANON_KEY_HERE';
-function insertLeadToSupabase(leadData){
-  fetch(SUPABASE_URL+'/rest/v1/leads',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'apikey':SUPABASE_ANON_KEY,
-      'Authorization':'Bearer '+SUPABASE_ANON_KEY,
-      'Prefer':'return=minimal'
-    },
-    body:JSON.stringify(leadData)
-  }).then(function(r){
-    if(!r.ok) console.error('Supabase insert failed:',r.status);
-    else console.log('Lead saved to CRM');
-  }).catch(function(e){console.error('Supabase error:',e);});
-}
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybnh6bHN5cHJwYmZjbWVicGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NzI5MjYsImV4cCI6MjA5MjA0ODkyNn0.A1Q8Dj3tg4WHMoo3CUQ1w2g_ghtzUqdBKizKLGBkgZg';
+function insertLeadToSupabase(d){fetch(SUPABASE_URL+'/rest/v1/leads',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)console.error('Supabase:',r.status);else console.log('Lead saved to CRM');}).catch(function(e){console.error('Supabase error:',e);});}
 </script>
 </head>
 <body>
@@ -1225,6 +1211,7 @@ function insertLeadToSupabase(leadData){
     fbq('track', 'Lead');
     gtag('event', 'generate_lead', {'event_category': 'Lead', 'event_label': 'Form Submission'});
 
+    // 3. Save lead to Supabase CRM
     insertLeadToSupabase({
       first_name: firstName,
       last_name: lastName,
