@@ -285,6 +285,7 @@ a{color:inherit;}
   margin-top:4px;
   font-size:14px;
   overflow:hidden;
+  z-index:9999!important;
 }
 .pac-item{
   padding:10px 14px;
@@ -905,7 +906,7 @@ a{color:inherit;}
       <!-- Card A: Address Shortcut -->
       <div class="s1-card">
         <p class="addr-shortcut-label">Have your address handy? We can estimate automatically.</p>
-        <input type="text" id="addr" class="addr-input" placeholder="e.g. 123 Main St, Columbus, OH 43016" autocomplete="street-address">
+        <input type="text" id="addr" class="addr-input" placeholder="e.g. 123 Main St, Columbus, OH 43016" autocomplete="off">
         <div class="addr-result" id="addrResult"></div>
       </div>
 
