@@ -1,609 +1,1730 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="/favicon_io/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
-  <link rel="manifest" href="/favicon_io/site.webmanifest">
-  <meta charset="UTF-8">
-  <meta http-equiv="x-dns-prefetch-control" content="on">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Roof Cost Calculator — Don't Overpay for Your Roof | Columbus Roofing Estimates</title>
-  <meta name="description" content="Find out what your roof should actually cost in Columbus, Ohio before any contractor gives you a quote. We make sure Franklin County homeowners never overpay — free.">
-  <link rel="canonical" href="https://www.columbusroofingestimates.com/roof-cost">
-  <link rel="preconnect" href="https://connect.facebook.net">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preconnect" href="https://maps.googleapis.com">
-  <meta name="theme-color" content="#0f1f2e">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7dxIbtFLUu2WP474JacRCslmHzObOhY&libraries=places&callback=initAutocomplete" async defer></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
-  <form name="roof-cost-lead" netlify netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="roof-cost-lead">
-    <input name="address"><input name="first-name"><input name="phone"><input name="estimated-cost">
-  </form>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--navy:#0f1f2e;--gold:#c8922a;--gold-light:#e5ab44;--cream:#f5f0e8;--cream-dark:#ede6d9;--white:#fff;--text-dark:#0f1f2e;--text-mid:#3a506b;--text-light:#7a9ab5}
-    html{scroll-behavior:smooth}
-    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roof Cost Calculator | Columbus Roofing Estimates</title>
 
-    /* ── NAV ── */
-    nav{background:var(--white);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--cream-dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,31,46,.06)}
-    .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);text-decoration:none}
-    .logo span{color:var(--gold)}
-    .nav-phone{font-size:14px;font-weight:600;color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:6px}
-    .phone-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+<!-- ── FAVICON ── -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="favicon.svg">
 
-    /* ── DESKTOP HERO — hidden on mobile ── */
-    .hero{background:var(--navy);padding:60px 40px 0;text-align:center;position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(200,146,42,.1) 0%,transparent 70%);pointer-events:none}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,146,42,.15);border:1px solid rgba(200,146,42,.3);color:var(--gold-light);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px}
-    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.1;color:var(--white);margin-bottom:14px}
-    .hero h1 em{font-style:normal;color:var(--gold-light)}
-    .hero p{font-size:15px;color:rgba(255,255,255,.65);max-width:500px;margin:0 auto;line-height:1.7}
+<!-- ── OPEN GRAPH (Facebook / link previews) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Columbus Roofing Estimates">
+<meta property="og:title"       content="Know Your Roof Cost in 60 Seconds | Columbus Roofing Estimates">
+<meta property="og:description" content="Free instant roof cost calculator built for Columbus, Ohio homeowners. No contractors, no pressure — just an honest estimate in under a minute.">
+<meta property="og:image"       content="og-image.svg">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
 
-    /* ── LAYOUT ── */
-    .page-wrap{display:grid;grid-template-columns:1fr 480px;gap:0;min-height:calc(100vh - 52px)}
-    .left-col{background:var(--navy);padding:60px 48px;display:flex;flex-direction:column;justify-content:center}
-    .left-col h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:16px}
-    .left-col h2 em{font-style:normal;color:var(--gold-light)}
-    .left-col p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:32px;max-width:400px}
-    .left-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,146,42,.15);border:1px solid rgba(200,146,42,.3);color:var(--gold-light);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:24px}
-    .left-points{display:flex;flex-direction:column;gap:14px}
-    .left-point{display:flex;align-items:flex-start;gap:12px}
-    .lp-icon{width:32px;height:32px;border-radius:8px;background:rgba(200,146,42,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-    .lp-text h4{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px}
-    .lp-text p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+<!-- ── TWITTER / X CARD ── -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Know Your Roof Cost in 60 Seconds | Columbus Roofing Estimates">
+<meta name="twitter:description" content="Free instant roof cost calculator built for Columbus, Ohio homeowners.">
+<meta name="twitter:image"       content="og-image.svg">
 
-    /* ── FORM COLUMN ── */
-    .right-col{background:var(--white);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(15,31,46,.12)}
-    .form-inner{flex:1;overflow-y:auto;padding:0}
+<!-- ── SEO ── -->
+<meta name="description" content="Free instant roof cost calculator for Columbus, Ohio homeowners. Get an honest estimate in under 60 seconds — no contractors, no spam calls.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap');
 
-    /* ── CALC CARD ── */
-    .calc-stage{display:none}
-    .calc-stage.active{display:block}
-    .stage-header{background:var(--navy);padding:24px 28px;border-bottom:3px solid var(--gold)}
-    .stage-header h2{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--white);margin-bottom:3px}
-    .stage-header p{font-size:12px;color:rgba(255,255,255,.55)}
-    .progress-wrap{padding:18px 28px 0}
-    .progress-steps{display:flex;align-items:center}
-    .progress-step{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--text-light)}
-    .progress-step.active{color:var(--navy)}
-    .progress-step.done{color:var(--gold)}
-    .step-circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--cream-dark);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-light);flex-shrink:0;transition:all .3s}
-    .progress-step.active .step-circle{border-color:var(--navy);color:var(--navy)}
-    .progress-step.done .step-circle{background:var(--gold);border-color:var(--gold);color:white}
-    .step-line{flex:1;height:2px;background:var(--cream-dark);margin:0 6px}
-    .step-line.done{background:var(--gold)}
-    .stage-body{padding:22px 28px}
-    .form-group{margin-bottom:16px}
-    .form-group label{display:block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-mid);margin-bottom:7px}
-    .form-group input{width:100%;padding:13px 14px;border:1.5px solid #dde3ea;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-dark);background:white;transition:border-color .2s;outline:none;-webkit-appearance:none}
-    .form-group input:focus{border-color:var(--gold)}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-    .svc-btn{padding:14px 10px;border:1.5px solid #dde3ea;border-radius:10px;background:white;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--text-mid);transition:all .15s;-webkit-appearance:none}
-    .svc-btn:hover{border-color:var(--gold);color:var(--gold)}
-    .svc-btn.selected{border-color:var(--gold);background:rgba(200,146,42,.07);color:var(--navy);font-weight:600}
-    .svc-icon{font-size:22px;display:block;margin-bottom:5px}
-    .unlock-box{background:var(--cream);border-radius:10px;padding:16px;margin-bottom:16px;border:1.5px solid var(--cream-dark)}
-    .unlock-label{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.03em;text-transform:uppercase;margin-bottom:12px}
-    .calc-btn{width:100%;padding:15px;border:none;border-radius:10px;background:var(--gold);color:white;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-appearance:none}
-    .calc-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,146,42,.3)}
-    .calc-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-    .trust-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:14px 20px;background:var(--cream);border-top:1px solid var(--cream-dark)}
-    .trust-item{font-size:11px;color:var(--text-mid);display:flex;align-items:center;gap:5px}
-    .trust-check{color:var(--gold);font-weight:700}
-
-    .call-divider{display:flex;align-items:center;gap:10px;padding:0 24px;margin:4px 0}
-    .call-divider::before,.call-divider::after{content:'';flex:1;height:1px;background:var(--cream-dark)}
-    .call-divider span{font-size:11px;color:var(--text-light);white-space:nowrap}
-    .call-direct-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 24px 20px;padding:15px;background:var(--navy);color:white;border-radius:12px;text-decoration:none;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;transition:background .2s}
-    .call-direct-btn:hover{background:var(--navy-mid,#162a3d)}
-    .call-icon{font-size:16px}
-    .privacy-note{text-align:center;font-size:11px;color:var(--text-light);margin-top:9px;line-height:1.5}
-    .loading-wrap{padding:52px 28px;text-align:center}
-    .loader{width:44px;height:44px;border:3px solid var(--cream-dark);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 18px}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .loading-wrap h3{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);margin-bottom:7px}
-    .loading-wrap p{font-size:13px;color:var(--text-mid);line-height:1.6}
-    .results-header{background:var(--navy);padding:24px 28px}
-    .address-display{font-size:10px;color:rgba(255,255,255,.45);margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase}
-    .results-header h2{font-family:'Playfair Display',serif;font-size:18px;color:white;font-weight:700;margin-bottom:3px}
-    .service-badge{display:inline-block;background:rgba(200,146,42,.2);color:var(--gold-light);font-size:10px;font-weight:600;padding:2px 10px;border-radius:100px;letter-spacing:.05em;text-transform:uppercase;margin-top:6px}
-    .price-reveal{padding:28px 28px 22px;text-align:center;border-bottom:1px solid var(--cream-dark)}
-    .price-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:10px}
-    .price-range{font-family:'Playfair Display',serif;font-size:clamp(32px,7vw,48px);font-weight:900;color:var(--navy);line-height:1;margin-bottom:8px;animation:fadeUp .7s ease both}
-    .price-range span{color:var(--gold)}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-    .price-sub{font-size:12px;color:var(--text-mid);line-height:1.6}
-    .results-cta{border-top:4px solid #c8922a;border-left:4px solid #c8922a;box-shadow:0 4px 24px rgba(200,146,42,.2);background:rgba(200,146,42,.05);border-radius:12px;padding:28px 24px;margin:16px 0}
-    .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:18px 28px;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold)}
-    .breakdown-item{background:transparent;padding:12px 8px;text-align:center;border-right:1px solid var(--gold)}
-    .breakdown-item:last-child{border-right:none}
-    .breakdown-val{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:3px}
-    .breakdown-lbl{font-size:11px;color:var(--text-light);line-height:1.4}
-    .factors{padding:18px 28px;border-bottom:1px solid var(--cream-dark)}
-    .factors h3{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;letter-spacing:.03em;text-transform:uppercase}
-    .factor{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
-    .factor:last-child{margin-bottom:0}
-    .factor-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
-    .factor p{font-size:12px;color:var(--text-mid);line-height:1.5}
-    .factor strong{color:var(--text-dark)}
-    .next-step-box{padding:22px 28px;background:var(--navy)}
-    .next-step-box h3{font-family:'Playfair Display',serif;font-size:18px;color:white;font-weight:700;margin-bottom:7px}
-    .next-step-box p{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:6px;line-height:1.6}
-    .next-step-btn{width:100%;padding:15px;border:none;border-radius:10px;background:var(--gold);color:white;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:6px;-webkit-appearance:none}
-    .next-step-btn:hover{background:var(--gold-light);transform:translateY(-1px)}
-    .disclaimer{padding:14px 28px;font-size:10px;color:var(--text-light);text-align:center;line-height:1.5}
-    .success-wrap{padding:40px 28px;text-align:center}
-    .success-icon{font-size:48px;margin-bottom:12px}
-    .success-wrap h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:7px}
-    .success-wrap p{font-size:13px;color:var(--text-mid);line-height:1.7}
-    .success-wrap a{color:var(--gold);font-weight:600}
-    footer{background:var(--navy);color:rgba(255,255,255,.4);padding:22px 40px;display:flex;justify-content:space-between;align-items:center;font-size:11px;flex-wrap:wrap;gap:10px}
-    .footer-logo{font-family:'Playfair Display',serif;font-size:15px;color:white;font-weight:700}
-    .footer-logo span{color:var(--gold)}
-    footer a{color:rgba(255,255,255,.4);text-decoration:none}
-
-    /* ══ MOBILE ══ */
-    .mobile-headline{display:none}
-    @media(max-width:768px){
-      html{height:auto}
-      body{min-height:0;height:auto}
-      nav{display:none}
-      .page-wrap{display:block}
-      .left-col{display:none}
-      .right-col{box-shadow:none;min-height:auto;display:flex;flex-direction:column}
-      .form-inner{flex:none;display:flex;flex-direction:column}
-      .calc-stage.active{flex:none;display:flex;flex-direction:column;justify-content:flex-start}
-      .calc-stage.active .stage-body{flex:none}
-      .stage-header{display:none}
-      .progress-wrap{padding:20px 24px 0}
-      .mobile-headline{display:block;background:var(--navy);padding:40px 24px 30px;border-bottom:4px solid var(--gold)}
-      .mobile-headline h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--white);line-height:1.2;margin-bottom:8px}
-      .mobile-headline h1 em{font-style:normal;color:var(--gold-light)}
-      .mobile-headline p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
-      .stage-body{padding:28px 24px 24px}
-      .form-group{margin-bottom:22px}
-      .form-group label{font-size:11px;margin-bottom:8px}
-      .form-group input{font-size:16px;padding:16px 14px;border-radius:12px}
-      .service-grid{gap:12px;margin-bottom:22px}
-      .svc-btn{padding:20px 10px;font-size:13px;border-radius:12px}
-      .svc-icon{font-size:28px;margin-bottom:8px}
-      .calc-btn{padding:18px;font-size:17px;border-radius:12px}
-      .unlock-box{padding:20px;margin-bottom:20px;border-radius:12px}
-      .unlock-label{font-size:12px;margin-bottom:14px}
-  
-    .call-divider{display:flex;align-items:center;gap:10px;padding:0;margin:4px 0}
-    .call-divider::before,.call-divider::after{content:'';flex:1;height:1px;background:var(--cream-dark)}
-    .call-divider span{font-size:11px;color:var(--text-light);white-space:nowrap}
-    .call-direct-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 0;padding:15px;background:var(--navy);color:white;border-radius:12px;text-decoration:none;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;transition:background .2s}
-    .call-direct-btn:hover{background:var(--navy-mid,#162a3d)}
-    .call-icon{font-size:16px}
-    .privacy-note{font-size:12px;margin-top:12px}
-      .trust-row{padding:20px 24px;gap:14px;margin-top:0}
-      .trust-item{font-size:12px}
-      .results-header{padding:28px 24px}
-      .price-reveal{padding:28px 24px 22px}
-      .price-range{font-size:40px}
-      .price-sub{font-size:13px}
-      .breakdown-grid{padding:14px 20px;gap:0}
-      .breakdown-val{font-size:18px}
-      .factors{padding:20px 24px}
-      .factors h3{font-size:13px;margin-bottom:14px}
-      .factor p{font-size:13px}
-      .next-step-box{padding:24px 24px}
-      .next-step-box h3{font-size:19px}
-      .next-step-btn{padding:18px;font-size:16px;border-radius:12px}
-      .disclaimer{padding:16px 24px}
-      #stage3.active{background:#f5f0e8;min-height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0}
-      .loading-wrap{text-align:center;padding:0 24px}
-      .success-wrap{padding:48px 24px}
-      .success-wrap h3{font-size:22px}
-      .results-cta{border-top:4px solid #c8922a;border-left:4px solid #c8922a;box-shadow:0 4px 24px rgba(200,146,42,.2);background:rgba(200,146,42,.05);border-radius:12px;padding:28px 24px;margin:16px 0}
-      .results-cta-headline{font-size:22px!important;color:#0f1f2e!important;font-weight:900!important}
-      .cta-urgency{font-size:12px;color:#c8922a;margin-top:12px;margin-bottom:4px;text-align:center}
-      .results-cta-btn{padding:18px!important;font-size:17px!important;box-shadow:0 4px 20px rgba(200,146,42,.4)}
-      footer{padding:20px 24px;flex-direction:column;text-align:center;gap:8px}
-    }
-
-    /* ══ DESKTOP centered card ══ */
-    @media(min-width:769px){
-      /* ── Hero: repurpose .mobile-headline as full-width navy hero ── */
-      .mobile-headline{display:block;background:var(--navy);padding:64px 40px 0;text-align:center;position:relative;overflow:hidden;border-bottom:4px solid var(--gold)}
-      .mobile-headline::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:700px;height:420px;background:radial-gradient(circle,rgba(200,146,42,.10) 0%,transparent 70%);pointer-events:none}
-      .mobile-headline h1{font-family:'Playfair Display',serif;font-size:clamp(30px,3.4vw,46px);font-weight:900;color:var(--white);line-height:1.13;margin-bottom:16px;max-width:640px;margin-left:auto;margin-right:auto}
-      .mobile-headline h1 em{font-style:normal;color:var(--gold-light)}
-      .mobile-headline p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;max-width:480px;margin:0 auto;padding-bottom:60px}
-
-      /* ── Page layout — single centered column ── */
-      .page-wrap{display:block;background:var(--cream);padding:52px 24px 80px}
-      .left-col{display:none}
-
-      /* ── Form card — centered, elevated ── */
-      .right-col{max-width:600px;margin:0 auto;box-shadow:0 8px 40px rgba(15,31,46,.12);border-radius:16px;overflow:hidden;position:static;height:auto}
-      .form-inner{overflow:visible}
-
-      /* ── Stage header ── */
-      .stage-header{padding:30px 36px;border-bottom:3px solid var(--gold)}
-      .stage-header h2{font-size:21px;margin-bottom:4px}
-
-      /* ── Progress ── */
-      .progress-wrap{padding:26px 36px 0}
-
-      /* ── Stage body — generous internal padding ── */
-      .stage-body{padding:32px 36px 28px}
-      .form-group{margin-bottom:20px}
-      .form-group label{font-size:11px;margin-bottom:8px}
-      .form-group input{font-size:15px;padding:15px 16px;border-radius:12px}
-
-      /* ── Service grid — 2×2 with breathing room ── */
-      .service-grid{gap:12px;margin-bottom:20px}
-      .svc-btn{padding:20px 12px;font-size:13px;border-radius:12px}
-      .svc-icon{font-size:26px;margin-bottom:7px}
-
-      /* ── Unlock box ── */
-      .unlock-box{padding:22px;margin-bottom:20px;border-radius:12px}
-      .unlock-label{font-size:12px;margin-bottom:14px}
-
-      /* ── Buttons ── */
-      .calc-btn{padding:17px;font-size:16px;border-radius:12px}
-      .call-divider{padding:0 36px;margin:8px 0}
-      .call-direct-btn{margin:0 36px 26px;padding:16px;border-radius:12px;font-size:15px}
-      .privacy-note{font-size:12px;margin-top:12px}
-
-      /* ── Trust row ── */
-      .trust-row{padding:18px 36px;gap:16px}
-      .trust-item{font-size:12px}
-
-      /* ── Results — clean centered ── */
-      .results-header{padding:28px 36px}
-      .results-header h2{font-size:20px}
-      .price-reveal{padding:36px 36px 28px;text-align:center}
-      .price-label{font-size:11px;margin-bottom:12px}
-      .price-range{font-size:clamp(40px,6vw,56px)}
-      .price-sub{font-size:13px}
-      .breakdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:24px 36px}
-      .breakdown-item{padding:16px 12px}
-      .breakdown-val{font-size:18px}
-      .breakdown-lbl{font-size:11px}
-      .factors{padding:24px 36px}
-      .factors h3{font-size:13px;margin-bottom:14px}
-      .factor p{font-size:13px}
-      .next-step-box{padding:30px 36px}
-      .next-step-box h3{font-size:20px;margin-bottom:8px}
-      .next-step-box p{font-size:13px}
-      .next-step-btn{padding:17px;font-size:16px;border-radius:12px;margin-top:12px}
-      .disclaimer{padding:16px 36px}
-
-      /* ── Loading & success ── */
-      .loading-wrap{padding:68px 36px}
-      .success-wrap{padding:54px 36px}
-      .success-wrap h3{font-size:22px}
-
-      /* ── Footer ── */
-      footer{padding:24px 40px}
-    }
-  </style>
-<script>
-var SUPABASE_URL='https://qrnxzlsyprpbfcmebpdq.supabase.co';
-var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFybnh6bHN5cHJwYmZjbWVicGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NzI5MjYsImV4cCI6MjA5MjA0ODkyNn0.A1Q8Dj3tg4WHMoo3CUQ1w2g_ghtzUqdBKizKLGBkgZg';
-function insertLeadToSupabase(d){fetch(SUPABASE_URL+'/rest/v1/leads',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)console.error('Supabase:',r.status);else console.log('Lead saved to CRM');}).catch(function(e){console.error('Supabase error:',e);});}
-</script>
-</head>
-<body>
-
-<nav>
-  <a href="/" class="logo">Columbus<span>Roofing</span>Estimates</a>
-  <a href="tel:6149572204" class="nav-phone"><div class="phone-dot"></div>(614) 957-2204</a>
-</nav>
-
-<div class="mobile-headline">
-  <h1>Columbus — Don't Overpay for Your Roof.</h1>
-  <p>See what your roof should actually cost before anyone gives you a quote.</p>
-</div>
-
-<div class="page-wrap">
-
-  <!-- LEFT COLUMN — desktop only -->
-  <div class="left-col">
-    <div class="left-badge">Columbus, Ohio — 2026 Market Rates</div>
-    <h2>How Much Should Your <em>Roof Actually Cost?</em></h2>
-    <p>Columbus homeowners overpay every year. Find out exactly what a licensed Franklin County contractor should charge — before you get a single quote.</p>
-    <div class="left-points">
-      <div class="left-point">
-        <div class="lp-icon">📍</div>
-        <div class="lp-text">
-          <h4>Columbus-specific pricing</h4>
-          <p>Based on real Franklin County labor and material rates for 2026</p>
-        </div>
-      </div>
-      <div class="left-point">
-        <div class="lp-icon">⚡</div>
-        <div class="lp-text">
-          <h4>Instant estimate</h4>
-          <p>See your personalized price range in under 60 seconds</p>
-        </div>
-      </div>
-      <div class="left-point">
-        <div class="lp-icon">🔒</div>
-        <div class="lp-text">
-          <h4>Free, no obligation</h4>
-          <p>Your info is private. No spam, no pressure, ever.</p>
-        </div>
-      </div>
-      <div class="left-point">
-        <div class="lp-icon">🛡️</div>
-        <div class="lp-text">
-          <h4>Licensed contractors only</h4>
-          <p>Every contractor in our network is licensed and insured in Ohio</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RIGHT COLUMN — form (always visible, full screen on mobile) -->
-  <div class="right-col">
-    <div class="form-inner">
-
-      <!-- Stage 1: Address + service -->
-      <div class="calc-stage active" id="stage1">
-        <div class="stage-header">
-          <h2>See what your roof should actually cost</h2>
-          <p>Real 2026 Columbus rates — know the fair price before anyone quotes you</p>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-steps">
-            <div class="progress-step active"><div class="step-circle">1</div><span>Your Address</span></div>
-            <div class="step-line"></div>
-            <div class="progress-step"><div class="step-circle">2</div><span>Your Estimate</span></div>
-          </div>
-        </div>
-        <div class="stage-body">
-          <div class="form-group">
-            <label>Your Columbus Area Address</label>
-            <input type="text" id="address-input" placeholder="123 Main St, Columbus, OH" autocomplete="street-address">
-          </div>
-          <button class="calc-btn" id="next1-btn" onclick="goToStep2()">Show Me The Fair Price →</button>
-          <div class="call-divider" style="margin-top:16px">
-            <span>or call directly</span>
-          </div>
-          <a href="tel:6149572204" class="call-direct-btn">
-            <span class="call-icon">📞</span> Call Us — We're On Your Side
-          </a>
-        </div>
-        <div class="trust-row">
-          <div class="trust-item"><span class="trust-check">✓</span> Real Columbus rates</div>
-          <div class="trust-item"><span class="trust-check">✓</span> Free & instant</div>
-          <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
-        </div>
-      </div>
-
-      <!-- Stage 2: Contact info to unlock -->
-      <div class="calc-stage" id="stage2">
-        <div class="stage-header">
-          <h2>Almost there — unlock your price</h2>
-          <p>Step 2 of 2 — enter your details to see your estimate</p>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-steps">
-            <div class="progress-step done"><div class="step-circle">✓</div><span>Your Address</span></div>
-            <div class="step-line done"></div>
-            <div class="progress-step active"><div class="step-circle">2</div><span>Your Estimate</span></div>
-          </div>
-        </div>
-        <div class="stage-body">
-          <div class="unlock-box">
-            <div class="unlock-label"><span>🔒</span> Your estimate is ready — unlock it below</div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0">
-                <label>First Name</label>
-                <input type="text" placeholder="John" autocomplete="given-name">
-              </div>
-              <div class="form-group" style="margin-bottom:0">
-                <label>Phone Number</label>
-                <input type="tel" placeholder="(614) 957-2204" autocomplete="tel">
-              </div>
-            </div>
-          </div>
-          <button class="calc-btn" onclick="submitAndReveal()">Show Me My Estimate 🔓</button>
-          <p class="privacy-note">Your info is private. We only share it with vetted contractors who charge fair prices. No spam ever.</p>
-        </div>
-        <div class="trust-row">
-          <div class="trust-item"><span class="trust-check">✓</span> We never sell your info</div>
-          <div class="trust-item"><span class="trust-check">✓</span> Licensed contractors only</div>
-          <div class="trust-item"><span class="trust-check">✓</span> No obligation</div>
-        </div>
-      </div>
-
-      <!-- Stage 3: Loading -->
-      <div class="calc-stage" id="stage3">
-        <div class="loading-wrap">
-          <div class="loader"></div>
-          <h3>Looking up fair market rates for Columbus...</h3>
-          <p>Checking real 2026 Franklin County labor costs and material prices so you know exactly what's fair</p>
-        </div>
-      </div>
-
-      <!-- Stage 4: Results -->
-      <div class="calc-stage" id="stage4">
-        <div class="results-header">
-          <div class="address-display" id="result-address"></div>
-          <h2 id="result-title">Here's the fair price for your Columbus roof</h2>
-          <div class="service-badge">Columbus, OH — 2026 Rates</div>
-        </div>
-        <div class="price-reveal">
-          <div class="price-label">What Your Roof Should Actually Cost</div>
-          <div class="price-range" id="price-range"></div>
-          <div class="price-sub" id="price-sub"></div>
-        </div>
-        <div class="stage-body results-cta">
-          <h3 class="results-cta-headline" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px">Want a free exact quote from a trusted contractor?</h3>
-          <p style="font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:18px">We only connect you with licensed, insured Columbus contractors who charge fair prices. They will call you within 1 hour — no pressure, no inflated quotes, no surprises.</p>
-          <div class="form-row">
-            <div class="form-group" style="margin-bottom:0">
-              <label>First Name</label>
-              <input type="text" id="lead-name" placeholder="John" autocomplete="given-name">
-            </div>
-            <div class="form-group" style="margin-bottom:0">
-              <label>Phone Number</label>
-              <input type="tel" id="lead-phone" placeholder="(614) 957-2204" autocomplete="tel">
-            </div>
-          </div>
-          <p class="cta-urgency">⚡ response within 1 hour</p>
-          <button class="calc-btn results-cta-btn" onclick="submitAndReveal()" style="margin-top:14px">Connect Me With a Trusted Contractor →</button>
-          <p class="privacy-note">Your info is private. We only share it with vetted contractors who charge fair prices. No spam ever.</p>
-        </div>
-        <div class="breakdown-grid">
-          <div class="breakdown-item"><div class="breakdown-val" id="b-labor"></div><div class="breakdown-lbl">Labor per sq ft</div></div>
-          <div class="breakdown-item"><div class="breakdown-val" id="b-material"></div><div class="breakdown-lbl">Materials per sq ft</div></div>
-          <div class="breakdown-item"><div class="breakdown-val" id="b-time"></div><div class="breakdown-lbl">Install time</div></div>
-        </div>
-        <div style="height:1px;background:var(--gold)"></div>
-        <div class="factors">
-          <h3>Why some Columbus homeowners overpay</h3>
-          <div id="factor-list"></div>
-        </div>
-        <div class="disclaimer">Estimates based on average Columbus market rates for 2026. Actual costs vary based on roof pitch, access, damage, and materials.</div>
-      </div>
-
-      <!-- Stage 5: Success -->
-      <div class="calc-stage" id="stage5">
-        <div class="success-wrap">
-          <div class="success-icon">✅</div>
-          <h3>You're all set, <span id="success-name"></span>!</h3>
-          <p>A trusted, licensed Columbus roofing contractor will call you within 1 hour. We have verified they are licensed, insured, and committed to fair pricing. No pressure, no inflated quotes.</p>
-          <p style="margin-top:14px;">In the meantime, <a href="/">visit our homepage</a> to learn more.</p>
-        </div>
-        <div class="trust-row">
-          <div class="trust-item"><span class="trust-check">✓</span> We verify every contractor</div>
-          <div class="trust-item"><span class="trust-check">✓</span> Real 2026 Columbus rates</div>
-          <div class="trust-item"><span class="trust-check">✓</span> Fair pricing guaranteed</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-logo">Columbus<span>Roofing</span>Estimates</div>
-  <div>Helping Franklin County homeowners pay fair prices — always free.</div>
-  <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="tel:6149572204">(614) 957-2204</a></div>
-</footer>
-
-<script>
-function isValidPhone(val) {
-  var digits = val.replace(/\D/g,'');
-  if(digits.length !== 10) return false;
-  if(digits[0] === '0' || digits[0] === '1') return false;
-  if(/^(\d)\1{9}$/.test(digits)) return false;
-  return true;
+/* ────────────── TOKENS ────────────── */
+:root{
+  --bg:           #F5F2EC;
+  --bg-card:      #FFFFFF;
+  --bg-subtle:    #ECE8DF;
+  --bg-deep:      #1A1A1F;
+  --ink:          #1A1A1F;
+  --ink-2:        #5A5A66;
+  --ink-3:        #9A9AA6;
+  --line:         #E2DED4;
+  --line-soft:    #EFECE5;
+  /* Desaturated terracotta (was #FF6B00). Uses oklch for tonal control. */
+  --accent:       oklch(0.66 0.155 50);
+  --accent-deep:  oklch(0.58 0.16 48);
+  --accent-soft:  oklch(0.95 0.035 60);
+  --accent-line:  oklch(0.85 0.08 55);
+  --good:         oklch(0.55 0.13 155);
+  --good-soft:    oklch(0.95 0.04 155);
+  --warn:         oklch(0.62 0.17 40);
+  --error:        #C9332E;
+  --error-soft:   #FCEEEC;
+  --shadow-sm:    0 1px 2px rgba(20,20,30,.04), 0 1px 1px rgba(20,20,30,.04);
+  --shadow:       0 4px 16px rgba(20,20,30,.06), 0 1px 3px rgba(20,20,30,.05);
+  --shadow-lg:    0 12px 40px rgba(20,20,30,.10), 0 4px 12px rgba(20,20,30,.06);
+  --r-sm:         8px;
+  --r:            12px;
+  --r-lg:         18px;
+  --prog-h:       56px;
+  --bar-h:        82px;
 }
-var addr='',uname='',uphone='';
-function initAutocomplete() {
-  var input = document.getElementById('address-input');
-  if(!input) return;
-  var autocomplete = new google.maps.places.Autocomplete(input, {
+
+/* ────────────── RESET ────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+body.wizard-mode{overflow:hidden;height:100dvh;}
+input,select,button,textarea{font-family:inherit;}
+button{cursor:pointer;border:none;background:none;color:inherit;}
+a{color:inherit;}
+
+/* ────────────── TOP BAR (PROGRESS) ────────────── */
+#prog{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--prog-h);
+  background:rgba(245,242,236,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  z-index:400;
+  display:flex;align-items:center;
+  gap:14px;padding:0 18px;
+}
+#brand{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Fraunces',serif;
+  font-weight:600;font-size:15px;
+  color:var(--ink);
+  flex-shrink:0;
+}
+#brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+#back-btn{
+  display:flex;align-items:center;gap:4px;
+  font-size:13px;font-weight:500;
+  color:var(--ink-2);
+  padding:6px 10px;border-radius:8px;
+  transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+  opacity:0;pointer-events:none;
+  margin-left:auto;
+}
+#back-btn.visible{opacity:1;pointer-events:auto;}
+#back-btn:hover{background:var(--bg-subtle);color:var(--ink);}
+.prog-segs{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  display:flex;gap:6px;width:min(280px,40vw);
+}
+.prog-seg{
+  flex:1;height:3px;border-radius:2px;
+  background:var(--line);transition:background .35s;
+}
+.prog-seg.done{background:var(--accent);}
+.prog-seg.active{background:var(--accent);opacity:.45;}
+@media (max-width:560px){
+  .prog-segs{position:static;transform:none;flex:1;width:auto;margin:0 8px;}
+  #brand .label{display:none;}
+}
+
+/* ────────────── WIZARD STAGE ────────────── */
+#wizard{
+  position:fixed;
+  top:var(--prog-h);bottom:var(--bar-h);
+  left:0;right:0;
+  overflow:hidden;
+  background:var(--bg);
+}
+.step{
+  position:absolute;inset:0;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:36px 22px 28px;
+  display:flex;flex-direction:column;align-items:center;
+  transform:translateX(40px);opacity:0;
+  transition:transform .45s cubic-bezier(.22,.7,.18,1),opacity .35s ease;
+  pointer-events:none;
+  will-change:transform,opacity;
+}
+.step.active{transform:translateX(0);opacity:1;pointer-events:auto;}
+.step.exit-left{transform:translateX(-40px);opacity:0;pointer-events:none;}
+.step-inner{width:100%;max-width:620px;}
+.eyebrow{
+  font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:var(--ink-2);margin-bottom:10px;
+}
+.eyebrow .num{color:var(--accent);font-weight:700;}
+.step-heading{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(28px,5.6vw,40px);
+  line-height:1.08;letter-spacing:-.01em;
+  color:var(--ink);
+  margin-bottom:8px;
+  text-wrap:balance;
+}
+.step-heading em{font-style:italic;font-weight:500;color:var(--accent-deep);}
+.step-sub{
+  font-size:15px;color:var(--ink-2);
+  margin-bottom:28px;line-height:1.55;
+  text-wrap:pretty;max-width:54ch;
+}
+
+/* ────────────── BOTTOM BAR ────────────── */
+#bb{
+  position:fixed;bottom:0;left:0;right:0;
+  height:var(--bar-h);
+  background:var(--bg-card);
+  border-top:1px solid var(--line);
+  box-shadow:0 -4px 20px rgba(20,20,30,.05);
+  z-index:400;
+  display:flex;align-items:center;
+  padding:0 22px;gap:16px;
+}
+.bb-est{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.bb-lbl{
+  font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-3);
+}
+.bb-val{
+  font-family:'Fraunces',serif;
+  font-size:20px;font-weight:600;
+  color:var(--ink);line-height:1.1;
+  letter-spacing:-.01em;
+}
+.bb-val .dash{color:var(--ink-3);font-weight:400;margin:0 2px;}
+.bb-val.muted{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-2);}
+.bb-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:#fff;
+  font-size:14.5px;font-weight:600;
+  padding:14px 22px;border-radius:var(--r);
+  white-space:nowrap;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  flex-shrink:0;letter-spacing:-.005em;
+}
+.bb-btn:hover{background:var(--bg-deep);transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+.bb-btn:active{transform:translateY(0);}
+.bb-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;background:var(--ink-3);}
+.bb-btn.primary{background:var(--accent);}
+.bb-btn.primary:hover{background:var(--accent-deep);}
+.bb-btn .arrow{transition:transform .2s;}
+.bb-btn:hover .arrow{transform:translateX(3px);}
+#bb.submit-mode{padding:0 16px;}
+#bb.submit-mode .bb-est{display:none;}
+#bb.submit-mode .bb-btn{width:100%;justify-content:center;font-size:15.5px;padding:16px;}
+
+/* ────────────── STEP 1: ADDRESS PRIMARY ────────────── */
+.lead-card{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:28px 26px;
+  box-shadow:var(--shadow);
+}
+.addr-label{
+  font-size:13px;font-weight:600;
+  color:var(--ink-2);
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.addr-label .pin{color:var(--accent);}
+.addr-input{
+  width:100%;
+  background:var(--bg);
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  font-size:16px;font-weight:500;
+  padding:18px 18px;
+  outline:none;
+  transition:all .2s;
+  color:var(--ink);
+}
+.addr-input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(255,107,0,.08);}
+.addr-input::placeholder{color:var(--ink-3);font-weight:400;}
+.addr-helper{
+  font-size:12.5px;color:var(--ink-3);
+  margin-top:10px;line-height:1.5;
+  display:flex;align-items:center;gap:6px;
+}
+.addr-helper .lock{flex-shrink:0;}
+.addr-result{
+  margin-top:14px;
+  background:var(--accent-soft);
+  border:1px solid var(--accent-line);
+  border-radius:var(--r);
+  padding:14px 16px;
+  font-size:14px;color:var(--ink);
+  display:none;line-height:1.5;
+}
+.addr-result.show{display:block;animation:slideDown .35s ease;}
+.addr-result strong{font-family:'Fraunces',serif;font-weight:700;}
+
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+/* Fallback toggle */
+.fallback-toggle{
+  margin-top:22px;
+  text-align:center;
+  font-size:13.5px;color:var(--ink-2);
+}
+.fallback-toggle button{
+  font-weight:600;color:var(--ink);
+  border-bottom:1.5px solid var(--ink-2);
+  padding:0;font-size:inherit;
+  transition:all .2s;
+}
+.fallback-toggle button:hover{color:var(--accent);border-color:var(--accent);}
+
+/* Address shortcut label */
+/* Google Places autocomplete dropdown */
+.pac-container{
+  font-family:'Inter',system-ui,sans-serif;
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow-lg);
+  background:var(--bg-card);
+  margin-top:4px;
+  font-size:14px;
+  overflow:hidden;
+}
+.pac-item{
+  padding:10px 14px;
+  color:var(--ink);
+  cursor:pointer;
+  border-top:1px solid var(--line-soft);
+  line-height:1.4;
+}
+.pac-item:first-child{border-top:none;}
+.pac-item:hover,.pac-item-selected{background:var(--bg-subtle);}
+.pac-item-query{font-weight:600;color:var(--ink);font-size:14px;}
+.pac-matched{color:var(--accent);}
+.pac-icon,.pac-logo{display:none!important;}
+/* ──────────────────────────────────────── */
+.addr-shortcut-label{
+  font-size:13px;color:var(--ink-2);
+  margin-bottom:10px;line-height:1.5;
+}
+/* OR divider */
+.or-divider{
+  display:flex;align-items:center;
+  margin:16px 0;
+  color:var(--ink-3);font-size:11px;
+}
+.or-divider::before,.or-divider::after{
+  content:'';flex:1;height:1px;background:var(--line);
+}
+.or-divider span{padding:0 10px;background:var(--bg);white-space:nowrap;}
+/* Step 1 white cards */
+.s1-card{
+  background:var(--bg-card);
+  border-radius:var(--r-lg);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  padding:20px;
+}
+.q-block{margin-bottom:22px;}
+.q-block:last-child{margin-bottom:0;}
+.q-err{border-radius:var(--r);outline:2px solid var(--error);outline-offset:4px;}
+.q-label{
+  font-size:14px;font-weight:600;color:var(--ink);
+  margin-bottom:4px;
+}
+.q-help{
+  font-size:12.5px;color:var(--ink-2);
+  margin-bottom:12px;line-height:1.5;
+}
+.qp-row{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.qp{
+  flex:1;min-width:0;
+  padding:12px 10px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  font-size:13px;font-weight:600;
+  color:var(--ink);
+  transition:all .15s;
+  text-align:center;line-height:1.3;
+}
+.qp .qp-sub{
+  display:block;font-size:11px;font-weight:500;
+  color:var(--ink-3);margin-top:3px;
+}
+.qp:hover{border-color:var(--ink-2);}
+.qp.sel{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+  color:var(--accent-deep);
+}
+.qp.sel .qp-sub{color:var(--accent-deep);opacity:.85;}
+
+/* Pitch icons — simplified (rooflines only) */
+.pitch-row{display:flex;gap:8px;}
+.pitch-card{
+  flex:1;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  padding:14px 8px 10px;
+  text-align:center;
+  transition:all .15s;
+  color:var(--ink-2);
+  cursor:pointer;
+}
+.pitch-card:hover{border-color:var(--ink-2);}
+.pitch-card.sel{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+  color:var(--accent-deep);
+}
+.pitch-card svg{display:block;margin:0 auto 6px;}
+.pitch-name{font-size:13px;font-weight:600;color:var(--ink);}
+.pitch-card.sel .pitch-name{color:var(--accent-deep);}
+
+/* ────────────── STEP 2: SHINGLE ────────────── */
+.shingle-list{display:flex;flex-direction:column;gap:10px;}
+.sh-row{
+  display:grid;
+  grid-template-columns:64px 1fr auto;
+  gap:14px;align-items:center;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  padding:14px;
+  transition:all .15s;
+  cursor:pointer;
+  position:relative;
+}
+.sh-row:hover{border-color:var(--ink-2);}
+.sh-row.sel{
+  border-color:var(--accent);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(255,107,0,.06);
+}
+.sh-row.popular::before{
+  content:'MOST POPULAR';
+  position:absolute;
+  top:-9px;left:14px;
+  background:var(--accent);color:#fff;
+  font-size:9.5px;font-weight:700;
+  letter-spacing:.08em;
+  padding:3px 8px;border-radius:4px;
+}
+.sh-swatch{
+  width:64px;height:56px;
+  border-radius:8px;
+  flex-shrink:0;
+}
+.sh-info{min-width:0;}
+.sh-name{
+  font-family:'Fraunces',serif;
+  font-size:17px;font-weight:600;
+  color:var(--ink);line-height:1.2;
+}
+.sh-meta{
+  font-size:12.5px;color:var(--ink-2);
+  margin-top:3px;line-height:1.4;
+}
+.sh-price{
+  font-size:13px;font-weight:600;
+  color:var(--ink);
+  text-align:right;flex-shrink:0;
+  white-space:nowrap;
+}
+.sh-price .per{
+  display:block;font-size:11px;font-weight:500;
+  color:var(--ink-3);margin-top:1px;
+}
+.sh-row.sel .sh-price{color:var(--accent-deep);}
+
+/* Add-ons inline (folded into Step 2) */
+.addons-block{
+  margin-top:32px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+}
+.addons-title{
+  font-size:14.5px;font-weight:600;color:var(--ink);
+  margin-bottom:4px;
+}
+.addons-help{
+  font-size:12.5px;color:var(--ink-2);
+  margin-bottom:14px;line-height:1.5;
+}
+.addons-list{display:flex;flex-direction:column;gap:8px;}
+.ao{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:12px 14px;
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:12px;align-items:center;
+  transition:all .15s;
+}
+.ao.on{border-color:var(--accent-line);background:var(--accent-soft);}
+.ao-info{min-width:0;cursor:pointer;}
+.ao-name{font-size:13.5px;font-weight:600;color:var(--ink);}
+.ao-desc{font-size:11.5px;color:var(--ink-2);margin-top:1px;line-height:1.4;}
+.ao-cost{
+  font-size:12.5px;font-weight:600;
+  color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+}
+.ao.on .ao-cost{color:var(--accent-deep);}
+.toggle{
+  position:relative;width:36px;height:22px;flex-shrink:0;
+}
+.toggle input{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;z-index:2;}
+.toggle .track{
+  position:absolute;inset:0;
+  background:var(--line);
+  border-radius:11px;
+  transition:background .2s;
+}
+.toggle .track::after{
+  content:'';position:absolute;
+  top:2px;left:2px;
+  width:18px;height:18px;
+  background:#fff;border-radius:50%;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  transition:transform .2s;
+}
+.toggle input:checked + .track{background:var(--accent);}
+.toggle input:checked + .track::after{transform:translateX(14px);}
+
+/* ────────────── STEP 3: CONTACT GATE w/ BLURRED PREVIEW ────────────── */
+.preview-card{
+  background:linear-gradient(180deg,var(--bg-deep) 0%,#2A2A33 100%);
+  border-radius:var(--r-lg);
+  padding:24px 22px;
+  margin-bottom:22px;
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+}
+.preview-card::before{
+  content:'';position:absolute;
+  top:0;right:0;width:140px;height:140px;
+  background:radial-gradient(circle at top right,rgba(255,107,0,.25),transparent 70%);
+  pointer-events:none;
+}
+.preview-eyebrow{
+  font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.6);
+  margin-bottom:8px;
+}
+.preview-amount{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(34px,7vw,46px);
+  line-height:1;letter-spacing:-.02em;
+  color:#fff;
+  filter:blur(7px);
+  user-select:none;
+  display:inline-block;
+}
+.preview-amount .dash{opacity:.5;}
+.preview-arrow{
+  display:flex;align-items:center;gap:6px;
+  margin-top:14px;
+  font-size:12.5px;font-weight:500;
+  color:rgba(255,255,255,.7);
+}
+.preview-arrow svg{flex-shrink:0;}
+.preview-meta{
+  display:flex;flex-wrap:wrap;gap:14px;
+  margin-top:14px;padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.preview-meta-item{font-size:12px;color:rgba(255,255,255,.7);}
+.preview-meta-item strong{color:#fff;font-weight:600;display:block;font-size:13.5px;margin-top:1px;}
+
+/* Form */
+.lead-form{display:flex;flex-direction:column;gap:14px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:480px){.form-row-2{grid-template-columns:1fr;}}
+.fg{position:relative;}
+.fg input{
+  width:100%;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:var(--r);
+  font-size:15px;
+  padding:18px 14px 8px;
+  outline:none;
+  transition:border-color .2s;
+  color:var(--ink);
+}
+.fg input:focus{border-color:var(--accent);}
+.fg label{
+  position:absolute;
+  left:14px;top:14px;
+  font-size:14px;color:var(--ink-3);
+  pointer-events:none;
+  transition:all .15s;
+  background:transparent;
+}
+.fg input:focus + label,
+.fg input:not(:placeholder-shown) + label{
+  top:5px;
+  font-size:11px;
+  color:var(--ink-2);
+  font-weight:600;
+}
+.fg.optional label::after{
+  content:' (optional)';
+  font-weight:400;color:var(--ink-3);
+}
+.fg.err input{border-color:var(--error);background:var(--error-soft);}
+.fg .fe{
+  display:none;font-size:11.5px;color:var(--error);
+  padding-left:2px;margin-top:4px;
+}
+.fg.err .fe{display:block;}
+.fg .fh{
+  font-size:11.5px;color:var(--ink-3);
+  padding-left:2px;margin-top:4px;
+  line-height:1.4;
+}
+
+/* Trust signals beneath form */
+.gate-trust{
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;flex-wrap:wrap;
+  margin-top:20px;padding:14px;
+  background:var(--bg-subtle);
+  border-radius:var(--r);
+  font-size:12px;color:var(--ink-2);
+}
+.gate-trust-item{display:flex;align-items:center;gap:5px;}
+.gate-trust-item svg{flex-shrink:0;color:var(--good);}
+
+.err-banner{
+  display:none;
+  background:var(--error-soft);
+  border:1px solid #F2B5B0;
+  color:var(--error);
+  border-radius:var(--r);
+  padding:10px 14px;font-size:13px;
+  margin-bottom:14px;font-weight:500;
+}
+.err-banner.show{display:block;}
+
+/* ────────────── STEP 4: REVEAL ────────────── */
+#post{
+  display:none;
+  min-height:100vh;
+  background:var(--bg);
+  padding:60px 20px 40px;
+}
+#post.show{display:block;}
+.reveal-inner{max-width:680px;margin:0 auto;}
+
+.reveal-check{
+  width:60px;height:60px;border-radius:50%;
+  background:var(--good-soft);
+  border:1.5px solid var(--good);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;
+  color:var(--good);
+}
+.reveal-check svg{width:28px;height:28px;}
+
+.reveal-eyebrow{
+  text-align:center;
+  font-size:11.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:var(--ink-2);
+  margin-bottom:8px;
+}
+.reveal-headline{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(32px,5.6vw,42px);
+  line-height:1.1;letter-spacing:-.015em;
+  text-align:center;
+  margin-bottom:6px;
+}
+.reveal-sub{
+  text-align:center;
+  font-size:14.5px;color:var(--ink-2);
+  margin-bottom:32px;
+}
+
+.reveal-card{
+  background:linear-gradient(180deg,#fff 0%,#FBF8F2 100%);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:32px 28px;
+  box-shadow:var(--shadow-lg);
+  margin-bottom:24px;
+}
+.reveal-amount{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:clamp(40px,8vw,58px);
+  line-height:1;letter-spacing:-.025em;
+  color:var(--ink);
+  text-align:center;
+  margin-bottom:6px;
+  font-variant-numeric:tabular-nums;
+}
+.reveal-amount .dash{color:var(--ink-3);font-weight:400;margin:0 6px;}
+.reveal-context{
+  text-align:center;
+  font-size:12.5px;color:var(--ink-2);
+  margin-bottom:22px;
+}
+
+/* Hero CTA */
+.cta-primary{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;
+  background:var(--accent);color:#fff;
+  font-size:16px;font-weight:600;
+  padding:18px;
+  border-radius:var(--r);
+  transition:all .2s;
+  letter-spacing:-.005em;
+  box-shadow:0 4px 14px rgba(255,107,0,.25);
+}
+.cta-primary:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,107,0,.3);}
+.cta-secondary{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;
+  background:transparent;color:var(--ink-2);
+  font-size:13.5px;font-weight:500;
+  padding:12px;
+  margin-top:10px;
+  transition:color .2s;
+}
+.cta-secondary:hover{color:var(--ink);}
+.cta-secondary svg{transition:transform .2s;}
+.cta-secondary.open svg{transform:rotate(180deg);}
+
+/* Social proof */
+.social-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:1px;background:var(--line);
+  border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:24px;
+}
+.social-cell{
+  background:#fff;
+  padding:14px 12px;
+  text-align:center;
+}
+.social-num{
+  font-family:'Fraunces',serif;
+  font-weight:700;
+  font-size:22px;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.social-lbl{
+  font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-2);
+  margin-top:2px;
+}
+@media (max-width:480px){.social-num{font-size:18px;}}
+
+/* Urgency strip */
+.urgency{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:var(--r);
+  padding:12px 14px;
+  margin-bottom:24px;
+  font-size:13px;color:var(--ink);
+  line-height:1.45;
+}
+.urgency-icon{flex-shrink:0;color:var(--accent);}
+
+/* Breakdown collapsed */
+.breakdown{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:24px;
+  display:none;
+}
+.breakdown.open{display:block;}
+.bd-head{
+  display:grid;grid-template-columns:1fr 90px 90px;
+  gap:8px;padding:12px 16px;
+  background:var(--bg-subtle);
+  font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-2);
+}
+.bd-th:nth-child(2),.bd-th:nth-child(3){text-align:right;}
+.bd-row{
+  display:grid;grid-template-columns:1fr 90px 90px;
+  gap:8px;padding:13px 16px;
+  border-top:1px solid var(--line-soft);
+  font-size:13.5px;
+  font-variant-numeric:tabular-nums;
+}
+.bd-row .bd-item{color:var(--ink);}
+.bd-row .bd-lo,.bd-row .bd-hi{
+  text-align:right;color:var(--ink-2);font-weight:500;
+}
+.bd-row.tot{
+  font-weight:700;background:var(--bg-subtle);
+  border-top:2px solid var(--line);
+}
+.bd-row.tot .bd-lo,.bd-row.tot .bd-hi{color:var(--ink);}
+
+/* Trust footer */
+.trust-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:18px;flex-wrap:wrap;
+  font-size:12.5px;color:var(--ink-2);
+  margin-top:8px;
+}
+.trust-item{display:flex;align-items:center;gap:5px;}
+.trust-item svg{flex-shrink:0;color:var(--good);}
+
+.reveal-foot{
+  text-align:center;
+  font-size:11.5px;color:var(--ink-3);
+  margin-top:36px;padding-top:20px;
+  border-top:1px solid var(--line);
+}
+
+/* ────────────── LOADING SCREEN ────────────── */
+#loading{
+  position:fixed;inset:0;
+  background:var(--bg);
+  z-index:600;
+  display:none;align-items:center;justify-content:center;
+  padding:24px;
+}
+#loading.show{display:flex;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.ldr-inner{
+  max-width:380px;width:100%;
+  text-align:center;
+}
+.ldr-icon{
+  width:64px;height:64px;
+  border-radius:50%;
+  background:var(--accent-soft);
+  border:1.5px solid var(--accent-line);
+  margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);
+  position:relative;
+  overflow:hidden;
+}
+.ldr-icon svg{width:28px;height:28px;}
+.ldr-icon::after{
+  content:'';position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(255,107,0,.4) 50%,transparent 100%);
+  animation:scan 1.6s ease-in-out infinite;
+}
+@keyframes scan{
+  0%{transform:translateY(-100%);}
+  100%{transform:translateY(100%);}
+}
+.ldr-title{
+  font-family:'Fraunces',serif;
+  font-size:22px;font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;letter-spacing:-.005em;
+}
+.ldr-msg{
+  font-size:13.5px;color:var(--ink-2);
+  min-height:1.5em;line-height:1.5;
+  transition:opacity .25s;
+}
+.ldr-msg.fade{opacity:0;}
+.ldr-prog{
+  margin-top:20px;
+  height:3px;background:var(--line);
+  border-radius:2px;overflow:hidden;
+}
+.ldr-fill{
+  height:100%;width:0;
+  background:var(--accent);
+  border-radius:2px;
+  transition:width .1s linear;
+}
+
+/* Annotations bubble (call-out badges) */
+.annotate-tag{
+  position:fixed;
+  background:var(--ink);color:#fff;
+  font-size:11px;font-weight:600;
+  padding:5px 8px;border-radius:6px;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .3s;
+  z-index:500;
+  display:none;
+}
+
+</style>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV7dxIbtFLUu2WP474JacRCslmHzObOhY&libraries=places&callback=initPlaces"></script>
+</head>
+<body class="wizard-mode">
+
+<!-- ============= TOP BAR ============= -->
+<div id="prog">
+  <div id="brand">
+    <span class="dot"></span>
+    <span class="label">Columbus Roofing</span>
+  </div>
+  <div class="prog-segs">
+    <div class="prog-seg" id="ps1"></div>
+    <div class="prog-seg" id="ps2"></div>
+    <div class="prog-seg" id="ps3"></div>
+    <div class="prog-seg" id="ps4"></div>
+  </div>
+  <button id="back-btn" onclick="prevStep()">← Back</button>
+</div>
+
+<!-- ============= WIZARD ============= -->
+<div id="wizard">
+
+  <!-- STEP 1 — ADDRESS PRIMARY -->
+  <div class="step active" id="s1" data-screen-label="01 Roof Size">
+    <div class="step-inner">
+      <p class="eyebrow"><span class="num">STEP 1 OF 4</span></p>
+      <h2 class="step-heading">Tell us about <em>your home</em></h2>
+      <p class="step-sub">We'll calculate your roof size — no guesswork needed.</p>
+
+      <!-- Card A: Address Shortcut -->
+      <div class="s1-card">
+        <p class="addr-shortcut-label">Have your address handy? We can estimate automatically.</p>
+        <input type="text" id="addr" class="addr-input" placeholder="e.g. 123 Main St, Columbus, OH 43016" autocomplete="street-address">
+        <div class="addr-result" id="addrResult"></div>
+      </div>
+
+      <!-- Or divider -->
+      <div class="or-divider"><span>or calculate manually</span></div>
+
+      <!-- Card B: Manual Calculator — always visible -->
+      <div class="s1-card">
+        <div class="q-block">
+          <div class="q-label">How big is your home?</div>
+          <p class="q-help">Check your listing, tax records, or make your best estimate.</p>
+          <div class="qp-row">
+            <button class="qp" data-sqft="1000" onclick="pickSqft(this)">Small<span class="qp-sub">~1,000 sq ft</span></button>
+            <button class="qp" data-sqft="1800" onclick="pickSqft(this)">Average<span class="qp-sub">~1,800 sq ft</span></button>
+            <button class="qp" data-sqft="2800" onclick="pickSqft(this)">Large<span class="qp-sub">~2,800 sq ft</span></button>
+            <button class="qp" data-sqft="3500" onclick="pickSqft(this)">XL<span class="qp-sub">~3,500 sq ft</span></button>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:18px 0;">
+
+        <div class="q-block">
+          <div class="q-label">How many stories?</div>
+          <div class="qp-row">
+            <button class="qp" data-floors="1" onclick="pickFloors(this)">1 Story<span class="qp-sub">Ranch / bungalow</span></button>
+            <button class="qp" data-floors="2" onclick="pickFloors(this)">2 Stories<span class="qp-sub">Most common</span></button>
+            <button class="qp" data-floors="3+" onclick="pickFloors(this)">3+ Stories<span class="qp-sub">Large home</span></button>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:18px 0;">
+
+        <div class="q-block">
+          <div class="q-label">How steep is your roof?</div>
+          <p class="q-help">Look at your home from the street and pick the closest match.</p>
+          <div class="pitch-row">
+            <button class="pitch-card" data-pitch="low" onclick="pickPitch(this)">
+              <svg width="80" height="38" viewBox="0 0 80 38" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 30 L40 18 L72 30"/>
+                <line x1="4" y1="34" x2="76" y2="34" opacity=".25"/>
+              </svg>
+              <div class="pitch-name">Low / Flat</div>
+            </button>
+            <button class="pitch-card" data-pitch="moderate" onclick="pickPitch(this)">
+              <svg width="80" height="38" viewBox="0 0 80 38" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 32 L40 8 L72 32"/>
+                <line x1="4" y1="34" x2="76" y2="34" opacity=".25"/>
+              </svg>
+              <div class="pitch-name">Moderate</div>
+            </button>
+            <button class="pitch-card" data-pitch="steep" onclick="pickPitch(this)">
+              <svg width="80" height="38" viewBox="0 0 80 38" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 34 L40 2 L66 34"/>
+                <line x1="4" y1="34" x2="76" y2="34" opacity=".25"/>
+              </svg>
+              <div class="pitch-name">Steep</div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="err-banner" id="err-s1"></div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — SHINGLE + ADDONS COMBINED -->
+  <div class="step" id="s2" data-screen-label="02 Material">
+    <div class="step-inner">
+      <p class="eyebrow"><span class="num">Step 2</span> · Material</p>
+      <h2 class="step-heading">What kind of <em>shingles</em> are you considering?</h2>
+      <p class="step-sub">Not sure yet? Architectural is what 8 in 10 Columbus homeowners pick.</p>
+      <div class="err-banner" id="err-s2">Please select a shingle type to continue.</div>
+      <div class="shingle-list" id="shingleGrid"></div>
+
+      <div class="addons-block">
+        <div class="addons-title">Anything else? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+        <p class="addons-help">Toggle on anything that applies to your project.</p>
+        <div class="addons-list" id="addonsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 — CONTACT GATE w/ BLURRED PREVIEW -->
+  <div class="step" id="s3" data-screen-label="03 Contact Gate">
+    <div class="step-inner">
+      <p class="eyebrow"><span class="num">Step 3</span> · Almost there</p>
+      <h2 class="step-heading">Your estimate is <em>ready</em>.</h2>
+      <p class="step-sub">Columbus homeowners use us to find the right roofer. No sales calls, no runaround, just one good contractor.</p>
+
+      <!-- Blurred preview -->
+      <div class="preview-card">
+        <div class="preview-eyebrow">Your estimate range</div>
+        <div class="preview-amount" id="preview-amount">$00,000<span class="dash">–</span>$00,000</div>
+        <div class="preview-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><polyline points="19 12 12 19 5 12"/></svg>
+          Unlocks below ↓
+        </div>
+        <div class="preview-meta">
+          <div class="preview-meta-item">Roof size<strong id="prev-sqft">— sq ft</strong></div>
+          <div class="preview-meta-item">Material<strong id="prev-mat">—</strong></div>
+          <div class="preview-meta-item">Area<strong id="prev-area">Columbus</strong></div>
+        </div>
+      </div>
+
+      <div class="err-banner" id="err-s3">Please correct the highlighted fields.</div>
+
+      <form class="lead-form" id="leadForm" onsubmit="return false;" novalidate>
+        <div class="form-row-2">
+          <div class="fg" id="fg-name">
+            <input type="text" id="iName" placeholder=" " autocomplete="name">
+            <label for="iName">Full Name</label>
+            <span class="fe">Required</span>
+          </div>
+          <div class="fg" id="fg-phone">
+            <input type="tel" id="iPhone" placeholder=" " autocomplete="tel">
+            <label for="iPhone">Phone Number</label>
+            <span class="fe">Enter a valid 10-digit phone number</span>
+            <p class="fh">So we can call you to go over your estimate.</p>
+          </div>
+        </div>
+        <div class="fg optional" id="fg-email">
+          <input type="email" id="iEmail" placeholder=" " autocomplete="email">
+          <label for="iEmail">Email Address</label>
+          <span class="fe">Enter a valid email</span>
+        </div>
+
+      </form>
+
+      <div style="display:flex;align-items:flex-start;gap:10px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:var(--r-sm);padding:14px 16px;margin-top:20px;margin-bottom:16px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;color:var(--accent)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>
+          <div style="font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;">You're in control.</div>
+          <div style="font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-2);line-height:1.5;">We'll give you a quick call to go over your estimate. We only connect you with a local Columbus contractor if you want us to — no pressure, no spam calls.</div>
+        </div>
+      </div>
+
+      <div class="gate-trust">
+        <div class="gate-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          No obligation
+        </div>
+        <div class="gate-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          One contractor, your choice
+        </div>
+        <div class="gate-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          24-hour response
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wizard -->
+
+<!-- ============= LOADING ============= -->
+<div id="loading">
+  <div class="ldr-inner">
+    <div class="ldr-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 7 13 12 18 7 21 10"/><path d="M3 12v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9"/></svg>
+    </div>
+    <div class="ldr-title">Calculating your estimate…</div>
+    <div class="ldr-msg" id="ldr-msg">Pulling Columbus material rates…</div>
+    <div class="ldr-prog"><div class="ldr-fill" id="ldr-fill"></div></div>
+  </div>
+</div>
+
+<!-- ============= BOTTOM BAR ============= -->
+<div id="bb">
+  <div class="bb-est">
+    <div class="bb-lbl" id="bb-lbl">Live Estimate</div>
+    <div class="bb-val muted" id="bb-val">Enter your address to begin</div>
+  </div>
+  <button class="bb-btn primary" id="bb-next" onclick="handleNext()" disabled>
+    Next <span class="arrow">→</span>
+  </button>
+</div>
+
+<!-- ============= POST-SUBMIT REVEAL ============= -->
+<div id="post" data-screen-label="04 Reveal">
+  <div class="reveal-inner">
+    <div class="reveal-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <p class="reveal-eyebrow">Your Estimate</p>
+    <h1 class="reveal-headline">Here's what your roof should cost</h1>
+    <p class="reveal-sub" id="reveal-sub">Based on local Columbus market rates.</p>
+
+    <!-- Hero card -->
+    <div class="reveal-card">
+      <div class="reveal-amount">
+        $<span id="r-low">0</span><span class="dash">–</span>$<span id="r-high">0</span>
+      </div>
+      <p class="reveal-context" id="r-context">Estimate · prices vary by contractor</p>
+
+      <button class="cta-primary" onclick="bookQuote()">
+        Book my free in-person quote
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <button class="cta-secondary" id="bd-toggle" onclick="toggleBreakdown(this)">
+        See how we calculated this
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <!-- Social proof row -->
+    <div class="social-row">
+      <div class="social-cell"><div class="social-num">247</div><div class="social-lbl">Estimates this month</div></div>
+      <div class="social-cell"><div class="social-num">4.9★</div><div class="social-lbl">Avg contractor rating</div></div>
+      <div class="social-cell"><div class="social-num">24h</div><div class="social-lbl">Response time</div></div>
+    </div>
+
+    <!-- Urgency strip -->
+    <div class="urgency">
+      <svg class="urgency-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div>Roofing material costs typically rise <strong>6–8%</strong> in spring. Booking now locks in current pricing.</div>
+    </div>
+
+    <!-- Collapsed breakdown -->
+    <div class="breakdown" id="breakdown">
+      <div class="bd-head">
+        <div class="bd-th">Item</div>
+        <div class="bd-th">Low</div>
+        <div class="bd-th">High</div>
+      </div>
+      <div id="bd-rows"></div>
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Columbus local
+      </div>
+      <div class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Licensed & insured
+      </div>
+      <div class="trust-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        No obligation
+      </div>
+    </div>
+
+    <p class="reveal-foot">© 2026 ColumbusRoofingEstimates.com · Serving Central Ohio Homeowners</p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA — same as the original so estimates stay realistic
+   ============================================================ */
+const ZIP_DB = {
+  "43016":{sqft:2900,nbh:"Dublin West"},"43017":{sqft:2800,nbh:"Dublin East"},
+  "43065":{sqft:3000,nbh:"Powell"},"43054":{sqft:3100,nbh:"New Albany"},
+  "43035":{sqft:2600,nbh:"Lewis Center"},"43082":{sqft:2500,nbh:"Westerville North"},
+  "43220":{sqft:2700,nbh:"Upper Arlington"},"43221":{sqft:2600,nbh:"Upper Arlington East"},
+  "43081":{sqft:2100,nbh:"Westerville"},"43085":{sqft:2200,nbh:"Worthington"},
+  "43235":{sqft:2000,nbh:"Northwest Columbus"},"43230":{sqft:2000,nbh:"Gahanna"},
+  "43068":{sqft:1950,nbh:"Reynoldsburg"},"43026":{sqft:2100,nbh:"Hilliard"},
+  "43123":{sqft:1900,nbh:"Grove City"},"43119":{sqft:1900,nbh:"Galloway"},
+  "43209":{sqft:2200,nbh:"Bexley"},"43214":{sqft:2000,nbh:"Clintonville"},
+  "43213":{sqft:1700,nbh:"East Columbus"},"43219":{sqft:1600,nbh:"Northeast Columbus"},
+  "43229":{sqft:1600,nbh:"Northland"},"43231":{sqft:1650,nbh:"Northeast Columbus"},
+  "43232":{sqft:1600,nbh:"Southeast Columbus"},"43228":{sqft:1700,nbh:"West Columbus"},
+  "43204":{sqft:1550,nbh:"Westgate"},"43212":{sqft:1800,nbh:"Grandview Heights"},
+  "43202":{sqft:1750,nbh:"Clintonville"},"43201":{sqft:1250,nbh:"Short North"},
+  "43203":{sqft:1200,nbh:"Near East Side"},"43205":{sqft:1300,nbh:"Olde Towne East"},
+  "43206":{sqft:1400,nbh:"German Village"},"43207":{sqft:1200,nbh:"South Side"},
+  "43211":{sqft:1150,nbh:"North Linden"},"43222":{sqft:1200,nbh:"Hilltop"},
+  "43223":{sqft:1200,nbh:"Franklinton"},"43224":{sqft:1200,nbh:"North Linden"},
+  "43227":{sqft:1300,nbh:"Whitehall"},
+};
+
+const SHINGLES = [
+  {id:'three-tab',     name:'3-Tab Asphalt',         desc:'15–20 yr lifespan · Budget-friendly',     price:'$80–100',swatch:'background-color:#9096A0;background-image:repeating-linear-gradient(0deg,transparent,transparent 8px,rgba(0,0,0,.12) 8px,rgba(0,0,0,.12) 9px);'},
+  {id:'architectural', name:'Architectural Asphalt', desc:'25–30 yr lifespan · Most popular',         price:'$100–150',swatch:'background-color:#484E58;background-image:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(0,0,0,.18) 6px,rgba(0,0,0,.18) 7px);',popular:true},
+  {id:'impact',        name:'Impact-Resistant',      desc:'30+ yr · Class 4 hail rated',              price:'$150–200',swatch:'background-color:#3A4452;background-image:repeating-linear-gradient(0deg,transparent,transparent 7px,rgba(0,0,0,.2) 7px,rgba(0,0,0,.2) 8px);'},
+  {id:'metal-panel',   name:'Steel Metal Panels',    desc:'40–70 yr lifespan · Energy efficient',     price:'$250–350',swatch:'background-color:#5A6068;background-image:repeating-linear-gradient(90deg,transparent,transparent 14px,rgba(0,0,0,.22) 14px,rgba(0,0,0,.22) 15px);'},
+  {id:'standing-seam', name:'Standing Seam Metal',   desc:'50+ yr lifespan · Premium architectural',  price:'$400–600',swatch:'background-color:#5C4F3D;background-image:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(0,0,0,.28) 20px,rgba(0,0,0,.28) 22px);'},
+  {id:'cedar-shake',   name:'Cedar Shake',           desc:'20–30 yr lifespan · Natural wood look',    price:'$350–500',swatch:'background-color:#8C6444;background-image:repeating-linear-gradient(160deg,transparent,transparent 5px,rgba(0,0,0,.14) 5px,rgba(0,0,0,.14) 6px);'},
+];
+
+const ADDONS = [
+  {id:'remove',       name:'Tear-off existing roof',     desc:'Remove and haul away current shingles',    type:'per-sq',amount:50, label:'+$50/sq'},
+  {id:'underlayment', name:'Ice & water shield',         desc:'Extra moisture barrier',                    type:'per-sq',amount:30, label:'+$30/sq'},
+  {id:'ridgecap',     name:'Premium ridge cap',          desc:'Better ventilation, longer life',           type:'flat',  amount:200,label:'+$200'},
+  {id:'gutters',      name:'New gutters & downspouts',   desc:'Full gutter replacement (~150 lin ft)',     type:'flat',  amount:1200,label:'+$1,200'},
+  {id:'chimney',      name:'Chimney flashing',           desc:'Reseal and reflash chimney',                type:'flat',  amount:300,label:'+$300'},
+  {id:'skylight',     name:'Skylight reflashing',        desc:'Re-flash existing skylights',               type:'flat',  amount:250,label:'+$250'},
+];
+
+const SHINGLE_PRICES = {
+  'three-tab':{lo:400,hi:525},'architectural':{lo:525,hi:700},
+  'impact':{lo:650,hi:850},'metal-panel':{lo:900,hi:1400},
+  'standing-seam':{lo:1500,hi:2300},'cedar-shake':{lo:1100,hi:1600},
+};
+const LABOR_LO=180, LABOR_HI=320;
+const FLOOR_MULT={'1':1.00,'2':0.60,'3+':0.45};
+const PITCH_MULT={'low':1.05,'moderate':1.20,'steep':1.40};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+  step:1,
+  // sizing
+  homeSqft:1800, floors:null, pitch:null,
+  sqft:0, neighborhood:'', formattedAddr:'',
+  // material
+  shingleId:'architectural',
+  // addons
+  addons:{},
+  // contact
+  name:'', phone:'', email:'',
+  // outcome
+  estLow:0, estHigh:0,
+  // gate live estimate until user has entered something
+  sized:false,
+  // manual path selection tracking
+  homeSizeSelected:false, floorsSelected:false, pitchSelected:false,
+  // address path
+  addressMatched:false,
+};
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  buildShingles();
+  buildAddons();
+  updateBar();
+  updateProgress();
+
+  // Phone: auto-format + clear error
+  document.getElementById('iPhone').addEventListener('input', function(){
+    const formatted = formatPhone(this.value);
+    this.value = formatted;
+    state.phone = formatted;
+    this.closest('.fg').classList.remove('err');
+  });
+
+  // Name / Email: clear errors
+  ['iName','iEmail'].forEach(id=>{
+    const el = document.getElementById(id);
+    el.addEventListener('input', ()=>{
+      el.parentElement.classList.remove('err');
+      state[id.slice(1).toLowerCase()] = el.value;
+    });
+  });
+
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && state.step!==3) handleNext();
+  });
+}
+
+/* ============================================================
+   STEP 1 — ADDRESS + MANUAL FALLBACK
+   ============================================================ */
+function calcRoofSqft(homeSqft, floors, pitch){
+  return Math.round(homeSqft * (FLOOR_MULT[floors]||1) * (PITCH_MULT[pitch]||1));
+}
+
+function isValidPhone(val){
+  const digits = val.replace(/\D/g, '');
+  return digits.length === 10 || (digits.length === 11 && digits[0] === '1');
+}
+
+function formatPhone(val){
+  const digits = val.replace(/\D/g, '').slice(0, 10);
+  if(digits.length <= 3) return digits;
+  if(digits.length <= 6) return `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+}
+
+function initPlaces(){
+  const input  = document.getElementById('addr');
+  const result = document.getElementById('addrResult');
+
+  const ac = new google.maps.places.Autocomplete(input, {
     types: ['address'],
     componentRestrictions: { country: 'us' },
-    bounds: new google.maps.LatLngBounds(
-      new google.maps.LatLng(39.6, -83.2),
-      new google.maps.LatLng(40.3, -82.6)
-    ),
-    strictBounds: false
+    fields: ['address_components', 'formatted_address'],
   });
-  autocomplete.addListener('place_changed', function() {
-    var place = autocomplete.getPlace();
-    if(place.formatted_address) {
-      document.getElementById('address-input').value = place.formatted_address;
-      addr = place.formatted_address;
+
+  // When user picks a suggestion from the dropdown
+  ac.addListener('place_changed', function(){
+    const place = ac.getPlace();
+    if(!place.address_components) return;
+
+    // Pull ZIP from address components
+    let zip = null;
+    for(const c of place.address_components){
+      if(c.types.includes('postal_code')){ zip = c.long_name; break; }
+    }
+
+    if(zip && ZIP_DB[zip]){
+      const data = ZIP_DB[zip];
+      state.sqft          = data.sqft;
+      state.homeSqft      = data.sqft;
+      state.neighborhood  = data.nbh;
+      state.formattedAddr = place.formatted_address;
+      state.sized         = true;
+      state.addressMatched= true;
+      result.innerHTML = `Based on homes in <strong>${data.nbh}, OH</strong> — estimated roof size <strong>${data.sqft.toLocaleString()} sq ft</strong>. We've pre-filled the calculator below.`;
+      result.classList.add('show');
+    } else {
+      state.sized          = false;
+      state.addressMatched = false;
+      state.sqft           = 0;
+      state.neighborhood   = '';
+      result.innerHTML = `We couldn't find that area in our database. Use the <strong>manual calculator below</strong> to enter your home size.`;
+      result.classList.add('show');
+    }
+    updateBar();
+  });
+
+  // If user edits the field after a match, clear the matched state
+  input.addEventListener('input', function(){
+    if(state.addressMatched){
+      state.sized          = false;
+      state.addressMatched = false;
+      state.sqft           = 0;
+      result.classList.remove('show');
+      updateBar();
     }
   });
 }
-window.initAutocomplete = initAutocomplete;
-var sd={
-  'Full Roof Replacement':{low:8400,high:14800,labor:'$3.80–5.20',material:'$2.50–4.80',time:'1–2 days',factors:[
-    {t:'Roof size',d:'Columbus homes average 1,500–2,200 sq ft of roof surface. Larger homes push toward the higher end of this range.'},
-    {t:'Shingle type',d:'Standard 3-tab shingles are cheapest. Architectural shingles (most popular in Columbus) add $800–1,500. Metal roofing can double the price.'},
-    {t:'Roof pitch & access',d:'Steeper roofs take longer and cost more in labor. Most Columbus ranch and colonial homes have moderate pitches.'},
-    {t:'Tear-off & disposal',d:'Removing your old roof adds $1–2 per sq ft. Ohio code limits 2 shingle layers before a full tear-off is required.'}
-  ]},
-  'Storm Damage Repair':{low:1200,high:6500,labor:'$3.50–5.00',material:'$1.80–3.50',time:'Same day–2 days',factors:[
-    {t:'Extent of damage',d:'Minor damage runs $1,200–2,500. Significant storm damage requiring partial or full replacement runs higher.'},
-    {t:'Insurance coverage',d:'Most Franklin County homeowner policies cover storm damage. Your cost may only be your deductible.'},
-    {t:'Age of existing roof',d:'If your roof is over 15 years old, insurers may depreciate the value. A contractor can help navigate claims.'},
-    {t:'Emergency vs scheduled',d:'Emergency same-day repairs carry a premium. Scheduling within 1–2 weeks is significantly cheaper.'}
-  ]},
-  'Roof Repair':{low:350,high:2800,labor:'$3.00–4.50',material:'$0.80–2.50',time:'Half day–1 day',factors:[
-    {t:'Type of repair',d:'Simple flashing repairs or missing shingles start around $350. Larger leak repairs or chimney flashing run $800–2,800.'},
-    {t:'Roof access difficulty',d:'Two-story homes or steep pitches add labor cost. Most single-story Columbus homes are straightforward.'},
-    {t:'Material match',d:'Matching discontinued shingle patterns costs more. Newer roofs with standard shingles are cheapest to repair.'},
-    {t:'Underlying damage',d:'If the leak has damaged decking below the shingles, repair costs increase significantly.'}
-  ]},
-  'Free Inspection':{low:0,high:0,labor:'Free',material:'Free',time:'30–45 min',factors:[
-    {t:'What we check',d:'A licensed Columbus contractor will inspect shingles, flashing, gutters, soffits, and fascia for damage.'},
-    {t:'Insurance documentation',d:'If storm damage is found, the inspector documents it for your insurance claim at no charge.'},
-    {t:'No obligation',d:'A free inspection is exactly that — free. You get a written report with no pressure to hire anyone.'},
-    {t:'Best time to inspect',d:'After any hail or wind event, or if your roof is over 10 years old.'}
-  ]}
-};
-function showStage(id){
-  document.querySelectorAll('.calc-stage').forEach(function(s){s.classList.remove('active');});
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  var rc=document.querySelector('.right-col');if(rc)rc.scrollTop=0;
-  var mh=document.querySelector('.mobile-headline');
-  if(mh){mh.style.display=(id==='stage1'||id==='stage2')?'':'none';}
+
+function pickSqft(btn){
+  btn.parentElement.querySelectorAll('.qp').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  state.homeSqft = parseInt(btn.dataset.sqft);
+  state.homeSizeSelected = true;
+  state.sqft = calcRoofSqft(state.homeSqft, state.floors, state.pitch);
+  state.sized = true;
+  document.getElementById('addrResult').classList.remove('show');
+  btn.closest('.q-block').classList.remove('q-err');
+  document.getElementById('err-s1').classList.remove('show');
+  updateBar();
 }
-function goToStep2(){
-  addr=document.getElementById('address-input').value.trim();
-  if(!addr){alert('Please enter your Columbus area address.');return;}
-  showStage('stage3');
-  setTimeout(function(){populateResults();showStage('stage4');},2400);
+
+function pickFloors(btn){
+  btn.parentElement.querySelectorAll('.qp').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  state.floors = btn.dataset.floors;
+  state.floorsSelected = true;
+  state.sqft = calcRoofSqft(state.homeSqft, state.floors, state.pitch);
+  state.sized = true;
+  btn.closest('.q-block').classList.remove('q-err');
+  document.getElementById('err-s1').classList.remove('show');
+  updateBar();
 }
-function submitAndReveal(){
-  uname=document.getElementById('lead-name').value.trim();
-  uphone=document.getElementById('lead-phone').value.trim();
-  if(!uname){alert('Please enter your first name.');return;}
-  if(!uphone){alert('Please enter your phone number.');return;}
-  if(!isValidPhone(uphone)){alert('Please enter a valid 10-digit US phone number (e.g. 614-957-2204).');return;}
-  var data=sd['Full Roof Replacement'];
-  var est='$'+data.low.toLocaleString()+' – $'+data.high.toLocaleString();
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:new URLSearchParams({'form-name':'roof-cost-lead','address':addr,'service-type':'Full Roof Replacement','first-name':uname,'phone':uphone,'estimated-cost':est}).toString()})
-  .then(function(){fbq('track','Lead');gtag('event','generate_lead',{'event_category':'Lead','event_label':'Roof Cost Calculator'});})
-  .catch(function(e){console.error(e);});
-  // Save lead to Supabase CRM
-  insertLeadToSupabase({first_name:uname,phone:uphone,address:addr,service_type:'Full Roof Replacement',source:'Roof Cost Calculator',status:'new'});
-  document.getElementById('success-name').textContent=uname;
-  showStage('stage5');
+
+function pickPitch(btn){
+  btn.parentElement.querySelectorAll('.pitch-card').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  state.pitch = btn.dataset.pitch;
+  state.pitchSelected = true;
+  state.sqft = calcRoofSqft(state.homeSqft, state.floors, state.pitch);
+  state.sized = true;
+  btn.closest('.q-block').classList.remove('q-err');
+  document.getElementById('err-s1').classList.remove('show');
+  updateBar();
 }
-function populateResults(){
-  var data=sd['Full Roof Replacement'];
-  document.getElementById('result-address').textContent=addr.toUpperCase();
-  document.getElementById('result-title').textContent='Full Roof Replacement Estimate';
-  document.getElementById('price-range').innerHTML='<span>$'+data.low.toLocaleString()+'</span> – $'+data.high.toLocaleString();
-  document.getElementById('price-sub').textContent='Based on average Columbus home size and current Franklin County rates for 2026.';
-  document.getElementById('b-labor').textContent=data.labor;
-  document.getElementById('b-material').textContent=data.material;
-  document.getElementById('b-time').textContent=data.time;
-  var fl=document.getElementById('factor-list');fl.innerHTML='';
-  data.factors.forEach(function(f){fl.innerHTML+='<div class="factor"><div class="factor-dot"></div><p><strong>'+f.t+':</strong> '+f.d+'</p></div>';});
+
+/* ============================================================
+   STEP 2 — SHINGLES + ADDONS
+   ============================================================ */
+function buildShingles(){
+  document.getElementById('shingleGrid').innerHTML = SHINGLES.map(s=>`
+    <div class="sh-row${s.popular?' popular':''}${s.id===state.shingleId?' sel':'' }" data-id="${s.id}" onclick="pickShingle('${s.id}')">
+      <div class="sh-swatch" style="${s.swatch}"></div>
+      <div class="sh-info">
+        <div class="sh-name">${s.name}</div>
+        <div class="sh-meta">${s.desc}</div>
+      </div>
+      <div class="sh-price">${s.price}<span class="per">per sq</span></div>
+    </div>
+  `).join('');
 }
-function confirmQuote(){
-  showStage('stage2');
+
+function pickShingle(id){
+  state.shingleId = id;
+  document.querySelectorAll('.sh-row').forEach(r=>r.classList.toggle('sel', r.dataset.id===id));
+  document.getElementById('err-s2').classList.remove('show');
+  updateBar();
 }
+
+function buildAddons(){
+  document.getElementById('addonsList').innerHTML = ADDONS.map(a=>`
+    <div class="ao" id="ao-${a.id}">
+      <div class="ao-info" onclick="toggleAo('${a.id}')">
+        <div class="ao-name">${a.name}</div>
+        <div class="ao-desc">${a.desc}</div>
+      </div>
+      <div class="ao-cost">${a.label}</div>
+      <label class="toggle" onclick="event.stopPropagation()">
+        <input type="checkbox" id="aocb-${a.id}" onchange="toggleAo('${a.id}', true)">
+        <div class="track"></div>
+      </label>
+    </div>
+  `).join('');
+}
+
+function toggleAo(id, alreadyChanged){
+  const cb = document.getElementById('aocb-'+id);
+  if(!alreadyChanged) cb.checked = !cb.checked;
+  state.addons[id] = cb.checked;
+  document.getElementById('ao-'+id).classList.toggle('on', cb.checked);
+  updateBar();
+}
+
+/* ============================================================
+   STEP 3 — CONTACT GATE
+   ============================================================ */
+function fillPreview(){
+  const sh = SHINGLES.find(s=>s.id===state.shingleId) || SHINGLES[1];
+  document.getElementById('preview-amount').innerHTML = `$${fmt(state.estLow)}<span class="dash">–</span>$${fmt(state.estHigh)}`;
+  document.getElementById('prev-sqft').textContent = state.sqft.toLocaleString()+' sq ft';
+  document.getElementById('prev-mat').textContent  = sh.name;
+  document.getElementById('prev-area').textContent = state.neighborhood || 'Columbus, OH';
+}
+
+/* ============================================================
+   ESTIMATE CALCULATIONS
+   ============================================================ */
+function getShingle(){return SHINGLES.find(s=>s.id===state.shingleId)||SHINGLES[1];}
+
+function calcEstimate(){
+  const sq = state.sqft / 100;
+  const sh = getShingle();
+  const p  = SHINGLE_PRICES[sh.id] || SHINGLE_PRICES.architectural;
+  const mLo = sq * p.lo, mHi = sq * p.hi;
+  const lLo = sq * LABOR_LO, lHi = sq * LABOR_HI;
+  let addCost = 0;
+  const rows = [];
+  ADDONS.forEach(a=>{
+    if(!state.addons[a.id]) return;
+    let c = a.type==='per-sq' ? a.amount * sq : a.amount;
+    addCost += c;
+    rows.push({name:a.name, cost:c});
+  });
+  state.estLow  = Math.round(mLo + lLo + addCost);
+  state.estHigh = Math.round(mHi + lHi + addCost);
+  return {mLo,mHi,lLo,lHi,addCost,rows};
+}
+
+function fmt(n){return Math.round(n).toLocaleString('en-US');}
+
+/* ============================================================
+   BOTTOM BAR — live estimate from step 1 onward
+   ============================================================ */
+function updateBar(){
+  const lblEl = document.getElementById('bb-lbl');
+  const valEl = document.getElementById('bb-val');
+  const btn   = document.getElementById('bb-next');
+  const bar   = document.getElementById('bb');
+
+  bar.classList.remove('submit-mode');
+
+  if(state.step === 3){
+    bar.classList.add('submit-mode');
+    btn.innerHTML = 'Reveal my estimate <span class="arrow">→</span>';
+    btn.disabled = false;
+    return;
+  }
+
+  // Compute (silently) so we have a number ready, but only SHOW once user has
+  // engaged enough to commit (state.sized === true).
+  calcEstimate();
+
+  if(state.step === 1){
+    btn.innerHTML = 'Next <span class="arrow">→</span>';
+    const allManual = state.homeSizeSelected && state.floorsSelected && state.pitchSelected;
+    if(state.addressMatched || allManual){
+      lblEl.textContent = 'Est. roof size: ' + state.sqft.toLocaleString() + ' sq ft';
+      valEl.classList.remove('muted');
+      valEl.textContent = '';
+      btn.disabled = false;
+    } else if(state.sized){
+      lblEl.textContent = '';
+      valEl.classList.add('muted');
+      valEl.textContent = 'Select all options above to continue';
+      btn.disabled = true;
+    } else {
+      lblEl.textContent = '';
+      valEl.classList.add('muted');
+      valEl.textContent = 'Tell us about your home to continue';
+      btn.disabled = true;
+    }
+  } else if(state.step === 2){
+    btn.innerHTML = 'Continue <span class="arrow">→</span>';
+    lblEl.textContent = '';
+    if(state.shingleId){
+      valEl.classList.remove('muted');
+      valEl.textContent = getShingle().name;
+      btn.disabled = false;
+    } else {
+      valEl.classList.add('muted');
+      valEl.textContent = 'Select a shingle to continue';
+      btn.disabled = true;
+    }
+  }
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function handleNext(){
+  if(state.step === 3){submitLead(); return;}
+  if(!validate(state.step)) return;
+  goToStep(state.step + 1);
+}
+
+function prevStep(){if(state.step>1) goToStep(state.step-1);}
+
+function goToStep(n){
+  const cur = document.getElementById('s'+state.step);
+  if(cur){cur.classList.remove('active'); cur.classList.add('exit-left'); setTimeout(()=>cur.classList.remove('exit-left'), 460);}
+  const nxt = document.getElementById('s'+n);
+  if(nxt) setTimeout(()=>nxt.classList.add('active'), 30);
+  state.step = n;
+  if(n===3) fillPreview();
+  updateProgress();
+  updateBar();
+  document.getElementById('back-btn').classList.toggle('visible', n>1);
+}
+
+function showStep1Error(msg){
+  const err = document.getElementById('err-s1');
+  if(err){ err.textContent = msg; err.classList.add('show'); }
+}
+
+function validateStep1(){
+  if(state.addressMatched) return true;
+  if(!state.homeSizeSelected){
+    document.querySelector('#s1 .qp[data-sqft]').closest('.q-block').classList.add('q-err');
+    showStep1Error('Please select your home size.');
+    return false;
+  }
+  if(!state.floorsSelected){
+    document.querySelector('[data-floors]').closest('.q-block').classList.add('q-err');
+    showStep1Error('Please select how many stories your home has.');
+    return false;
+  }
+  if(!state.pitchSelected){
+    document.querySelector('[data-pitch]').closest('.q-block').classList.add('q-err');
+    showStep1Error('Please select your roof pitch.');
+    return false;
+  }
+  return true;
+}
+
+function validate(step){
+  if(step===1){
+    return validateStep1();
+  }
+  if(step===2){
+    const ok = !!state.shingleId;
+    document.getElementById('err-s2').classList.toggle('show', !ok);
+    return ok;
+  }
+  return true;
+}
+
+function updateProgress(){
+  for(let i=1;i<=4;i++){
+    const el = document.getElementById('ps'+i);
+    el.classList.remove('done','active');
+    if(i < state.step) el.classList.add('done');
+    else if(i === state.step) el.classList.add('active');
+  }
+}
+
+/* ============================================================
+   FORM SUBMIT
+   ============================================================ */
+function submitLead(){
+  calcEstimate();
+
+  const checks = [
+    {fg:'fg-name',  el:'iName',  ok:v=>v.trim().length>1},
+    {fg:'fg-phone', el:'iPhone', ok:v=>isValidPhone(v)},
+  ];
+  // Email is optional but if provided must be valid
+  const emailEl = document.getElementById('iEmail');
+  if(emailEl.value.trim()){
+    checks.push({fg:'fg-email', el:'iEmail', ok:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)});
+  }
+  let valid = true;
+  checks.forEach(c=>{
+    const ok = c.ok(document.getElementById(c.el).value);
+    document.getElementById(c.fg).classList.toggle('err', !ok);
+    if(!ok) valid = false;
+  });
+  if(!valid){
+    document.getElementById('err-s3').classList.add('show');
+    return;
+  }
+  document.getElementById('err-s3').classList.remove('show');
+
+  state.name  = document.getElementById('iName').value;
+  state.phone = document.getElementById('iPhone').value;
+  state.email = document.getElementById('iEmail').value;
+
+  showLoading();
+}
+
+/* ============================================================
+   LOADING SCREEN (shorter — 2.4s)
+   ============================================================ */
+function showLoading(){
+  const screen = document.getElementById('loading');
+  screen.classList.add('show');
+  document.getElementById('prog').style.display = 'none';
+
+  const msgs = [
+    [0,    'Pulling Columbus material rates…'],
+    [600,  'Calculating Franklin County labor…'],
+    [1200, `Factoring ${state.sqft.toLocaleString()} sq ft of ${getShingle().name}…`],
+    [1800, 'Finalizing your personalized estimate…'],
+  ];
+  const msgEl = document.getElementById('ldr-msg');
+  msgs.forEach(([d,t])=>{
+    setTimeout(()=>{
+      msgEl.classList.add('fade');
+      setTimeout(()=>{msgEl.textContent=t;msgEl.classList.remove('fade');}, 200);
+    }, d);
+  });
+
+  // Progress bar
+  const fill = document.getElementById('ldr-fill');
+  let pct = 0;
+  const tick = setInterval(()=>{
+    pct += 100/24; // 2.4s
+    fill.style.width = Math.min(pct,100)+'%';
+    if(pct >= 100) clearInterval(tick);
+  }, 100);
+
+  setTimeout(()=>{
+    document.getElementById('wizard').style.display = 'none';
+    document.getElementById('bb').style.display = 'none';
+    screen.classList.remove('show');
+    revealEstimate();
+  }, 2400);
+}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+function revealEstimate(){
+  document.body.classList.remove('wizard-mode');
+  document.getElementById('post').classList.add('show');
+  window.scrollTo({top:0});
+
+  const sh = getShingle();
+  const ctx = state.neighborhood
+    ? `Based on homes in ${state.neighborhood}, OH · ${state.sqft.toLocaleString()} sq ft roof · ${sh.name}`
+    : `${state.sqft.toLocaleString()} sq ft roof · ${sh.name}`;
+  document.getElementById('reveal-sub').textContent = state.neighborhood ? `Based on homes in ${state.neighborhood}, OH.` : 'Based on local Columbus market rates.';
+  document.getElementById('r-context').textContent = ctx;
+
+  // Animate counters
+  animateCounter(document.getElementById('r-low'),  state.estLow,  1400);
+  animateCounter(document.getElementById('r-high'), state.estHigh, 1400);
+
+  // Build breakdown (initially hidden)
+  buildBreakdown();
+}
+
+function animateCounter(el, target, ms){
+  const t0 = performance.now();
+  (function tick(now){
+    const p = Math.min((now-t0)/ms, 1);
+    const e = 1 - Math.pow(1-p, 3);
+    el.textContent = fmt(Math.round(target * e));
+    if(p<1) requestAnimationFrame(tick);
+  })(t0);
+}
+
+function toggleBreakdown(btn){
+  const bd = document.getElementById('breakdown');
+  const open = bd.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.firstChild.textContent = open ? 'Hide breakdown ' : 'See how we calculated this ';
+}
+
+function buildBreakdown(){
+  const {mLo,mHi,lLo,lHi,rows} = calcEstimate();
+  let html = `
+    <div class="bd-row">
+      <span class="bd-item">Materials · ${getShingle().name}</span>
+      <span class="bd-lo">$${fmt(mLo)}</span>
+      <span class="bd-hi">$${fmt(mHi)}</span>
+    </div>
+    <div class="bd-row">
+      <span class="bd-item">Labor (Columbus rate)</span>
+      <span class="bd-lo">$${fmt(lLo)}</span>
+      <span class="bd-hi">$${fmt(lHi)}</span>
+    </div>`;
+  rows.forEach(r=>{
+    html += `<div class="bd-row"><span class="bd-item">${r.name}</span><span class="bd-lo">$${fmt(r.cost)}</span><span class="bd-hi">$${fmt(r.cost)}</span></div>`;
+  });
+  html += `
+    <div class="bd-row tot">
+      <span class="bd-item">Total estimate</span>
+      <span class="bd-lo">$${fmt(state.estLow)}</span>
+      <span class="bd-hi">$${fmt(state.estHigh)}</span>
+    </div>`;
+  document.getElementById('bd-rows').innerHTML = html;
+}
+
+function bookQuote(){
+  alert('In production: this would open a calendar booking widget or jump to a scheduling form.\n\nLead captured: '+state.name+' · '+state.email);
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+init();
 </script>
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1624080141976167');fbq('track','PageView');</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1624080141976167&ev=PageView&noscript=1"/></noscript>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7X4Z639KR"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L7X4Z639KR');</script>
 </body>
 </html>
