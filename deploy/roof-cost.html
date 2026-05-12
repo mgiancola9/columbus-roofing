@@ -1284,54 +1284,64 @@ function initPlaces(){
   const input  = document.getElementById('addr');
   const result = document.getElementById('addrResult');
 
-  const ac = new google.maps.places.Autocomplete(input, {
-    types: ['address'],
-    componentRestrictions: { country: 'us' },
-    fields: ['address_components', 'formatted_address'],
-  });
+  const svc  = new google.maps.places.AutocompleteService();
+  const psvc = new google.maps.places.PlacesService(document.createElement('div'));
 
-  // When user picks a suggestion from the dropdown
-  ac.addListener('place_changed', function(){
-    const place = ac.getPlace();
-    if(!place.address_components) return;
+  const dropdown = document.createElement('div');
+  dropdown.className = 'pac-container';
+  dropdown.style.display = 'none';
+  input.parentNode.style.position = 'relative';
+  input.parentNode.appendChild(dropdown);
 
-    // Pull ZIP from address components
-    let zip = null;
-    for(const c of place.address_components){
-      if(c.types.includes('postal_code')){ zip = c.long_name; break; }
-    }
-
-    if(zip && ZIP_DB[zip]){
-      const data = ZIP_DB[zip];
-      state.sqft          = data.sqft;
-      state.homeSqft      = data.sqft;
-      state.neighborhood  = data.nbh;
-      state.formattedAddr = place.formatted_address;
-      state.sized         = true;
-      state.addressMatched= true;
-      result.innerHTML = `Based on homes in <strong>${data.nbh}, OH</strong> — estimated roof size <strong>${data.sqft.toLocaleString()} sq ft</strong>. We've pre-filled the calculator below.`;
-      result.classList.add('show');
-    } else {
-      state.sized          = false;
-      state.addressMatched = false;
-      state.sqft           = 0;
-      state.neighborhood   = '';
-      result.innerHTML = `We couldn't find that area in our database. Use the <strong>manual calculator below</strong> to enter your home size.`;
-      result.classList.add('show');
-    }
-    updateBar();
-  });
-
-  // If user edits the field after a match, clear the matched state
-  input.addEventListener('input', function(){
-    if(state.addressMatched){
-      state.sized          = false;
-      state.addressMatched = false;
-      state.sqft           = 0;
-      result.classList.remove('show');
+  function selectPlace(description, placeId){
+    input.value = description;
+    dropdown.style.display = 'none';
+    if(state.addressMatched){ state.sized=false; state.addressMatched=false; state.sqft=0; result.classList.remove('show'); updateBar(); }
+    psvc.getDetails({placeId, fields:['address_components','formatted_address']}, function(place, st){
+      if(st !== 'OK' || !place) return;
+      let zip = null;
+      for(const c of place.address_components){
+        if(c.types.includes('postal_code')){ zip = c.long_name; break; }
+      }
+      if(zip && ZIP_DB[zip]){
+        const data = ZIP_DB[zip];
+        state.sqft=data.sqft; state.homeSqft=data.sqft; state.neighborhood=data.nbh;
+        state.formattedAddr=place.formatted_address; state.sized=true; state.addressMatched=true;
+        result.innerHTML=`Based on homes in <strong>${data.nbh}, OH</strong> — estimated roof size <strong>${data.sqft.toLocaleString()} sq ft</strong>. We've pre-filled the calculator below.`;
+        result.classList.add('show');
+      } else {
+        state.sized=false; state.addressMatched=false; state.sqft=0; state.neighborhood='';
+        result.innerHTML=`We couldn't find that area in our database. Use the <strong>manual calculator below</strong> to enter your home size.`;
+        result.classList.add('show');
+      }
       updateBar();
-    }
+    });
+  }
+
+  let timer;
+  input.addEventListener('input', function(){
+    if(state.addressMatched){ state.sized=false; state.addressMatched=false; state.sqft=0; result.classList.remove('show'); updateBar(); }
+    clearTimeout(timer);
+    const q = this.value.trim();
+    if(q.length < 3){ dropdown.style.display='none'; return; }
+    timer = setTimeout(()=>{
+      svc.getPlacePredictions({input:q, types:['address'], componentRestrictions:{country:'us'}}, function(predictions, status){
+        dropdown.innerHTML = '';
+        if(status !== 'OK' || !predictions){ dropdown.style.display='none'; return; }
+        predictions.forEach(p=>{
+          const item = document.createElement('div');
+          item.className = 'pac-item';
+          item.innerHTML = `<span class="pac-item-query">${p.structured_formatting.main_text}</span><span> ${p.structured_formatting.secondary_text||''}</span>`;
+          item.addEventListener('mousedown', e=>{ e.preventDefault(); selectPlace(p.description, p.place_id); });
+          dropdown.appendChild(item);
+        });
+        dropdown.style.display = 'block';
+      });
+    }, 300);
   });
+
+  input.addEventListener('blur', ()=>setTimeout(()=>{ dropdown.style.display='none'; }, 200));
+  document.addEventListener('click', e=>{ if(e.target !== input) dropdown.style.display='none'; });
 }
 
 function pickSqft(btn){
