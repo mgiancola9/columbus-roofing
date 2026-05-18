@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roof Cost Calculator | Columbus Roofing Estimates</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2794177590967051');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2794177590967051&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
 <!-- ── FAVICON ── -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1693,6 +1710,8 @@ function submitLeadData(){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(lead)
   }).then(function(r){if(!r.ok)console.error('n8n:',r.status);}).catch(function(e){console.error('n8n error:',e);});
+
+  fbq('track', 'Lead');
 }
 
 function revealEstimate(){
