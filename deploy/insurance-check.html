@@ -530,6 +530,11 @@ function submitAndReveal(){
   .catch(function(e){console.error(e);});
   // Save lead to Supabase CRM
   insertLeadToSupabase({first_name:uname,phone:uphone,address:uaddr,service_type:'Insurance Claim',source:'Insurance Check',status:'new',notes:'Roof age: '+q1+', Storm history: '+q2+', Has insurance: '+q3});
+  fetch('https://arrangements-versions-tiger-intervals.trycloudflare.com/webhook/lead-alert',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({first_name:uname,phone:uphone,address:uaddr,source:'Insurance Check',email:''})
+  }).catch(function(e){console.error('n8n error:',e);});
   document.getElementById('success-name').textContent=uname;
   showStage('stage5');
   var steps=['ls1','ls2','ls3'];
