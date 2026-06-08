@@ -530,7 +530,7 @@ function submitAndReveal(){
   .catch(function(e){console.error(e);});
   // Save lead to Supabase CRM
   insertLeadToSupabase({first_name:uname,phone:uphone,address:uaddr,service_type:'Insurance Claim',source:'Insurance Check',status:'new',notes:'Roof age: '+q1+', Storm history: '+q2+', Has insurance: '+q3});
-  fetch('http://167.233.54.3:5678/webhook/lead-alert',{
+  fetch('https://n8n.columbusroofingestimates.com/webhook/lead-alert',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({first_name:uname,last_name:'',phone:uphone,email:'',address:uaddr,source:'Insurance Check'})

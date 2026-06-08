@@ -1224,7 +1224,7 @@ function insertLeadToSupabase(d){fetch(SUPABASE_URL+'/rest/v1/leads',{method:'PO
       status: 'new'
     });
 
-    fetch('http://167.233.54.3:5678/webhook/lead-alert', {
+    fetch('https://n8n.columbusroofingestimates.com/webhook/lead-alert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ first_name: firstName, last_name: lastName, phone: phone, email: email, address: address, source: 'Main Website' }),
