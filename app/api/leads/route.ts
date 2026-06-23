@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { buildLeadRow, insertLeadToSupabase, notifyN8n, type LeadPayload } from "@/lib/leads";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as Partial<LeadPayload>;
     const { lead, estimate, data } = body;
 
     // Validate required fields
@@ -10,30 +11,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // TODO: Integrate with your CRM / email service:
-    //   - Webhooks: Zapier, Make.com, or direct API call
-    //   - CRM: HubSpot, Salesforce, Pipedrive
-    //   - Email: SendGrid, Resend, Nodemailer
-    //   - SMS: Twilio
-    //   - Database: Supabase, PlanetScale, MongoDB Atlas
-    //
-    // Example with a webhook:
-    // await fetch(process.env.LEAD_WEBHOOK_URL!, {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ lead, estimate, data, timestamp: new Date().toISOString() }),
-    // });
+    const row = buildLeadRow({ lead, estimate: estimate!, data: data! });
 
-    console.log("New lead received:", {
-      name: lead.name,
-      phone: lead.phone,
-      email: lead.email,
-      city: data?.city,
-      estimateLow: estimate?.low,
-      estimateHigh: estimate?.high,
-      material: estimate?.materialLabel,
-      timestamp: new Date().toISOString(),
-    });
+    // Fire both the same way Columbus did — Supabase is source of truth, n8n is the alert.
+    // Run in parallel; one failing must not block the other.
+    const [supabaseResult, n8nResult] = await Promise.allSettled([
+      insertLeadToSupabase(row),
+      notifyN8n(row),
+    ]);
+
+    if (supabaseResult.status === "rejected") {
+      console.error("Supabase insert error:", supabaseResult.reason);
+    } else {
+      console.log("Lead saved to CRM:", row.email);
+    }
+    if (n8nResult.status === "rejected") {
+      console.error("n8n webhook error:", n8nResult.reason);
+    }
+
+    // Persisting the lead is what matters; if it failed, surface a 500 (the client
+    // still advances to the thank-you screen regardless, mirroring Columbus).
+    if (supabaseResult.status === "rejected") {
+      return NextResponse.json({ error: "Lead could not be saved" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
