@@ -23,9 +23,9 @@ const steps = [
   {
     step: "03",
     icon: Users,
-    title: "Get 3 Free Quotes",
+    title: "Get Matched — Fast",
     description:
-      "Share your contact info and we'll connect you with 3 verified, licensed GTA roofers within 24 hours.",
+      "Share your details and we instantly connect you with a trusted, licensed roofer who works right in your area. No waiting days for a callback.",
     color: "bg-amber-50 text-amber-700",
   },
 ];

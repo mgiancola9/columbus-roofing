@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import TrustSection from "@/components/TrustSection";
-import Reviews from "@/components/Reviews";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -14,7 +14,7 @@ export default function Home() {
         <Hero />
         <HowItWorks />
         <TrustSection />
-        <Reviews />
+        <WhyChooseUs />
         <CTASection />
       </main>
       <Footer />

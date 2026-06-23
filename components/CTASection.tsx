@@ -27,8 +27,8 @@ export default function CTASection() {
           </h2>
 
           <p className="text-brand-text-secondary text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-            Join 500+ GTA homeowners who got their honest estimate here — no
-            surprise markups, no hidden fees.
+            Get your honest, no-pressure estimate in 60 seconds — then get matched
+            with a trusted local roofer. No surprise markups, no hidden fees.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

@@ -8,8 +8,8 @@ import { CheckCircle2, Phone, Calendar, MessageSquare } from "lucide-react";
 const nextSteps = [
   {
     icon: Phone,
-    title: "Expect a call within 24 hours",
-    desc: "Each of 3 contractors will reach out to schedule a free on-site assessment.",
+    title: "Expect a call — fast",
+    desc: "A trusted local roofer will reach out shortly to schedule a free on-site assessment.",
   },
   {
     icon: Calendar,
@@ -18,8 +18,8 @@ const nextSteps = [
   },
   {
     icon: MessageSquare,
-    title: "Compare & choose",
-    desc: "Review all 3 quotes at your own pace — zero pressure to commit.",
+    title: "Decide at your pace",
+    desc: "There's zero obligation to move forward — take all the time you need.",
   },
 ];
 
@@ -55,8 +55,8 @@ export default function ThankYou() {
         transition={{ delay: 0.3 }}
         className="text-brand-text-secondary text-lg mb-10 leading-relaxed"
       >
-        We&apos;ve received your request and are matching you with 3 licensed GTA contractors.
-        You&apos;ll hear from them within 24 hours.
+        We&apos;ve received your request and are matching you with a trusted, licensed roofer
+        in your area. You&apos;ll hear from them shortly.
       </motion.p>
 
       {/* Next steps */}

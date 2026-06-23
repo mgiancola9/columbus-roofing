@@ -76,10 +76,10 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
       </div>
 
       <h2 className="text-3xl md:text-4xl font-black text-brand-text tracking-tight mb-2">
-        Get your 3 free quotes.
+        Get matched with a local roofer.
       </h2>
       <p className="text-brand-text-secondary mb-8">
-        Enter your details and 3 licensed GTA contractors will contact you within 24 hours.
+        Enter your details and a trusted, licensed roofer who works your area will reach out — fast.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">

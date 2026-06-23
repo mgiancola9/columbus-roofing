@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Shield, Award } from "lucide-react";
+import { ArrowRight, Zap, MapPin, Shield } from "lucide-react";
 
 const trustBadges = [
-  { icon: Star, text: "4.9 · 500+ Reviews", sub: "Google Verified" },
-  { icon: Shield, text: "WSIB Certified", sub: "All Contractors" },
-  { icon: Award, text: "BBB Accredited", sub: "A+ Rating" },
+  { icon: Zap, text: "Instant Estimate", sub: "In about 60 seconds" },
+  { icon: MapPin, text: "Matched Locally", sub: "Roofers who work your area" },
+  { icon: Shield, text: "Licensed & Insured", sub: "Vetted professionals only" },
 ];
 
 const containerVariants = {
@@ -30,16 +30,17 @@ export default function Hero() {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85&auto=format&fit=crop"
-          alt="Premium roofing on a Toronto home"
+          src="/hero.png"
+          alt="Professional roofer installing shingles on a Greater Toronto Area home at blue hour"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Multi-layer overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+        {/* Brand-blue gradient overlay — blends the blue-hour photo into the site's
+            blue identity and keeps the bottom-left headline readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1633]/90 via-[#0A1633]/45 to-[#0A1633]/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A1633]/70 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
@@ -75,8 +76,8 @@ export default function Hero() {
             variants={itemVariants}
             className="text-lg md:text-xl text-white/75 leading-relaxed mb-10 max-w-xl font-light"
           >
-            Answer 6 quick questions and get a real estimate for your GTA home —
-            no sales calls, no pressure, no BS.
+            Answer 6 quick questions, see a real price for your GTA home, then get
+            matched with a trusted local roofer — fast. No sales calls, no pressure, no BS.
           </motion.p>
 
           {/* CTAs */}

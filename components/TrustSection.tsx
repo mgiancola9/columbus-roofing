@@ -1,19 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Award, CheckCircle2, Users, Clock, MapPin } from "lucide-react";
+import { Shield, Zap, CheckCircle2, Clock, MapPin } from "lucide-react";
 
 const stats = [
-  { value: "500+", label: "Homeowners Helped", icon: Users },
-  { value: "4.9★", label: "Average Rating", icon: Award },
-  { value: "24hr", label: "Response Time", icon: Clock },
-  { value: "10 Cities", label: "Across the GTA", icon: MapPin },
+  { value: "60 sec", label: "To your free estimate", icon: Clock },
+  { value: "Instant", label: "Speed-to-lead matching", icon: Zap },
+  { value: "10 Cities", label: "Served across the GTA", icon: MapPin },
+  { value: "$0", label: "Always free for homeowners", icon: CheckCircle2 },
 ];
 
 const certifications = [
-  { icon: Shield, title: "WSIB Certified", desc: "All partner contractors carry WSIB coverage — protecting you from liability on every job." },
-  { icon: Award, title: "BBB Accredited A+", desc: "Every contractor in our network maintains BBB accreditation with an A+ rating." },
-  { icon: CheckCircle2, title: "Licensed & Insured", desc: "Provincial licensing and $5M liability insurance required from every contractor we list." },
+  { icon: Zap, title: "Speed-to-Lead", desc: "The moment you request your estimate, a local roofer is notified instantly — no waiting days for a callback." },
+  { icon: MapPin, title: "Matched to Your Area", desc: "We connect you with a roofer who actually works your neighbourhood — matched by your postal code, not a random call centre." },
+  { icon: Shield, title: "Licensed & Insured", desc: "We only work with roofers who carry proper provincial licensing and liability insurance. No exceptions." },
 ];
 
 export default function TrustSection() {
@@ -58,7 +58,7 @@ export default function TrustSection() {
             <span className="text-blue-300">No Exceptions.</span>
           </h2>
           <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            We only connect you with licensed, insured, and reviewed roofing professionals in the GTA.
+            We only connect you with licensed, insured, local roofing professionals across the GTA.
           </p>
         </motion.div>
 

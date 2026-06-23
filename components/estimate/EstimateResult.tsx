@@ -82,7 +82,7 @@ export default function EstimateResult({ result, data, onGetQuotes }: Props) {
             <p className="text-amber-800 text-xs leading-relaxed">
               This is a <strong>preliminary estimate</strong> based on GTA market averages. Your
               actual quote may vary based on roof access, deck condition, and current material
-              costs. Get 3 free quotes to find the best price.
+              costs. Get matched with a trusted local roofer to lock in your real price.
             </p>
           </div>
         </div>
@@ -115,11 +115,11 @@ export default function EstimateResult({ result, data, onGetQuotes }: Props) {
           className="w-full group font-bold text-base"
           onClick={onGetQuotes}
         >
-          Get 3 Free Contractor Quotes
+          Get Matched With a Local Roofer
           <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Button>
         <p className="text-center text-xs text-brand-text-secondary">
-          Free · No obligation · Verified GTA contractors only
+          Free · No obligation · Trusted local roofers only
         </p>
       </div>
     </motion.div>
