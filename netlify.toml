@@ -4,6 +4,11 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # The Google Maps browser key is intentionally public (it must run client-side and is
+  # secured by HTTP-referrer restrictions, not secrecy). Exclude it from secret scanning.
+  # The real secret — SUPABASE_SERVICE_ROLE_KEY — has no NEXT_PUBLIC_ prefix, so it stays
+  # server-side and is never bundled into the client.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
 
 # Netlify's official Next.js runtime — enables SSR + the /api/leads route.
 [[plugins]]
