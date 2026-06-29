@@ -9,6 +9,10 @@
   # The real secret — SUPABASE_SERVICE_ROLE_KEY — has no NEXT_PUBLIC_ prefix, so it stays
   # server-side and is never bundled into the client.
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
+  # Netlify's pattern-based "smart detection" also flags the AIza… Maps key shape.
+  # Disable just that layer — the explicit scan above still guards real secrets like
+  # SUPABASE_SERVICE_ROLE_KEY (a declared env var that must never reach the client).
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
 
 # Netlify's official Next.js runtime — enables SSR + the /api/leads route.
 [[plugins]]
