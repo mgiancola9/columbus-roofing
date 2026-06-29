@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const oldWay = [
-  "Hand over your number before you see a single price",
-  "Fill out a form, then wait days for a callback",
+  "Long forms with a dozen questions",
+  "Wait days for a callback — if it ever comes",
   "Get passed to a call centre or an out-of-town crew",
   "Chase contractors who never show up",
 ];
 
 const ourWay = [
-  "See your price first — before you share any details",
-  "Matched the instant you're ready, not days later",
+  "Three quick questions, one short form — that's it",
+  "Estimate and a matched roofer the instant you finish",
   "Connected to a roofer who actually works your area",
   "Licensed, insured, vetted pros — never random",
 ];
@@ -35,8 +35,8 @@ export default function WhyChooseUs() {
             Roofing quotes, without the runaround.
           </h2>
           <p className="text-brand-text-secondary text-lg max-w-2xl mx-auto">
-            Most quote services make you jump through hoops. We flipped it — price
-            first, then an instant match to a trusted roofer in your area.
+            Most quote services make you jump through hoops. We made it one short flow —
+            your estimate and an instant match to a trusted roofer in your area.
           </p>
         </motion.div>
 

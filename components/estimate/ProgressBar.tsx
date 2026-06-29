@@ -8,16 +8,12 @@ import Link from "next/link";
 const STEP_LABELS: Record<string, string> = {
   stories: "Home Size",
   roofType: "Roof Style",
-  condition: "Condition",
   material: "Material",
-  timeline: "Timeline",
-  city: "Your City",
+  lead: "Your Details",
   result: "Your Estimate",
-  lead: "Get Quotes",
-  thankyou: "Done!",
 };
 
-const STEP_ORDER = ["stories", "roofType", "condition", "material", "timeline", "city", "result", "lead"];
+const STEP_ORDER = ["stories", "roofType", "material", "lead"];
 
 interface Props {
   currentStep: string;
@@ -26,18 +22,18 @@ interface Props {
 
 export default function ProgressBar({ currentStep, onBack }: Props) {
   const stepIndex = STEP_ORDER.indexOf(currentStep);
-  const totalSteps = 6; // The 6 question steps
+  const totalSteps = 3; // The 3 question steps
   const questionStep = Math.min(stepIndex + 1, totalSteps);
-  const progress = currentStep === "result" || currentStep === "lead" || currentStep === "thankyou"
-    ? 100
-    : (stepIndex / totalSteps) * 100;
+  const isFinal = currentStep === "result";
+  const isLead = currentStep === "lead";
+  const progress = isFinal ? 100 : isLead ? 88 : (stepIndex / totalSteps) * 100;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-brand-border">
       <div className="max-w-2xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
-            {stepIndex > 0 && currentStep !== "thankyou" ? (
+            {stepIndex > 0 && !isFinal ? (
               <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -52,7 +48,7 @@ export default function ProgressBar({ currentStep, onBack }: Props) {
             )}
             <div>
               <span className="text-xs font-semibold text-brand-text-secondary uppercase tracking-wide">
-                {currentStep === "result" || currentStep === "lead" || currentStep === "thankyou"
+                {isFinal || isLead
                   ? STEP_LABELS[currentStep]
                   : `Step ${questionStep} of ${totalSteps}`}
               </span>

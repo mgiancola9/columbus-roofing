@@ -41,11 +41,11 @@ export default function Navigation() {
 
       <div className="relative z-10 flex items-center gap-3">
         <a
-          href="tel:+16478001234"
+          href="tel:+16479196419"
           className="hidden md:flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors"
         >
           <Phone className="w-4 h-4" />
-          <span>(647) 800-1234</span>
+          <span>(647) 919-6419</span>
         </a>
         <Button
           size="sm"

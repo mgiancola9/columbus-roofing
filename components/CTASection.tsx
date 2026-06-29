@@ -41,8 +41,8 @@ export default function CTASection() {
           </div>
 
           <p className="mt-6 text-sm text-brand-text-secondary">
-            Your estimate appears immediately — we show the price{" "}
-            <span className="font-semibold text-brand-text">before</span> asking for any personal info.
+            Your estimate and a matched local roofer —{" "}
+            <span className="font-semibold text-brand-text">instantly</span>, the moment you finish.
           </p>
         </motion.div>
       </div>

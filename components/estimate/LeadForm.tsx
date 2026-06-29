@@ -5,18 +5,18 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Shield, Lock, ArrowRight, Loader2 } from "lucide-react";
-import type { LeadData, EstimateData } from "@/types/estimate";
-import type { EstimateResult } from "@/types/estimate";
-import { formatCurrency } from "@/lib/utils";
+import type { LeadData, EstimateData, EstimateResult } from "@/types/estimate";
+import { calculateEstimate } from "@/lib/calculateEstimate";
+import AddressAutocomplete, { type SelectedAddress } from "./AddressAutocomplete";
 
 interface Props {
-  estimateResult: EstimateResult;
   estimateData: EstimateData;
-  onSubmit: (lead: LeadData) => void;
+  onSubmit: (lead: LeadData, estimate: EstimateResult) => void;
 }
 
-export default function LeadForm({ estimateResult, estimateData, onSubmit }: Props) {
+export default function LeadForm({ estimateData, onSubmit }: Props) {
   const [form, setForm] = useState<LeadData>({ name: "", phone: "", email: "", address: "" });
+  const [postalCode, setPostalCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Partial<LeadData>>({});
 
@@ -27,6 +27,8 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
       newErrors.phone = "Enter a valid 10-digit phone number";
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       newErrors.email = "Enter a valid email address";
+    if (!form.address?.trim())
+      newErrors.address = "Enter your address or postal code so we can price it for your area";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -42,17 +44,22 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
+
+    // Compute the estimate now — the selected address's postal code drives the
+    // area-specific roof size + price range.
+    const estimate = calculateEstimate(estimateData, postalCode);
+
     try {
       await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lead: form, estimate: estimateResult, data: estimateData }),
+        body: JSON.stringify({ lead: form, estimate, data: estimateData }),
       });
     } catch {
-      // fail silently — still advance to thank you
+      // fail silently — still reveal the estimate + match screen
     } finally {
       setLoading(false);
-      onSubmit(form);
+      if (estimate) onSubmit(form, estimate);
     }
   }
 
@@ -62,24 +69,12 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Estimate recap */}
-      <div className="bg-brand-primary/5 border border-brand-primary/20 rounded-2xl px-6 py-4 mb-8">
-        <p className="text-brand-text-secondary text-xs font-semibold uppercase tracking-wide mb-1">
-          Your Estimate
-        </p>
-        <p className="text-2xl font-black text-brand-primary">
-          {formatCurrency(estimateResult.low)} – {formatCurrency(estimateResult.high)}
-        </p>
-        <p className="text-brand-text-secondary text-sm mt-0.5">
-          {estimateResult.materialLabel} · {estimateData.city}
-        </p>
-      </div>
-
       <h2 className="text-3xl md:text-4xl font-black text-brand-text tracking-tight mb-2">
-        Get matched with a local roofer.
+        Last step — see your estimate.
       </h2>
       <p className="text-brand-text-secondary mb-8">
-        Enter your details and a trusted, licensed roofer who works your area will reach out — fast.
+        Enter your details to reveal your price and get matched with a trusted, licensed
+        roofer who works your area.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -116,12 +111,18 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
         </div>
 
         <div>
-          <Input
-            placeholder="Home address (optional)"
-            value={form.address}
-            onChange={(e) => setForm({ ...form, address: e.target.value })}
-            autoComplete="street-address"
+          <AddressAutocomplete
+            value={form.address ?? ""}
+            onChange={(v) => {
+              setForm({ ...form, address: v });
+              setPostalCode(""); // typing invalidates a prior selection
+            }}
+            onSelect={(addr: SelectedAddress) => {
+              setForm((prev) => ({ ...prev, address: addr.formatted }));
+              setPostalCode(addr.postalCode);
+            }}
           />
+          {errors.address && <p className="mt-1.5 text-red-500 text-xs font-medium">{errors.address}</p>}
         </div>
 
         <Button
@@ -133,11 +134,11 @@ export default function LeadForm({ estimateResult, estimateData, onSubmit }: Pro
           {loading ? (
             <>
               <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-              Sending...
+              Getting your estimate...
             </>
           ) : (
             <>
-              Connect Me With Contractors
+              See My Estimate & Get Matched
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </>
           )}

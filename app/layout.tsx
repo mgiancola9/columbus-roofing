@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "GTARoofingEstimates.ca — Instant Roof Estimates",
     description:
       "Get a free roofing estimate for your GTA home in under 60 seconds.",
-    url: "https://gtaroofingstimates.ca",
+    url: "https://gtaroofingestimates.ca",
     siteName: "GTARoofingEstimates.ca",
     locale: "en_CA",
     type: "website",

@@ -1,27 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
-import type { EstimateResult as IEstimateResult, EstimateData } from "@/types/estimate";
-import { CheckCircle2, ArrowRight, Clock, Info } from "lucide-react";
+import type { EstimateResult as IEstimateResult } from "@/types/estimate";
+import { CheckCircle2, Phone, Calendar, Info } from "lucide-react";
 
 interface Props {
   result: IEstimateResult;
-  data: EstimateData;
-  onGetQuotes: () => void;
 }
 
-const CITY_LABELS: Record<string, string> = {
-  asap: "ASAP",
-  "1-3months": "1–3 months",
-  "3-6months": "3–6 months",
-  exploring: "Just exploring",
-};
+const nextSteps = [
+  {
+    icon: Phone,
+    title: "Expect a call — fast",
+    desc: "A trusted local roofer will reach out shortly to schedule a free on-site assessment.",
+  },
+  {
+    icon: Calendar,
+    title: "Free, no-pressure inspection",
+    desc: "They'll confirm the details in person and give you a firm quote — zero obligation.",
+  },
+];
 
-export default function EstimateResult({ result, data, onGetQuotes }: Props) {
-  const midpoint = Math.round((result.low + result.high) / 2 / 100) * 100;
-
+export default function EstimateResult({ result }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.97 }}
@@ -29,12 +32,28 @@ export default function EstimateResult({ result, data, onGetQuotes }: Props) {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="w-full"
     >
+      {/* Matched confirmation */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 250, damping: 20, delay: 0.1 }}
+        className="w-16 h-16 rounded-full bg-brand-success/10 flex items-center justify-center mx-auto mb-5"
+      >
+        <CheckCircle2 className="w-8 h-8 text-brand-success" />
+      </motion.div>
+
+      <h2 className="text-3xl md:text-4xl font-black text-brand-text tracking-tight mb-2 text-center">
+        You&apos;re matched — here&apos;s your estimate.
+      </h2>
+      <p className="text-brand-text-secondary mb-8 text-center">
+        We&apos;re connecting you with a trusted, licensed roofer in your area.
+      </p>
+
       {/* Estimate card */}
       <div className="rounded-3xl border-2 border-brand-primary/20 bg-gradient-to-b from-brand-primary/5 to-white overflow-hidden mb-6">
-        {/* Header */}
-        <div className="bg-brand-primary px-8 py-6 text-center">
+        <div className="bg-brand-primary px-8 py-7 text-center">
           <p className="text-blue-200 text-sm font-semibold uppercase tracking-wider mb-2">
-            Your Instant Estimate
+            Your Estimated Range
           </p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -47,80 +66,47 @@ export default function EstimateResult({ result, data, onGetQuotes }: Props) {
               {formatCurrency(result.high)}
             </div>
             <p className="text-blue-200 text-sm mt-2 font-medium">
-              Typical range · {result.materialLabel} · {data.city}
+              {result.materialLabel} · ~{result.roofSqft.toLocaleString()} sq ft roof · {result.areaLabel}
             </p>
           </motion.div>
         </div>
 
-        {/* Body */}
-        <div className="px-8 py-6">
-          <div className="flex items-center gap-2 text-brand-text-secondary text-sm mb-5">
-            <Clock className="w-4 h-4 flex-shrink-0" />
-            <span>{result.timeframe}</span>
-          </div>
-
-          <h3 className="text-sm font-bold text-brand-text uppercase tracking-wider mb-4">
-            What&apos;s Included
-          </h3>
-          <ul className="space-y-2.5 mb-6">
-            {result.includesItems.map((item) => (
-              <motion.li
-                key={item}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex items-center gap-3 text-brand-text text-sm"
-              >
-                <CheckCircle2 className="w-4 h-4 text-brand-success flex-shrink-0" />
-                {item}
-              </motion.li>
-            ))}
-          </ul>
-
+        <div className="px-8 py-5">
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
             <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
             <p className="text-amber-800 text-xs leading-relaxed">
-              This is a <strong>preliminary estimate</strong> based on GTA market averages. Your
-              actual quote may vary based on roof access, deck condition, and current material
-              costs. Get matched with a trusted local roofer to lock in your real price.
+              This is a <strong>preliminary range</strong> based on market averages for your
+              area. Your matched roofer will confirm a firm quote after a quick on-site look.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Summary chips */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {[
-          data.stories && `${data.stories} storey`,
-          data.roofType,
-          data.condition && `${data.condition} condition`,
-          data.material,
-          data.timeline && CITY_LABELS[data.timeline],
-        ]
-          .filter(Boolean)
-          .map((chip) => (
-            <span
-              key={chip}
-              className="bg-brand-bg border border-brand-border text-brand-text-secondary text-xs font-medium px-3 py-1.5 rounded-full capitalize"
-            >
-              {chip}
-            </span>
-          ))}
+      {/* Next steps */}
+      <div className="text-left space-y-4 mb-10">
+        {nextSteps.map(({ icon: Icon, title, desc }, i) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.35 + i * 0.1 }}
+            className="flex items-start gap-4 bg-brand-card rounded-xl p-5 border border-brand-border"
+          >
+            <div className="w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon className="w-5 h-5 text-brand-primary" />
+            </div>
+            <div>
+              <div className="font-bold text-brand-text text-sm mb-0.5">{title}</div>
+              <div className="text-brand-text-secondary text-sm leading-relaxed">{desc}</div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* CTA */}
-      <div className="space-y-3">
-        <Button
-          size="xl"
-          className="w-full group font-bold text-base"
-          onClick={onGetQuotes}
-        >
-          Get Matched With a Local Roofer
-          <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+      <div className="text-center">
+        <Button variant="outline" size="lg" asChild>
+          <Link href="/">Back to Home</Link>
         </Button>
-        <p className="text-center text-xs text-brand-text-secondary">
-          Free · No obligation · Trusted local roofers only
-        </p>
       </div>
     </motion.div>
   );

@@ -1,31 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ClipboardList, DollarSign, Users } from "lucide-react";
+import { ClipboardList, MapPin, Zap } from "lucide-react";
 
 const steps = [
   {
     step: "01",
     icon: ClipboardList,
-    title: "Answer 6 Questions",
+    title: "Answer 3 Quick Questions",
     description:
-      "Tell us about your home's stories, roof type, current condition, and preferred material. Takes under 60 seconds.",
+      "Tell us your home size, roof style, and preferred material. Takes under a minute.",
     color: "bg-blue-50 text-brand-primary",
   },
   {
     step: "02",
-    icon: DollarSign,
-    title: "See Your Estimate",
+    icon: MapPin,
+    title: "Add Your Details",
     description:
-      "Get an instant price range based on real GTA contractor rates — before we ever ask for your contact info.",
+      "Drop in your contact info and address — your area tailors the estimate to local rates.",
     color: "bg-green-50 text-brand-success",
   },
   {
     step: "03",
-    icon: Users,
-    title: "Get Matched — Fast",
+    icon: Zap,
+    title: "Estimate + Matched Roofer",
     description:
-      "Share your details and we instantly connect you with a trusted, licensed roofer who works right in your area. No waiting days for a callback.",
+      "See your price and get instantly connected to a trusted, licensed roofer who works your area.",
     color: "bg-amber-50 text-amber-700",
   },
 ];

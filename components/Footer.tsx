@@ -28,13 +28,13 @@ export default function Footer() {
               Free estimates. No pressure. Real prices.
             </p>
             <div className="flex flex-col gap-3 text-sm">
-              <a href="tel:+16478001234" className="flex items-center gap-2 hover:text-white transition-colors">
+              <a href="tel:+16479196419" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                (647) 800-1234
+                (647) 919-6419
               </a>
-              <a href="mailto:info@gtaroofingstimates.ca" className="flex items-center gap-2 hover:text-white transition-colors">
+              <a href="mailto:info@gtaroofingestimates.ca" className="flex items-center gap-2 hover:text-white transition-colors">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                info@gtaroofingstimates.ca
+                info@gtaroofingestimates.ca
               </a>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 flex-shrink-0" />

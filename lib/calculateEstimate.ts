@@ -3,10 +3,11 @@ import type {
   EstimateResult,
   Stories,
   RoofType,
-  RoofCondition,
   RoofMaterial,
 } from "@/types/estimate";
+import { lookupArea } from "./gtaAreas";
 
+// Fallback roof size by stories, used only when we can't resolve the area from a postal code.
 const BASE_AREA: Record<Stories, number> = {
   "1": 1400,
   "1.5": 1650,
@@ -28,75 +29,31 @@ const COMPLEXITY_FACTOR: Record<RoofType, number> = {
   complex: 1.3,
 };
 
-const CONDITION_FACTOR: Record<RoofCondition, number> = {
-  excellent: 0.85,
-  good: 1.0,
-  fair: 1.1,
-  poor: 1.25,
-};
-
-const INCLUDES_BY_MATERIAL: Record<RoofMaterial, string[]> = {
-  asphalt: [
-    "Full tear-off & disposal",
-    "Ice & water shield",
-    "Synthetic underlayment",
-    "New asphalt shingles",
-    "Ridge cap & flashing",
-    "10-year labour warranty",
-  ],
-  architectural: [
-    "Full tear-off & disposal",
-    "Ice & water shield",
-    "Synthetic underlayment",
-    "Architectural shingles (30-yr)",
-    "Ridge cap & all flashing",
-    "15-year labour warranty",
-  ],
-  metal: [
-    "Full tear-off & disposal",
-    "Rigid insulation board",
-    "Standing seam metal panels",
-    "Hidden fastener system",
-    "Copper flashing details",
-    "25-year labour warranty",
-  ],
-  "flat-membrane": [
-    "Full tear-off & disposal",
-    "Tapered insulation board",
-    "60-mil TPO/EPDM membrane",
-    "Heat-welded seams",
-    "Drain upgrade if required",
-    "15-year labour warranty",
-  ],
-};
-
-const TIMEFRAME_BY_MATERIAL: Record<RoofMaterial, string> = {
-  asphalt: "1–2 day installation",
-  architectural: "1–2 day installation",
-  metal: "3–5 day installation",
-  "flat-membrane": "2–3 day installation",
-};
-
 function roundToHundred(n: number): number {
   return Math.round(n / 100) * 100;
 }
 
-export function calculateEstimate(data: EstimateData): EstimateResult | null {
-  if (!data.stories || !data.roofType || !data.condition || !data.material) return null;
+/**
+ * Estimate = roof size × roof complexity × material $/sqft × regional price factor.
+ * Roof size and price factor come from the selected address's postal code (area-typical);
+ * if no postal code resolves, we fall back to a size assumed from the "stories" answer.
+ */
+export function calculateEstimate(data: EstimateData, postalCode?: string): EstimateResult | null {
+  if (!data.stories || !data.roofType || !data.material) return null;
 
-  const area = BASE_AREA[data.stories];
+  const region = lookupArea(postalCode);
+  const roofSqft = region.matched ? region.sqft : BASE_AREA[data.stories];
   const complexity = COMPLEXITY_FACTOR[data.roofType];
-  const condition = CONDITION_FACTOR[data.condition];
   const { low: matLow, high: matHigh, label } = MATERIAL_RANGE[data.material];
 
-  const lowEstimate = roundToHundred(area * complexity * condition * matLow);
-  const highEstimate = roundToHundred(area * complexity * condition * matHigh);
+  const low = roundToHundred(roofSqft * complexity * matLow * region.factor);
+  const high = roundToHundred(roofSqft * complexity * matHigh * region.factor);
 
   return {
-    low: lowEstimate,
-    high: highEstimate,
+    low,
+    high,
     materialLabel: label,
-    includesItems: INCLUDES_BY_MATERIAL[data.material],
-    timeframe: TIMEFRAME_BY_MATERIAL[data.material],
+    areaLabel: region.area,
+    roofSqft,
   };
 }

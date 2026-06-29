@@ -12,7 +12,11 @@ export interface LeadPayload {
  */
 const LEAD_SOURCE = "Roof Estimate Calculator";
 
-/** Same Supabase row shape Columbus inserted: first/last name, contact, address, source, status. */
+/**
+ * Columbus lead row (first/last name, contact, address, source, status) plus the
+ * estimate context (service_type + notes) so the CRM — and eventually the
+ * contractor view — see the roof details and price at a glance.
+ */
 interface LeadRow {
   first_name: string;
   last_name: string;
@@ -21,9 +25,25 @@ interface LeadRow {
   address: string;
   source: string;
   status: string;
+  service_type: string;
+  notes: string;
 }
 
-/** Build the exact lead row Columbus sent to both Supabase and n8n (identical field names). */
+/** Readable summary of the roof selections + estimate, stored on the lead. */
+function buildNotes({ estimate, data }: LeadPayload): string {
+  return [
+    estimate && `Estimate: $${estimate.low.toLocaleString()}–$${estimate.high.toLocaleString()} CAD`,
+    estimate && `Material: ${estimate.materialLabel}`,
+    data?.roofType && `Roof style: ${data.roofType}`,
+    data?.stories && `Home size: ${data.stories} storey`,
+    estimate?.roofSqft && `Est. roof size: ~${estimate.roofSqft.toLocaleString()} sq ft`,
+    estimate?.areaLabel && `Area: ${estimate.areaLabel}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+/** Build the lead row sent to both Supabase and n8n (identical field names). */
 function buildLeadRow(payload: LeadPayload): LeadRow {
   const parts = payload.lead.name.trim().split(/\s+/);
   return {
@@ -34,6 +54,8 @@ function buildLeadRow(payload: LeadPayload): LeadRow {
     address: payload.lead.address || "",
     source: LEAD_SOURCE,
     status: "new",
+    service_type: payload.estimate?.materialLabel ?? "Roofing",
+    notes: buildNotes(payload),
   };
 }
 

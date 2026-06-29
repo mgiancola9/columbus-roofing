@@ -76,8 +76,8 @@ export default function Hero() {
             variants={itemVariants}
             className="text-lg md:text-xl text-white/75 leading-relaxed mb-10 max-w-xl font-light"
           >
-            Answer 6 quick questions, see a real price for your GTA home, then get
-            matched with a trusted local roofer — fast. No sales calls, no pressure, no BS.
+            Answer 3 quick questions and get a real price for your GTA home plus an instant
+            match to a trusted local roofer. No sales calls, no pressure, no BS.
           </motion.p>
 
           {/* CTAs */}
@@ -89,10 +89,10 @@ export default function Hero() {
               </Link>
             </Button>
             <a
-              href="tel:+16478001234"
+              href="tel:+16479196419"
               className="h-16 px-8 rounded-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-200 flex items-center justify-center gap-2 text-base font-semibold backdrop-blur-sm"
             >
-              Call (647) 800-1234
+              Call (647) 919-6419
             </a>
           </motion.div>
 

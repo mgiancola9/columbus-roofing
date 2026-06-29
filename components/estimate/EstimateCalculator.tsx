@@ -5,74 +5,61 @@ import ProgressBar from "./ProgressBar";
 import StepWrapper from "./StepWrapper";
 import StepStories from "./steps/StepStories";
 import StepRoofType from "./steps/StepRoofType";
-import StepCondition from "./steps/StepCondition";
 import StepMaterial from "./steps/StepMaterial";
-import StepTimeline from "./steps/StepTimeline";
-import StepLocation from "./steps/StepLocation";
-import EstimateResult from "./EstimateResult";
 import LeadForm from "./LeadForm";
-import ThankYou from "./ThankYou";
-import { calculateEstimate } from "@/lib/calculateEstimate";
+import EstimateResult from "./EstimateResult";
 import type {
   EstimateData,
   EstimateStep,
+  EstimateResult as IEstimateResult,
   Stories,
   RoofType,
-  RoofCondition,
   RoofMaterial,
-  Timeline,
-  GTACity,
   LeadData,
 } from "@/types/estimate";
 
-const STEP_ORDER: EstimateStep[] = [
-  "stories",
-  "roofType",
-  "condition",
-  "material",
-  "timeline",
-  "city",
-  "result",
-  "lead",
-  "thankyou",
-];
+const STEP_ORDER: EstimateStep[] = ["stories", "roofType", "material", "lead", "result"];
 
 const INITIAL_DATA: EstimateData = {
   stories: null,
   roofType: null,
-  condition: null,
   material: null,
-  timeline: null,
-  city: null,
 };
 
 export default function EstimateCalculator() {
   const [currentStep, setCurrentStep] = useState<EstimateStep>("stories");
   const [direction, setDirection] = useState(1);
   const [data, setData] = useState<EstimateData>(INITIAL_DATA);
+  const [result, setResult] = useState<IEstimateResult | null>(null);
 
   const goNext = useCallback(() => {
-    const idx = STEP_ORDER.indexOf(currentStep);
-    if (idx < STEP_ORDER.length - 1) {
-      setDirection(1);
-      setCurrentStep(STEP_ORDER[idx + 1]);
-    }
-  }, [currentStep]);
+    setDirection(1);
+    setCurrentStep((s) => {
+      const idx = STEP_ORDER.indexOf(s);
+      return idx < STEP_ORDER.length - 1 ? STEP_ORDER[idx + 1] : s;
+    });
+  }, []);
 
   const goBack = useCallback(() => {
-    const idx = STEP_ORDER.indexOf(currentStep);
-    if (idx > 0) {
-      setDirection(-1);
-      setCurrentStep(STEP_ORDER[idx - 1]);
-    }
-  }, [currentStep]);
+    setDirection(-1);
+    setCurrentStep((s) => {
+      const idx = STEP_ORDER.indexOf(s);
+      return idx > 0 ? STEP_ORDER[idx - 1] : s;
+    });
+  }, []);
 
   function selectAndAdvance<K extends keyof EstimateData>(key: K, value: EstimateData[K]) {
     setData((prev) => ({ ...prev, [key]: value }));
     setTimeout(goNext, 180);
   }
 
-  const result = calculateEstimate(data);
+  // Lead submitted: the area-driven estimate was computed in LeadForm (it has the
+  // address) and handed back. Store it and reveal the combined estimate + match screen.
+  function handleLeadSubmit(_lead: LeadData, estimate: IEstimateResult) {
+    setResult(estimate);
+    setDirection(1);
+    setCurrentStep("result");
+  }
 
   function renderStep() {
     switch (currentStep) {
@@ -90,13 +77,6 @@ export default function EstimateCalculator() {
             onChange={(v: RoofType) => selectAndAdvance("roofType", v)}
           />
         );
-      case "condition":
-        return (
-          <StepCondition
-            value={data.condition}
-            onChange={(v: RoofCondition) => selectAndAdvance("condition", v)}
-          />
-        );
       case "material":
         return (
           <StepMaterial
@@ -104,38 +84,10 @@ export default function EstimateCalculator() {
             onChange={(v: RoofMaterial) => selectAndAdvance("material", v)}
           />
         );
-      case "timeline":
-        return (
-          <StepTimeline
-            value={data.timeline}
-            onChange={(v: Timeline) => selectAndAdvance("timeline", v)}
-          />
-        );
-      case "city":
-        return (
-          <StepLocation
-            value={data.city}
-            onChange={(v: GTACity) => selectAndAdvance("city", v)}
-          />
-        );
-      case "result":
-        return result ? (
-          <EstimateResult
-            result={result}
-            data={data}
-            onGetQuotes={goNext}
-          />
-        ) : null;
       case "lead":
-        return result ? (
-          <LeadForm
-            estimateResult={result}
-            estimateData={data}
-            onSubmit={(_lead: LeadData) => goNext()}
-          />
-        ) : null;
-      case "thankyou":
-        return <ThankYou />;
+        return <LeadForm estimateData={data} onSubmit={handleLeadSubmit} />;
+      case "result":
+        return result ? <EstimateResult result={result} /> : null;
       default:
         return null;
     }
