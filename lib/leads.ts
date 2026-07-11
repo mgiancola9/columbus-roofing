@@ -33,10 +33,11 @@ interface LeadRow {
 function buildNotes({ estimate, data }: LeadPayload): string {
   return [
     estimate && `Estimate: $${estimate.low.toLocaleString()}–$${estimate.high.toLocaleString()} CAD`,
-    estimate && `Material: ${estimate.materialLabel}`,
-    data?.roofType && `Roof style: ${data.roofType}`,
-    data?.stories && `Home size: ${data.stories} storey`,
-    estimate?.roofSqft && `Est. roof size: ~${estimate.roofSqft.toLocaleString()} sq ft`,
+    estimate?.materialLabel && `Desired material: ${estimate.materialLabel}`,
+    data?.houseProfile && `Home type: ${data.houseProfile}`,
+    data?.sizeRange && `Home size: ${data.sizeRange} sq ft`,
+    data?.roofShape && `Roof shape: ${data.roofShape}`,
+    estimate?.roofSquares && `Est. roof size: ~${estimate.roofSquares} squares`,
     estimate?.areaLabel && `Area: ${estimate.areaLabel}`,
   ]
     .filter(Boolean)
@@ -51,11 +52,26 @@ function buildLeadRow(payload: LeadPayload): LeadRow {
     last_name: parts.slice(1).join(" ") || "",
     phone: payload.lead.phone,
     email: payload.lead.email,
-    address: payload.lead.address || "",
+    address: payload.data?.postalCode || "",
     source: LEAD_SOURCE,
     status: "new",
     service_type: payload.estimate?.materialLabel ?? "Roofing",
     notes: buildNotes(payload),
+  };
+}
+
+/** Build a minimal row for a homeowner outside the serviceable area — email-only capture. */
+export function buildWaitlistRow(email: string, postalCode: string): LeadRow {
+  return {
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email,
+    address: postalCode,
+    source: "Out-of-Area Waitlist",
+    status: "waitlist",
+    service_type: "Roofing",
+    notes: `Postal code entered: ${postalCode} (outside current GTA service area)`,
   };
 }
 

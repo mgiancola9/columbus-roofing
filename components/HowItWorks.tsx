@@ -7,9 +7,9 @@ const steps = [
   {
     step: "01",
     icon: ClipboardList,
-    title: "Answer 3 Quick Questions",
+    title: "Answer A Few Quick Questions",
     description:
-      "Tell us your home size, roof style, and preferred material. Takes under a minute.",
+      "Tell us your postal code, home size, and roof shape. Takes under a minute.",
     color: "bg-blue-50 text-brand-primary",
   },
   {
@@ -17,7 +17,7 @@ const steps = [
     icon: MapPin,
     title: "Add Your Details",
     description:
-      "Drop in your contact info and address — your area tailors the estimate to local rates.",
+      "Drop in your contact info — your postal code tailors the estimate to local rates.",
     color: "bg-green-50 text-brand-success",
   },
   {

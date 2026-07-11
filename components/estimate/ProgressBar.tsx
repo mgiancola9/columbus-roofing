@@ -6,14 +6,14 @@ import { ArrowLeft, X } from "lucide-react";
 import Link from "next/link";
 
 const STEP_LABELS: Record<string, string> = {
-  stories: "Home Size",
-  roofType: "Roof Style",
-  material: "Material",
+  postal: "Postal Code",
+  houseSize: "Home Size",
+  roofShape: "Roof Shape",
   lead: "Your Details",
   result: "Your Estimate",
 };
 
-const STEP_ORDER = ["stories", "roofType", "material", "lead"];
+const STEP_ORDER = ["postal", "houseSize", "roofShape", "lead"];
 
 interface Props {
   currentStep: string;
@@ -22,7 +22,7 @@ interface Props {
 
 export default function ProgressBar({ currentStep, onBack }: Props) {
   const stepIndex = STEP_ORDER.indexOf(currentStep);
-  const totalSteps = 3; // The 3 question steps
+  const totalSteps = 4; // The 4-step flow (postal, house size, roof shape, contact)
   const questionStep = Math.min(stepIndex + 1, totalSteps);
   const isFinal = currentStep === "result";
   const isLead = currentStep === "lead";

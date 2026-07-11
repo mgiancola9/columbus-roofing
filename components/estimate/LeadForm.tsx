@@ -6,29 +6,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Shield, Lock, ArrowRight, Loader2 } from "lucide-react";
 import type { LeadData, EstimateData, EstimateResult } from "@/types/estimate";
-import { calculateEstimate } from "@/lib/calculateEstimate";
-import AddressAutocomplete, { type SelectedAddress } from "./AddressAutocomplete";
 
 interface Props {
   estimateData: EstimateData;
-  onSubmit: (lead: LeadData, estimate: EstimateResult) => void;
+  estimate: EstimateResult;
+  onSubmit: (lead: LeadData) => void;
 }
 
-export default function LeadForm({ estimateData, onSubmit }: Props) {
-  const [form, setForm] = useState<LeadData>({ name: "", phone: "", email: "", address: "" });
-  const [postalCode, setPostalCode] = useState("");
+export default function LeadForm({ estimateData, estimate, onSubmit }: Props) {
+  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<Partial<LeadData>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof form | "consent", string>>>({});
 
   function validate(): boolean {
-    const newErrors: Partial<LeadData> = {};
+    const newErrors: typeof errors = {};
     if (!form.name.trim()) newErrors.name = "Your name is required";
     if (!form.phone.trim() || form.phone.replace(/\D/g, "").length < 10)
       newErrors.phone = "Enter a valid 10-digit phone number";
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       newErrors.email = "Enter a valid email address";
-    if (!form.address?.trim())
-      newErrors.address = "Enter your address or postal code so we can price it for your area";
+    if (!consent) newErrors.consent = "Please confirm you agree to be contacted";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -45,21 +43,19 @@ export default function LeadForm({ estimateData, onSubmit }: Props) {
     if (!validate()) return;
     setLoading(true);
 
-    // Compute the estimate now — the selected address's postal code drives the
-    // area-specific roof size + price range.
-    const estimate = calculateEstimate(estimateData, postalCode);
+    const lead: LeadData = { ...form, consent };
 
     try {
       await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lead: form, estimate, data: estimateData }),
+        body: JSON.stringify({ lead, estimate, data: estimateData }),
       });
     } catch {
       // fail silently — still reveal the estimate + match screen
     } finally {
       setLoading(false);
-      if (estimate) onSubmit(form, estimate);
+      onSubmit(lead);
     }
   }
 
@@ -111,18 +107,21 @@ export default function LeadForm({ estimateData, onSubmit }: Props) {
         </div>
 
         <div>
-          <AddressAutocomplete
-            value={form.address ?? ""}
-            onChange={(v) => {
-              setForm({ ...form, address: v });
-              setPostalCode(""); // typing invalidates a prior selection
-            }}
-            onSelect={(addr: SelectedAddress) => {
-              setForm((prev) => ({ ...prev, address: addr.formatted }));
-              setPostalCode(addr.postalCode);
-            }}
-          />
-          {errors.address && <p className="mt-1.5 text-red-500 text-xs font-medium">{errors.address}</p>}
+          <label className="flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-0.5 w-4 h-4 rounded border-2 border-brand-border text-brand-primary focus:ring-brand-primary/30 flex-shrink-0"
+            />
+            <span className="text-brand-text-secondary text-xs leading-relaxed">
+              I consent to be contacted by A&amp;G Digital and its matched roofing contractor by
+              phone, text, or email about my estimate. Message/data rates may apply. You can
+              withdraw consent at any time.{" "}
+              <span className="text-amber-600 font-medium">[placeholder — needs compliance review]</span>
+            </span>
+          </label>
+          {errors.consent && <p className="mt-1.5 text-red-500 text-xs font-medium">{errors.consent}</p>}
         </div>
 
         <Button

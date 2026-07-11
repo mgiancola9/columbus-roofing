@@ -3,31 +3,35 @@
 import { useState, useCallback } from "react";
 import ProgressBar from "./ProgressBar";
 import StepWrapper from "./StepWrapper";
-import StepStories from "./steps/StepStories";
-import StepRoofType from "./steps/StepRoofType";
-import StepMaterial from "./steps/StepMaterial";
+import StepPostalCode from "./steps/StepPostalCode";
+import StepHouseSize from "./steps/StepHouseSize";
+import StepRoofShape from "./steps/StepRoofShape";
 import LeadForm from "./LeadForm";
 import EstimateResult from "./EstimateResult";
+import { calculateEstimate } from "@/lib/calculateEstimate";
 import type {
   EstimateData,
   EstimateStep,
   EstimateResult as IEstimateResult,
-  Stories,
-  RoofType,
+  HouseProfile,
+  SizeRange,
   RoofMaterial,
+  RoofShape,
   LeadData,
 } from "@/types/estimate";
 
-const STEP_ORDER: EstimateStep[] = ["stories", "roofType", "material", "lead", "result"];
+const STEP_ORDER: EstimateStep[] = ["postal", "houseSize", "roofShape", "lead", "result"];
 
 const INITIAL_DATA: EstimateData = {
-  stories: null,
-  roofType: null,
+  postalCode: "",
+  houseProfile: null,
+  sizeRange: null,
   material: null,
+  roofShape: null,
 };
 
 export default function EstimateCalculator() {
-  const [currentStep, setCurrentStep] = useState<EstimateStep>("stories");
+  const [currentStep, setCurrentStep] = useState<EstimateStep>("postal");
   const [direction, setDirection] = useState(1);
   const [data, setData] = useState<EstimateData>(INITIAL_DATA);
   const [result, setResult] = useState<IEstimateResult | null>(null);
@@ -48,44 +52,65 @@ export default function EstimateCalculator() {
     });
   }, []);
 
-  function selectAndAdvance<K extends keyof EstimateData>(key: K, value: EstimateData[K]) {
-    setData((prev) => ({ ...prev, [key]: value }));
+  function handlePostalCodeChange(postalCode: string) {
+    setData((prev) => ({ ...prev, postalCode }));
+  }
+
+  function handlePostalCodeSubmit(postalCode: string) {
+    setData((prev) => ({ ...prev, postalCode }));
+    setDirection(1);
+    goNext();
+  }
+
+  function handleHouseSize(houseProfile: HouseProfile, sizeRange: SizeRange, material: RoofMaterial) {
+    setData((prev) => ({ ...prev, houseProfile, sizeRange, material }));
+    goNext();
+  }
+
+  // Roof shape is the last input needed — compute the estimate now (per the spec,
+  // calculation runs after Step 3, but stays hidden until the lead form is submitted).
+  function handleRoofShape(roofShape: RoofShape) {
+    const nextData = { ...data, roofShape };
+    setData(nextData);
+    setResult(calculateEstimate(nextData));
     setTimeout(goNext, 180);
   }
 
-  // Lead submitted: the area-driven estimate was computed in LeadForm (it has the
-  // address) and handed back. Store it and reveal the combined estimate + match screen.
-  function handleLeadSubmit(_lead: LeadData, estimate: IEstimateResult) {
-    setResult(estimate);
+  function handleLeadSubmit(_lead: LeadData) {
     setDirection(1);
     setCurrentStep("result");
   }
 
   function renderStep() {
     switch (currentStep) {
-      case "stories":
+      case "postal":
         return (
-          <StepStories
-            value={data.stories}
-            onChange={(v: Stories) => selectAndAdvance("stories", v)}
+          <StepPostalCode
+            value={data.postalCode}
+            onChange={handlePostalCodeChange}
+            onSubmit={handlePostalCodeSubmit}
           />
         );
-      case "roofType":
+      case "houseSize":
         return (
-          <StepRoofType
-            value={data.roofType}
-            onChange={(v: RoofType) => selectAndAdvance("roofType", v)}
+          <StepHouseSize
+            profile={data.houseProfile}
+            sizeRange={data.sizeRange}
+            material={data.material}
+            onComplete={handleHouseSize}
           />
         );
-      case "material":
+      case "roofShape":
         return (
-          <StepMaterial
-            value={data.material}
-            onChange={(v: RoofMaterial) => selectAndAdvance("material", v)}
+          <StepRoofShape
+            value={data.roofShape}
+            onChange={handleRoofShape}
           />
         );
       case "lead":
-        return <LeadForm estimateData={data} onSubmit={handleLeadSubmit} />;
+        return result ? (
+          <LeadForm estimateData={data} estimate={result} onSubmit={handleLeadSubmit} />
+        ) : null;
       case "result":
         return result ? <EstimateResult result={result} /> : null;
       default:

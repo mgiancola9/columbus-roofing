@@ -77,7 +77,7 @@ export default function Hero() {
             className="text-lg md:text-xl text-white/75 leading-relaxed mb-10 max-w-xl font-light"
           >
             Answer 3 quick questions and get a real price for your GTA home plus an instant
-            match to a trusted local roofer. No sales calls, no pressure, no BS.
+            match to a trusted local roofer. No sales calls, no pressure, no hassle.
           </motion.p>
 
           {/* CTAs */}

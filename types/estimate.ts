@@ -1,31 +1,34 @@
-export type Stories = "1" | "1.5" | "2" | "2+";
-export type RoofType = "gable" | "hip" | "flat" | "complex";
-export type RoofMaterial = "asphalt" | "architectural" | "metal" | "flat-membrane";
+export type HouseProfile = "bungalow" | "two-storey" | "backsplit" | "townhouse";
+export type SizeRange = "under-1500" | "1500-2500" | "2500-3500" | "3500-plus";
+export type RoofMaterial = "asphalt" | "premium" | "metal" | "flat-membrane" | "not-sure";
+export type RoofShape = "simple" | "standard" | "complex";
 
 export interface EstimateData {
-  stories: Stories | null;
-  roofType: RoofType | null;
+  postalCode: string;
+  houseProfile: HouseProfile | null;
+  sizeRange: SizeRange | null;
   material: RoofMaterial | null;
+  roofShape: RoofShape | null;
 }
 
 export interface EstimateResult {
   low: number;
   high: number;
-  materialLabel: string;
   areaLabel: string;
-  roofSqft: number;
+  roofSquares: number;
+  materialLabel: string;
 }
 
 export interface LeadData {
   name: string;
   phone: string;
   email: string;
-  address?: string;
+  consent: boolean;
 }
 
 export type EstimateStep =
-  | "stories"
-  | "roofType"
-  | "material"
+  | "postal"
+  | "houseSize"
+  | "roofShape"
   | "lead"
   | "result";

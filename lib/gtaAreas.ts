@@ -1,40 +1,37 @@
 /**
  * GTA area data keyed off the postal-code FSA (first 3 chars).
- * Mirrors the Columbus `ZIP_DB` approach: each region carries a *typical* roof size
- * and a regional price factor (labour/permits/demand vary by municipality).
+ * Each region carries a labour multiplier (labour/permits/demand vary by
+ * municipality) applied on top of the material's base price-per-square.
  *
- * NOTE: these are area-typical figures, not a measurement of the specific property.
- * The matched roofer confirms the exact size + price on-site. To get the real roof
- * area per address, layer in the Google Solar API (Tier B) later.
+ * NOTE: these are area-typical figures, not a quote for the specific property.
+ * The matched roofer confirms exact scope + price on-site.
  */
 
 export interface AreaInfo {
   /** Display name, e.g. "Toronto" */
   area: string;
-  /** Typical roof size for the area, in sq ft */
-  sqft: number;
-  /** Regional price multiplier (1.0 = GTA average) */
+  /** Labour/permit/demand multiplier applied on top of material cost (1.0 = GTA average) */
   factor: number;
-  /** True when we resolved a real GTA area from the postal code */
+  /** True when we resolved a real GTA area from the postal code (also = serviceable) */
   matched: boolean;
 }
 
-const REGIONS: Record<string, { area: string; sqft: number; factor: number }> = {
-  toronto: { area: "Toronto", sqft: 1700, factor: 1.1 },
-  mississauga: { area: "Mississauga", sqft: 2000, factor: 1.06 },
-  brampton: { area: "Brampton", sqft: 2100, factor: 1.0 },
-  vaughan: { area: "Vaughan", sqft: 2400, factor: 1.08 },
-  markham: { area: "Markham", sqft: 2200, factor: 1.05 },
-  richmondhill: { area: "Richmond Hill", sqft: 2300, factor: 1.07 },
-  oakville: { area: "Oakville", sqft: 2500, factor: 1.12 },
-  burlington: { area: "Burlington", sqft: 2300, factor: 1.08 },
-  oshawa: { area: "Oshawa", sqft: 1800, factor: 0.95 },
-  whitby: { area: "Whitby", sqft: 1900, factor: 0.96 },
-  ajax: { area: "Ajax", sqft: 1850, factor: 0.96 },
-  pickering: { area: "Pickering", sqft: 1900, factor: 0.98 },
+const REGIONS: Record<string, { area: string; factor: number }> = {
+  toronto: { area: "Toronto", factor: 1.1 },
+  mississauga: { area: "Mississauga", factor: 1.06 },
+  brampton: { area: "Brampton", factor: 1.0 },
+  vaughan: { area: "Vaughan", factor: 1.08 },
+  markham: { area: "Markham", factor: 1.05 },
+  richmondhill: { area: "Richmond Hill", factor: 1.07 },
+  oakville: { area: "Oakville", factor: 1.12 },
+  burlington: { area: "Burlington", factor: 1.08 },
+  oshawa: { area: "Oshawa", factor: 0.95 },
+  whitby: { area: "Whitby", factor: 0.96 },
+  ajax: { area: "Ajax", factor: 0.96 },
+  pickering: { area: "Pickering", factor: 0.98 },
 };
 
-const GTA_DEFAULT = { area: "the GTA", sqft: 2000, factor: 1.0 };
+const GTA_DEFAULT = { area: "the GTA", factor: 1.0 };
 
 /** Ordered FSA → region rules (most specific first). */
 const FSA_RULES: [RegExp, keyof typeof REGIONS][] = [
@@ -61,10 +58,30 @@ export function lookupArea(postalCode?: string): AreaInfo {
   const fsa = (postalCode ?? "").toUpperCase().replace(/\s/g, "").slice(0, 3);
   if (fsa.length === 3) {
     for (const [rule, key] of FSA_RULES) {
-      if (rule.test(fsa)) return { ...REGIONS[key], matched: true };
+      if (rule.test(fsa)) {
+        const region = REGIONS[key];
+        return { area: region.area, factor: region.factor, matched: true };
+      }
     }
     // Any other GTA "L" postal we don't have a specific region for
-    if (/^L/.test(fsa)) return { ...GTA_DEFAULT, matched: true };
+    if (/^L/.test(fsa)) return { area: GTA_DEFAULT.area, factor: GTA_DEFAULT.factor, matched: true };
   }
-  return { ...GTA_DEFAULT, matched: false };
+  return { area: GTA_DEFAULT.area, factor: GTA_DEFAULT.factor, matched: false };
+}
+
+/** A postal code is serviceable when it resolves to a real GTA area. */
+export function isServiceable(postalCode: string): boolean {
+  return lookupArea(postalCode).matched;
+}
+
+/** Canonical Canadian postal code format check, e.g. "M4C 1A1". */
+export function isValidPostalCode(postalCode: string): boolean {
+  return /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/.test(postalCode.trim());
+}
+
+/** Auto-format as the user types: uppercase, single space after the 3rd character. */
+export function formatPostalCode(value: string): string {
+  const clean = value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+  if (clean.length <= 3) return clean;
+  return `${clean.slice(0, 3)} ${clean.slice(3)}`;
 }

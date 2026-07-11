@@ -1,10 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildLeadRow, insertLeadToSupabase, notifyN8n, type LeadPayload } from "@/lib/leads";
+import { buildLeadRow, buildWaitlistRow, insertLeadToSupabase, notifyN8n, type LeadPayload } from "@/lib/leads";
+
+interface WaitlistBody {
+  waitlist: true;
+  email: string;
+  postalCode: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as Partial<LeadPayload>;
-    const { lead, estimate, data } = body;
+    const body = (await request.json()) as Partial<LeadPayload> | WaitlistBody;
+
+    // Out-of-area homeowner leaving just an email — separate, lighter-weight path.
+    if ("waitlist" in body && body.waitlist) {
+      if (!body.email) {
+        return NextResponse.json({ error: "Missing email" }, { status: 400 });
+      }
+      const row = buildWaitlistRow(body.email, body.postalCode ?? "");
+      const [supabaseResult] = await Promise.allSettled([insertLeadToSupabase(row)]);
+      if (supabaseResult.status === "rejected") {
+        console.error("Supabase insert error:", supabaseResult.reason);
+        return NextResponse.json({ error: "Could not save waitlist entry" }, { status: 500 });
+      }
+      return NextResponse.json({ success: true });
+    }
+
+    const { lead, estimate, data } = body as Partial<LeadPayload>;
 
     // Validate required fields
     if (!lead?.name || !lead?.phone || !lead?.email) {

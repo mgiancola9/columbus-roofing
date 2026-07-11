@@ -14,13 +14,13 @@ interface Props {
 const nextSteps = [
   {
     icon: Phone,
-    title: "Expect a call — fast",
-    desc: "A trusted local roofer will reach out shortly to schedule a free on-site assessment.",
+    title: "Expect a call from our team",
+    desc: "We'll call shortly to confirm the details and get you booked with a vetted local roofer.",
   },
   {
     icon: Calendar,
     title: "Free, no-pressure inspection",
-    desc: "They'll confirm the details in person and give you a firm quote — zero obligation.",
+    desc: "Once you're booked, your roofer confirms everything in person and gives you a firm quote — zero obligation.",
   },
 ];
 
@@ -43,10 +43,10 @@ export default function EstimateResult({ result }: Props) {
       </motion.div>
 
       <h2 className="text-3xl md:text-4xl font-black text-brand-text tracking-tight mb-2 text-center">
-        You&apos;re matched — here&apos;s your estimate.
+        Here&apos;s your estimate.
       </h2>
       <p className="text-brand-text-secondary mb-8 text-center">
-        We&apos;re connecting you with a trusted, licensed roofer in your area.
+        A GTA Roofing Estimates specialist will call you next to get you booked.
       </p>
 
       {/* Estimate card */}
@@ -66,7 +66,7 @@ export default function EstimateResult({ result }: Props) {
               {formatCurrency(result.high)}
             </div>
             <p className="text-blue-200 text-sm mt-2 font-medium">
-              {result.materialLabel} · ~{result.roofSqft.toLocaleString()} sq ft roof · {result.areaLabel}
+              ~{result.roofSquares.toLocaleString()} squares · {result.areaLabel}
             </p>
           </motion.div>
         </div>
@@ -76,7 +76,7 @@ export default function EstimateResult({ result }: Props) {
             <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
             <p className="text-amber-800 text-xs leading-relaxed">
               This is a <strong>preliminary range</strong> based on market averages for your
-              area. Your matched roofer will confirm a firm quote after a quick on-site look.
+              area. A local roofer will confirm a firm quote once you&apos;re booked.
             </p>
           </div>
         </div>

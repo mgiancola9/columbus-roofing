@@ -1,32 +1,35 @@
-import type {
-  EstimateData,
-  EstimateResult,
-  Stories,
-  RoofType,
-  RoofMaterial,
-} from "@/types/estimate";
+import type { EstimateData, EstimateResult, HouseProfile, SizeRange, RoofMaterial, RoofShape } from "@/types/estimate";
 import { lookupArea } from "./gtaAreas";
 
-// Fallback roof size by stories, used only when we can't resolve the area from a postal code.
-const BASE_AREA: Record<Stories, number> = {
-  "1": 1400,
-  "1.5": 1650,
-  "2": 2000,
-  "2+": 2600,
+// Living-area midpoint (sq ft) for each size chip range.
+const SIZE_MIDPOINT: Record<SizeRange, number> = {
+  "under-1500": 1200,
+  "1500-2500": 2000,
+  "2500-3500": 3000,
+  "3500-plus": 4000,
 };
 
-const MATERIAL_RANGE: Record<RoofMaterial, { low: number; high: number; label: string }> = {
-  asphalt: { low: 4.0, high: 6.0, label: "3-Tab Asphalt Shingles" },
-  architectural: { low: 6.5, high: 9.5, label: "Architectural Shingles" },
-  metal: { low: 11.0, high: 17.0, label: "Standing Seam Metal" },
-  "flat-membrane": { low: 7.5, high: 12.0, label: "Flat TPO/EPDM Membrane" },
+// Divides living area down to footprint based on implied stories for the house profile.
+const STORIES_DIVISOR: Record<HouseProfile, number> = {
+  bungalow: 1.0,
+  "two-storey": 1.85,
+  backsplit: 1.4,
+  townhouse: 1.9,
 };
 
-const COMPLEXITY_FACTOR: Record<RoofType, number> = {
-  gable: 1.0,
-  hip: 1.15,
-  flat: 0.85,
-  complex: 1.3,
+const ROOF_SHAPE_FACTOR: Record<RoofShape, { pitchMultiplier: number; complexityAdd: number }> = {
+  simple: { pitchMultiplier: 1.05, complexityAdd: 0 },
+  standard: { pitchMultiplier: 1.15, complexityAdd: 0.08 },
+  complex: { pitchMultiplier: 1.25, complexityAdd: 0.18 },
+};
+
+// Installed cost per "square" (100 sq ft) by desired new-roof material, GTA/Ontario baseline.
+const MATERIAL_PRICE_RANGE: Record<RoofMaterial, { low: number; high: number; label: string }> = {
+  asphalt: { low: 550, high: 800, label: "Asphalt Shingles" },
+  premium: { low: 800, high: 1200, label: "Premium Shingles" },
+  metal: { low: 1200, high: 2000, label: "Metal Roofing" },
+  "flat-membrane": { low: 700, high: 1500, label: "Flat / Membrane" },
+  "not-sure": { low: 550, high: 800, label: "Asphalt Shingles (default)" },
 };
 
 function roundToHundred(n: number): number {
@@ -34,26 +37,29 @@ function roundToHundred(n: number): number {
 }
 
 /**
- * Estimate = roof size × roof complexity × material $/sqft × regional price factor.
- * Roof size and price factor come from the selected address's postal code (area-typical);
- * if no postal code resolves, we fall back to a size assumed from the "stories" answer.
+ * footprint = size_midpoint / stories_divisor
+ * roof_area = footprint × pitch_multiplier × (1 + complexity_add)
+ * squares = roof_area / 100
+ * estimated_range = squares × material_price_per_square_range × city_labor_multiplier
  */
-export function calculateEstimate(data: EstimateData, postalCode?: string): EstimateResult | null {
-  if (!data.stories || !data.roofType || !data.material) return null;
+export function calculateEstimate(data: EstimateData): EstimateResult | null {
+  if (!data.houseProfile || !data.sizeRange || !data.roofShape || !data.material) return null;
 
-  const region = lookupArea(postalCode);
-  const roofSqft = region.matched ? region.sqft : BASE_AREA[data.stories];
-  const complexity = COMPLEXITY_FACTOR[data.roofType];
-  const { low: matLow, high: matHigh, label } = MATERIAL_RANGE[data.material];
+  const region = lookupArea(data.postalCode);
+  const footprint = SIZE_MIDPOINT[data.sizeRange] / STORIES_DIVISOR[data.houseProfile];
+  const { pitchMultiplier, complexityAdd } = ROOF_SHAPE_FACTOR[data.roofShape];
+  const roofArea = footprint * pitchMultiplier * (1 + complexityAdd);
+  const squares = roofArea / 100;
+  const material = MATERIAL_PRICE_RANGE[data.material];
 
-  const low = roundToHundred(roofSqft * complexity * matLow * region.factor);
-  const high = roundToHundred(roofSqft * complexity * matHigh * region.factor);
+  const low = roundToHundred(squares * material.low * region.factor);
+  const high = roundToHundred(squares * material.high * region.factor);
 
   return {
     low,
     high,
-    materialLabel: label,
     areaLabel: region.area,
-    roofSqft,
+    roofSquares: Math.round(squares * 10) / 10,
+    materialLabel: material.label,
   };
 }
